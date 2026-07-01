@@ -42,6 +42,8 @@ export default function AdminSidebar() {
             width={32}
             height={32}
             className="h-8 w-8"
+            unoptimized
+            priority
             onError={() => {/* silently fail */}}
           />
           <div>

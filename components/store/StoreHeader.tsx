@@ -31,7 +31,7 @@ export function StoreHeader() {
         </nav>
         
         <Link href="/" className="absolute left-1/2 -translate-x-1/2 flex items-center">
-          <Image src="/logo.svg" alt="Flor da Estação" width={140} height={50} className="h-12 w-auto" />
+          <Image src="/logo.svg" alt="Flor da Estação" width={140} height={50} className="h-12 w-auto" priority unoptimized />
         </Link>
 
         <div className="flex items-center gap-4 ml-auto">
