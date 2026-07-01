@@ -36,8 +36,13 @@ export default async function HomePage() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="bg-nevoa pt-10 pb-20 px-4 flex flex-col items-center">
-        <BotanicalHero />
+      <section 
+        className="pt-10 pb-20 px-4 flex flex-col items-center relative overflow-hidden"
+        style={{ backgroundImage: 'url("/hero-bg.png")', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
+      >
+        <div className="absolute inset-0 bg-marfim/30 z-0"></div>
+        <div className="relative z-10 w-full flex flex-col items-center">
+          <BotanicalHero />
         <div className="text-center mt-[-40px] z-10 relative">
           <h2 className="font-jost text-musgo text-lg tracking-widest uppercase mb-6">
             Coleção Verão
@@ -48,6 +53,7 @@ export default async function HomePage() {
           >
             Ver coleção
           </Link>
+        </div>
         </div>
       </section>
 
