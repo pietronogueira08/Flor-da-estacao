@@ -35,7 +35,7 @@ export default function AdminSidebar() {
     <aside className="w-64 bg-marfim border-r border-rosa-antigo/40 flex flex-col h-full shadow-sm">
       {/* Logo / Brand */}
       <div className="px-6 py-8 border-b border-rosa-antigo/30">
-        <div className="flex items-center gap-3 mb-1">
+        <Link href="/" className="flex items-center gap-3 mb-1 hover:opacity-80 transition-opacity">
           <Image
             src="/logo.svg"
             alt="Flor da Estação"
@@ -52,7 +52,7 @@ export default function AdminSidebar() {
               Estação OS
             </p>
           </div>
-        </div>
+        </Link>
       </div>
 
       {/* Navigation */}
