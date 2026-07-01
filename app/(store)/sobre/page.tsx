@@ -15,9 +15,13 @@ export default function SobrePage() {
       </div>
 
       <div className="aspect-video relative bg-nevoa mb-16 rounded-sm overflow-hidden flex items-center justify-center">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" className="text-rosa-antigo">
-          <path d="M12 2C12 2 15 7 15 12C15 17 12 22 12 22C12 22 9 17 9 12C9 7 12 2 12 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
+        <Image 
+          src="/about-us.png" 
+          alt="Ateliê Flor da Estação" 
+          fill 
+          className="object-cover"
+          unoptimized
+        />
       </div>
 
       <div className="prose prose-lg mx-auto font-jost text-carvao/80 space-y-8">
