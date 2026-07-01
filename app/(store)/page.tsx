@@ -18,19 +18,19 @@ export default async function HomePage() {
     .limit(8);
 
   const novidades = products && products.length > 0 ? products : [
-    { id: "1", slug: "vestido-floral-1", nome: "Vestido Midi Floral", preco: 289.90, categoria: "Vestidos", is_placeholder: true, cores: ["#D2A9B1"] },
-    { id: "2", slug: "blusa-linho-2", nome: "Blusa de Linho Romântica", preco: 159.90, categoria: "Blusas", is_placeholder: true, cores: ["#FFF5F7", "#241B1E"] },
-    { id: "3", slug: "saia-midi-3", nome: "Saia Midi Plissada", preco: 199.90, categoria: "Saias", is_placeholder: true, cores: ["#6B7860"] },
-    { id: "4", slug: "camisa-seda-4", nome: "Camisa de Seda Botânica", preco: 329.90, categoria: "Camisas", is_placeholder: true, cores: ["#FBF2F0"] },
+    { id: "1", slug: "vestido-floral-1", nome: "Vestido Midi Floral", preco: 289.90, categoria: "Vestidos", is_placeholder: false, imagem_url: "/prod-vestido.png", cores: ["#D2A9B1"] },
+    { id: "2", slug: "blusa-linho-2", nome: "Blusa de Linho Romântica", preco: 159.90, categoria: "Blusas", is_placeholder: false, imagem_url: "/prod-blusa.png", cores: ["#FFF5F7", "#241B1E"] },
+    { id: "3", slug: "saia-midi-3", nome: "Saia Midi Plissada", preco: 199.90, categoria: "Saias", is_placeholder: false, imagem_url: "/prod-saia.png", cores: ["#6B7860"] },
+    { id: "4", slug: "camisa-seda-4", nome: "Camisa de Seda Botânica", preco: 329.90, categoria: "Camisas", is_placeholder: false, imagem_url: "/prod-camisa.png", cores: ["#FBF2F0"] },
   ];
 
   const categorias = [
-    { nome: "Vestidos", slug: "vestidos", img: "/cat-vestidos.jpg" },
-    { nome: "Blusas & Camisas", slug: "blusas-camisas", img: "/cat-blusas.jpg" },
-    { nome: "Saias", slug: "saias", img: "/cat-saias.jpg" },
-    { nome: "Calças", slug: "calcas", img: "/cat-calcas.jpg" },
-    { nome: "Tricots", slug: "tricots", img: "/cat-tricots.jpg" },
-    { nome: "Acessórios", slug: "acessorios", img: "/cat-acessorios.jpg" },
+    { nome: "Vestidos", slug: "vestidos", img: "/cat-vestidos.png" },
+    { nome: "Blusas & Camisas", slug: "blusas-camisas", img: "/cat-blusas.png" },
+    { nome: "Saias", slug: "saias", img: "/cat-saias.png" },
+    { nome: "Calças", slug: "calcas", img: "/cat-calcas.png" },
+    { nome: "Tricots", slug: "tricots", img: "/cat-tricots.png" },
+    { nome: "Acessórios", slug: "acessorios", img: "/cat-acessorios.png" },
   ];
 
   return (

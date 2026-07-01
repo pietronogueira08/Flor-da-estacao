@@ -13,10 +13,10 @@ export default async function ProdutosPage() {
   const { data: products } = await supabase.from("produtos").select("*").order("created_at", { ascending: false });
 
   const catalogo = products && products.length > 0 ? products : [
-    { id: "1", slug: "vestido-floral-1", nome: "Vestido Midi Floral", preco: 289.90, categoria: "Vestidos", is_placeholder: true },
-    { id: "2", slug: "blusa-linho-2", nome: "Blusa de Linho Romântica", preco: 159.90, categoria: "Blusas", is_placeholder: true },
-    { id: "3", slug: "saia-midi-3", nome: "Saia Midi Plissada", preco: 199.90, categoria: "Saias", is_placeholder: true },
-    { id: "4", slug: "camisa-seda-4", nome: "Camisa de Seda Botânica", preco: 329.90, categoria: "Camisas", is_placeholder: true },
+    { id: "1", slug: "vestido-floral-1", nome: "Vestido Midi Floral", preco: 289.90, categoria: "Vestidos", is_placeholder: false, imagem_url: "/prod-vestido.png" },
+    { id: "2", slug: "blusa-linho-2", nome: "Blusa de Linho Romântica", preco: 159.90, categoria: "Blusas", is_placeholder: false, imagem_url: "/prod-blusa.png" },
+    { id: "3", slug: "saia-midi-3", nome: "Saia Midi Plissada", preco: 199.90, categoria: "Saias", is_placeholder: false, imagem_url: "/prod-saia.png" },
+    { id: "4", slug: "camisa-seda-4", nome: "Camisa de Seda Botânica", preco: 329.90, categoria: "Camisas", is_placeholder: false, imagem_url: "/prod-camisa.png" },
     { id: "5", slug: "vestido-longo-5", nome: "Vestido Longo Nevoa", preco: 349.90, categoria: "Vestidos", is_placeholder: true },
     { id: "6", slug: "calca-alfaiataria-6", nome: "Calça Alfaiataria", preco: 229.90, categoria: "Calças", is_placeholder: true },
   ];

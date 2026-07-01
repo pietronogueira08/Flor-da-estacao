@@ -247,15 +247,15 @@ ON CONFLICT (sku) DO NOTHING;
 -- IMAGENS (placeholders)
 -- ----------------------------------------
 INSERT INTO product_images (product_id, url, posicao, is_placeholder) VALUES
-  ('b1000000-0000-0000-0000-000000000001', 'https://placehold.co/800x1000/D2A9B1/FFF5F7?text=Vestido+Magnolia', 0, true),
+  ('b1000000-0000-0000-0000-000000000001', '/prod-vestido.png', 0, false),
   ('b1000000-0000-0000-0000-000000000001', 'https://placehold.co/800x1000/7D4F5A/FFF5F7?text=Vista+Traseira', 1, true),
   ('b1000000-0000-0000-0000-000000000002', 'https://placehold.co/800x1000/6B7860/FFF5F7?text=Vestido+Lirio', 0, true),
   ('b1000000-0000-0000-0000-000000000003', 'https://placehold.co/800x1000/D2A9B1/241B1E?text=Vestido+Peonia', 0, true),
-  ('b1000000-0000-0000-0000-000000000004', 'https://placehold.co/800x1000/7D4F5A/FFF5F7?text=Blusa+Orquidea', 0, true),
-  ('b1000000-0000-0000-0000-000000000005', 'https://placehold.co/800x1000/6B7860/FFF5F7?text=Camisa+Hortensia', 0, true),
+  ('b1000000-0000-0000-0000-000000000004', '/prod-blusa.png', 0, false),
+  ('b1000000-0000-0000-0000-000000000005', '/prod-camisa.png', 0, false),
   ('b1000000-0000-0000-0000-000000000006', 'https://placehold.co/800x1000/D2A9B1/241B1E?text=Blusa+Cerejeira', 0, true),
   ('b1000000-0000-0000-0000-000000000007', 'https://placehold.co/800x1000/7D4F5A/FFF5F7?text=Calca+Lavanda', 0, true),
-  ('b1000000-0000-0000-0000-000000000008', 'https://placehold.co/800x1000/D2A9B1/FFF5F7?text=Saia+Jardim', 0, true),
+  ('b1000000-0000-0000-0000-000000000008', '/prod-saia.png', 0, false),
   ('b1000000-0000-0000-0000-000000000009', 'https://placehold.co/800x1000/6B7860/FFF5F7?text=Saia+Petala', 0, true),
   ('b1000000-0000-0000-0000-000000000010', 'https://placehold.co/800x1000/241B1E/D2A9B1?text=Conjunto+Bouquet', 0, true),
   ('b1000000-0000-0000-0000-000000000011', 'https://placehold.co/800x1000/7D4F5A/FFF5F7?text=Conjunto+Jardim', 0, true),
