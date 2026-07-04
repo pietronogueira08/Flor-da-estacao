@@ -1,0 +1,92 @@
+export function SocialProofSection() {
+  // [RASCUNHO — revisar antes de publicar]
+  const depoimentos = [
+    {
+      nome: "Ana Lima",
+      cidade: "Rio de Janeiro, RJ",
+      texto:
+        "O vestido chegou ainda mais lindo do que nas fotos. O tecido é delicado e o caimento é perfeito. Com certeza vou comprar mais!",
+      nota: 5,
+      inicial: "A",
+    },
+    {
+      nome: "Beatriz Souza",
+      cidade: "Niterói, RJ",
+      texto:
+        "Adoro a identidade da marca. Cada peça conta uma história. Recebi elogios o dia todo usando a blusa que comprei aqui.",
+      nota: 5,
+      inicial: "B",
+    },
+    {
+      nome: "Carla Mendes",
+      cidade: "Campos dos Goytacazes, RJ",
+      texto:
+        "Entrega rápida, embalagem linda e a roupa superou minhas expectativas. A Flor da Estação virou minha loja favorita!",
+      nota: 5,
+      inicial: "C",
+    },
+  ];
+
+  return (
+    <section className="py-20 px-4 md:px-8 bg-nevoa border-t border-rosa-antigo/20">
+      <div className="container mx-auto">
+        <div className="text-center mb-12">
+          <p className="font-jost text-musgo text-xs tracking-widest uppercase mb-3">
+            O que dizem nossas clientes
+          </p>
+          <h2 className="font-cormorant text-4xl text-carvao italic">
+            Histórias que florescem
+          </h2>
+        </div>
+
+        {/* Desktop: 3 colunas | Mobile: scroll horizontal */}
+        <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 md:overflow-visible pb-4 md:pb-0">
+          {depoimentos.map((dep) => (
+            <article
+              key={dep.nome}
+              className="min-w-[80vw] md:min-w-0 snap-start bg-marfim border border-rosa-antigo/20 rounded-sm p-6 flex flex-col gap-4"
+            >
+              {/* Estrelas */}
+              <div className="flex gap-1" aria-label={`${dep.nota} de 5 estrelas`}>
+                {Array.from({ length: dep.nota }).map((_, i) => (
+                  <svg
+                    key={i}
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="text-ameixa"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
+                ))}
+              </div>
+
+              {/* Texto */}
+              <blockquote className="font-jost text-sm text-carvao/80 leading-relaxed flex-1">
+                &ldquo;{dep.texto}&rdquo;
+              </blockquote>
+
+              {/* Avatar + nome */}
+              <footer className="flex items-center gap-3">
+                <div
+                  className="w-9 h-9 rounded-full bg-rosa-antigo flex items-center justify-center font-cormorant text-marfim text-lg font-semibold shrink-0"
+                  aria-hidden="true"
+                >
+                  {dep.inicial}
+                </div>
+                <div>
+                  <p className="font-jost text-sm font-medium text-carvao">
+                    {dep.nome}
+                  </p>
+                  <p className="font-jost text-xs text-musgo">{dep.cidade}</p>
+                </div>
+              </footer>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

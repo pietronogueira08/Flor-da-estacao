@@ -2,6 +2,7 @@ import { LenisProvider } from "@/components/animations/LenisProvider";
 import { CartProvider } from "@/lib/hooks/useCart";
 import { StoreHeader } from "@/components/store/StoreHeader";
 import { StoreFooter } from "@/components/store/StoreFooter";
+import { UtilityBar } from "@/components/store/UtilityBar";
 
 export default function StoreLayout({
   children,
@@ -11,10 +12,15 @@ export default function StoreLayout({
   return (
     <LenisProvider>
       <CartProvider>
-        <div className="flex flex-col min-h-screen bg-marfim pt-20">
-          <StoreHeader />
-          <main className="flex-grow">{children}</main>
-          <StoreFooter />
+        <div className="flex flex-col min-h-screen bg-marfim">
+          <div className="fixed top-0 left-0 w-full z-[60]">
+            <UtilityBar />
+            <StoreHeader />
+          </div>
+          <div className="pt-28">
+            <main className="flex-grow">{children}</main>
+            <StoreFooter />
+          </div>
         </div>
       </CartProvider>
     </LenisProvider>
