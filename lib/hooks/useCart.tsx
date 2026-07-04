@@ -20,12 +20,16 @@ interface CartContextData {
   updateQuantity: (variantId: string, quantidade: number) => void;
   clearCart: () => void;
   cartCount: number;
+  isCartOpen: boolean;
+  openCart: () => void;
+  closeCart: () => void;
 }
 
 const CartContext = createContext<CartContextData>({} as CartContextData);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   
   useEffect(() => {
     const saved = localStorage.getItem("@FlorDaEstacao:cart");
@@ -42,6 +46,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("@FlorDaEstacao:cart", JSON.stringify(items));
   }, [items]);
 
+  const openCart = () => setIsCartOpen(true);
+  const closeCart = () => setIsCartOpen(false);
+
   const addItem = (item: CartItem) => {
     setItems((prev) => {
       const exists = prev.find((i) => i.variantId === item.variantId);
@@ -54,6 +61,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
       return [...prev, item];
     });
+    openCart(); // Auto-open cart when adding items
   };
 
   const removeItem = (variantId: string) => {
@@ -76,7 +84,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ items, addItem, removeItem, updateQuantity, clearCart, cartCount }}
+      value={{ items, addItem, removeItem, updateQuantity, clearCart, cartCount, isCartOpen, openCart, closeCart }}
     >
       {children}
     </CartContext.Provider>

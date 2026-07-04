@@ -15,7 +15,7 @@ const categorias = [
 ];
 
 export function StoreHeader() {
-  const { cartCount } = useCart();
+  const { cartCount, openCart } = useCart();
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [colecaoOpen, setColecaoOpen] = useState(false);
@@ -136,8 +136,8 @@ export function StoreHeader() {
           </Link>
 
           {/* Carrinho */}
-          <Link
-            href="/carrinho"
+          <button
+            onClick={openCart}
             aria-label={`Carrinho${cartCount > 0 ? ` — ${cartCount} ${cartCount === 1 ? "item" : "itens"}` : ""}`}
             className="text-carvao hover:text-ameixa transition-transform duration-300 hover:scale-110 active:scale-95 relative group focus-visible:ring-2 focus-visible:ring-ameixa rounded-sm"
           >
@@ -151,7 +151,7 @@ export function StoreHeader() {
                 {cartCount}
               </span>
             )}
-          </Link>
+          </button>
 
           {/* Hamburguer — mobile */}
           <button

@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 
 const messages = [
-  "🌿 Frete grátis acima de R$ 299",
-  "✨ Parcele em até 3x sem juros",
-  "🔄 Trocas gratuitas em 30 dias",
+  "Frete grátis acima de R$ 299",
+  "Parcele em até 3x sem juros",
+  "Trocas gratuitas em 30 dias",
 ];
 
 export function UtilityBar() {
