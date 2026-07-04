@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { useCart } from "@/lib/hooks/useCart";
 
 export function StoreHeader() {
@@ -40,7 +39,7 @@ export function StoreHeader() {
         </nav>
         
         <Link href="/" className="absolute left-1/2 -translate-x-1/2 flex items-center hover:scale-105 hover:opacity-90 transition-all duration-500">
-          <Image src="/logo.svg" alt="Flor da Estação" width={140} height={50} className="h-12 w-auto" priority unoptimized />
+          <h1 className="font-cormorant text-3xl md:text-4xl text-ameixa italic tracking-wide font-medium">Flor da Estação</h1>
         </Link>
 
         <div className="flex items-center gap-5 ml-auto">
