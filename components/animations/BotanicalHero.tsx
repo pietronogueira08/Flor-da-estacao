@@ -32,16 +32,16 @@ export function BotanicalHero() {
       }}
       aria-label="Hero Zaya"
     >
-      <div ref={wordmarkRef} style={{ opacity: 0 }} className="flex items-center justify-center">
-        <ZayaWordmark width={220} height={72} />
-      </div>
       <p
         ref={subtitleRef}
         style={{ opacity: 0 }}
-        className="font-archivo text-preto/60 text-xs tracking-[0.3em] uppercase mt-6"
+        className="font-archivo text-preto/60 text-xs tracking-[0.3em] uppercase mb-6"
       >
         coleção verão 2025
       </p>
+      <div ref={wordmarkRef} style={{ opacity: 0 }} className="flex items-center justify-center">
+        <ZayaWordmark width={220} height={72} />
+      </div>
     </div>
   );
 }

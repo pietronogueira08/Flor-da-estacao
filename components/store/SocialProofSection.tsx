@@ -71,7 +71,7 @@ export function SocialProofSection() {
               {/* Avatar + nome */}
               <footer className="flex items-center gap-3">
                 <div
-                  className="w-9 h-9 rounded-full bg-zaya flex items-center justify-center font-bodoni text-branco text-lg font-semibold shrink-0"
+                  className="w-9 h-9 rounded-full bg-zaya flex items-center justify-center font-bodoni text-branco text-lg font-semibold shrink-0 ring-1 ring-dourado ring-offset-2"
                   aria-hidden="true"
                 >
                   {dep.inicial}

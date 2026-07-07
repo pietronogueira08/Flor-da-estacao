@@ -117,7 +117,7 @@ export function StoreHeader() {
           className="absolute left-1/2 -translate-x-1/2 flex items-center hover:scale-105 hover:opacity-90 transition-all duration-500 focus-visible:ring-2 focus-visible:ring-dourado rounded-sm"
           aria-label="Zaya — Página inicial"
         >
-          <ZayaWordmark width={110} height={36} />
+          <ZayaWordmark width={140} height={46} />
         </Link>
 
         {/* ── Ações (direita) ── */}

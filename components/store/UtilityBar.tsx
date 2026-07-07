@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 
 const messages = [
-  "Frete grátis acima de R$ 299",
-  "Parcele em até 3x sem juros",
+  "Frete grátis acima de R$ 399",
+  "Parcele em até 6x sem juros",
   "Trocas gratuitas em 30 dias",
 ];
 

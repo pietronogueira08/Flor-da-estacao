@@ -8,6 +8,7 @@ import { EditorialBanner } from "@/components/store/EditorialBanner";
 import { SocialProofSection } from "@/components/store/SocialProofSection";
 import { NewsletterSection } from "@/components/store/NewsletterSection";
 import { TrustBar } from "@/components/store/TrustBar";
+import { InstagramFeed } from "@/components/store/InstagramFeed";
 import { createClient } from "@/lib/supabase/server";
 
 export const revalidate = 60;
@@ -30,14 +31,6 @@ export default async function HomePage() {
         { id: "4", slug: "camisa-seda-4", nome: "Camisa de Seda Botânica", preco: 329.90, categoria: "Camisas", is_placeholder: false, imagem_url: "/prod-camisa.png", cores: ["#FAFAFA"] },
       ];
 
-  // Mais Vendidos (reutiliza os mesmos dados por ora com badge)
-  const maisVendidos = [
-    { id: "1", slug: "vestido-floral-1", nome: "Vestido Midi Floral", preco: 289.90, categoria: "Vestidos", is_placeholder: false, imagem_url: "/prod-vestido.png", cores: ["#D9D9D9"] },
-    { id: "3", slug: "saia-midi-3", nome: "Saia Midi Plissada", preco: 199.90, categoria: "Saias", is_placeholder: false, imagem_url: "/prod-saia.png", cores: ["#A5A5A5"] },
-    { id: "2", slug: "blusa-linho-2", nome: "Blusa de Linho Romântica", preco: 159.90, categoria: "Blusas", is_placeholder: false, imagem_url: "/prod-blusa.png", cores: ["#FAFAFA", "#1A1A1A"] },
-    { id: "4", slug: "camisa-seda-4", nome: "Camisa de Seda Botânica", preco: 329.90, categoria: "Camisas", is_placeholder: false, imagem_url: "/prod-camisa.png", cores: ["#FAFAFA"] },
-  ];
-
   const categorias = [
     { nome: "Vestidos", slug: "vestidos", img: "/cat-vestidos.png" },
     { nome: "Blusas & Camisas", slug: "blusas-camisas", img: "/cat-blusas.png" },
@@ -56,16 +49,13 @@ export default async function HomePage() {
         aria-label="Seção principal da loja"
       >
         <BotanicalHero />
-        <div className="text-center py-10 px-4 bg-branco w-full">
-          <h1 className="font-bodoni text-5xl md:text-6xl text-preto italic leading-tight mb-3">
+        <div className="text-center pb-12 px-4 bg-branco w-full">
+          <h1 className="font-bodoni text-5xl md:text-6xl text-preto italic leading-tight mb-8">
             Silêncio que veste
           </h1>
-          <p className="font-archivo text-zaya text-sm tracking-widest uppercase mb-8">
-            Coleção Verão 2025
-          </p>
           <Link
             href="/produtos"
-            className="inline-block bg-dourado text-branco font-archivo text-sm uppercase tracking-widest px-8 py-4 hover:bg-preto transition-colors duration-300 rounded-sm focus-visible:ring-2 focus-visible:ring-dourado focus-visible:ring-offset-2"
+            className="inline-block bg-dourado text-branco hover:bg-preto font-archivo text-sm uppercase tracking-widest px-8 py-4 transition-colors duration-300 rounded-sm focus-visible:ring-2 focus-visible:ring-dourado focus-visible:ring-offset-2"
           >
             Ver coleção
           </Link>
@@ -107,7 +97,7 @@ export default async function HomePage() {
 
       <Divider />
 
-      {/* ━━━━━━━━━━━━━━━━━━━━ 4. NOVIDADES ━━━━━━━━━━━━━━━━━━━━ */}
+      {/* ━━━━━━━━━━━━━━━━━━━━ 4. NOVIDADES (VITRINE ÚNICA) ━━━━━━━━━━━━━━━━━━━━ */}
       <section className="py-16 px-4 md:px-8 container mx-auto" aria-label="Novidades">
         <div className="text-center mb-12">
           <p className="font-archivo text-zaya text-xs tracking-widest uppercase mb-3">Chegando agora</p>
@@ -132,47 +122,34 @@ export default async function HomePage() {
         <div className="flex justify-center mt-12">
           <Link
             href="/produtos"
-            className="inline-block text-dourado border border-dourado px-8 py-3 font-archivo text-sm uppercase tracking-widest hover:bg-dourado hover:text-branco transition-colors rounded-sm focus-visible:ring-2 focus-visible:ring-dourado"
+            className="inline-block border border-dourado text-dourado hover:bg-dourado hover:text-branco bg-transparent font-archivo text-sm uppercase tracking-widest px-8 py-3 transition-colors duration-300 rounded-sm focus-visible:ring-2 focus-visible:ring-dourado"
           >
             Ver tudo
           </Link>
         </div>
       </section>
 
+      {/* Sem divisor aqui porque o Banner tem fundo imagem */}
+      
       {/* ━━━━━━━━━━━━━━━━━━━━ 5. BANNER EDITORIAL ━━━━━━━━━━━━━━━━━━━━ */}
       <EditorialBanner />
 
-      <Divider />
+      {/* Sem divisor porque Feed tem fundo sólido */}
 
-      {/* ━━━━━━━━━━━━━━━━━━━━ 6. MAIS VENDIDOS ━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="py-16 px-4 md:px-8 container mx-auto" aria-label="Mais vendidos">
-        <div className="text-center mb-12">
-          <p className="font-archivo text-zaya text-xs tracking-widest uppercase mb-3">Os queridinhos</p>
-          <h2 className="font-bodoni text-4xl md:text-5xl text-preto italic">Mais Vendidos</h2>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 gap-y-12">
-          {maisVendidos.map((prod) => (
-            <ProductCard
-              key={`mv-${prod.id}`}
-              id={prod.id}
-              slug={prod.slug}
-              nome={prod.nome}
-              categoria={prod.categoria}
-              preco={prod.preco}
-              is_placeholder={prod.is_placeholder}
-              imageUrl={prod.imagem_url}
-              cores={prod.cores}
-              badge="Mais Vendido"
-            />
-          ))}
-        </div>
-      </section>
+      {/* ━━━━━━━━━━━━━━━━━━━━ 6. FEED INSTAGRAM ━━━━━━━━━━━━━━━━━━━━ */}
+      <InstagramFeed />
+
+      <Divider />
 
       {/* ━━━━━━━━━━━━━━━━━━━━ 7. PROVA SOCIAL ━━━━━━━━━━━━━━━━━━━━ */}
       <SocialProofSection />
 
+      <Divider />
+
       {/* ━━━━━━━━━━━━━━━━━━━━ 8. NEWSLETTER ━━━━━━━━━━━━━━━━━━━━ */}
       <NewsletterSection />
+
+      {/* Sem divisor final por design padrão do footer em sequência */}
 
       {/* ━━━━━━━━━━━━━━━━━━━━ 9. BLOCO DE CONFIANÇA ━━━━━━━━━━━━━━━━━━━━ */}
       <TrustBar />

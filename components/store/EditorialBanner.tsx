@@ -18,16 +18,14 @@ export function EditorialBanner() {
 
       {/* Conteúdo */}
       <div className="relative z-10 text-center px-6 max-w-2xl mx-auto">
-        <p className="font-archivo text-claro text-xs tracking-widest uppercase mb-4">
-          Coleção Verão 2025
-        </p>
+
         {/* [RASCUNHO — revisar antes de publicar] */}
         <h2 className="font-bodoni text-5xl md:text-6xl text-branco italic leading-tight mb-6">
           Para a mulher que não precisa de mais — só do melhor.
         </h2>
         <Link
           href="/produtos"
-          className="inline-block bg-branco text-dourado font-archivo text-sm uppercase tracking-widest px-8 py-3 hover:bg-dourado hover:text-branco transition-colors duration-300 rounded-sm"
+          className="inline-block border border-branco text-branco bg-transparent font-archivo text-sm uppercase tracking-widest px-8 py-3 hover:bg-branco hover:text-preto transition-colors duration-300 rounded-sm focus-visible:ring-2 focus-visible:ring-branco"
         >
           Explorar coleção
         </Link>

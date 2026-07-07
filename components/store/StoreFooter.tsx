@@ -18,7 +18,7 @@ export function StoreFooter() {
             {/* Redes sociais */}
             <div className="flex gap-4">
               <a
-                href="https://instagram.com/zayaoficial"
+                href="https://www.instagram.com/zaya_loja/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram da Zaya"
