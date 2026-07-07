@@ -12,13 +12,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   
   if (!product) {
     return {
-      title: "Produto | Flor da Estação",
+      title: "Produto | Zaya",
     };
   }
 
   return {
-    title: `${product.nome} | Flor da Estação`,
-    description: product.descricao || `Compre ${product.nome} na Flor da Estação. Moda feminina com identidade botânica.`,
+    title: `${product.nome} | Zaya`,
+    description: product.descricao || `Compre ${product.nome} na Zaya. Moda feminina com identidade editorial.`,
   };
 }
 

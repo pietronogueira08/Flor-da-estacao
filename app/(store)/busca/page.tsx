@@ -4,7 +4,7 @@ import { Divider } from "@/components/ui/Divider";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = {
-  title: "Busca | Flor da Estação",
+  title: "Busca | Zaya",
 };
 
 export default async function BuscaPage({

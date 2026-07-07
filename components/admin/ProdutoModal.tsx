@@ -214,16 +214,16 @@ export default function ProdutoModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-carvao/40 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-marfim border border-rosa-antigo/40 rounded-sm shadow-2xl m-4">
+      <div className="absolute inset-0 bg-preto/40 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-branco border border-claro rounded-sm shadow-2xl m-4">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-rosa-antigo/30">
-          <h2 className="font-cormorant text-2xl text-carvao italic">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-claro">
+          <h2 className="font-bodoni text-2xl text-preto italic">
             {isEditing ? 'Editar Produto' : 'Novo Produto'}
           </h2>
           <button
             onClick={onClose}
-            className="p-2 text-carvao/40 hover:text-ameixa hover:bg-rosa-antigo/10 rounded-sm"
+            className="p-2 text-preto/40 hover:text-dourado hover:bg-claro/10 rounded-sm"
           >
             <X size={20} />
           </button>
@@ -231,42 +231,42 @@ export default function ProdutoModal({
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-sm font-jost text-sm">
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-sm font-archivo text-sm">
               {error}
             </div>
           )}
 
           {/* Informações básicas */}
           <div className="space-y-4">
-            <h3 className="font-cormorant text-lg text-carvao">Informações Gerais</h3>
+            <h3 className="font-bodoni text-lg text-preto">Informações Gerais</h3>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">
-                <label className="block font-jost text-xs uppercase tracking-wider text-carvao/60 mb-1.5">
+                <label className="block font-archivo text-xs uppercase tracking-wider text-preto/60 mb-1.5">
                   Nome *
                 </label>
                 <input
                   value={nome}
                   onChange={(e) => handleNomeChange(e.target.value)}
                   required
-                  className="w-full bg-nevoa border border-rosa-antigo/40 rounded-sm px-3 py-2 font-jost text-sm text-carvao focus:outline-none focus:border-ameixa"
+                  className="w-full bg-branco border border-claro rounded-sm px-3 py-2 font-archivo text-sm text-preto focus:outline-none focus:border-dourado"
                 />
               </div>
 
               <div>
-                <label className="block font-jost text-xs uppercase tracking-wider text-carvao/60 mb-1.5">
+                <label className="block font-archivo text-xs uppercase tracking-wider text-preto/60 mb-1.5">
                   Slug *
                 </label>
                 <input
                   value={slug}
                   onChange={(e) => setSlug(e.target.value)}
                   required
-                  className="w-full bg-nevoa border border-rosa-antigo/40 rounded-sm px-3 py-2 font-jost text-sm text-carvao focus:outline-none focus:border-ameixa"
+                  className="w-full bg-branco border border-claro rounded-sm px-3 py-2 font-archivo text-sm text-preto focus:outline-none focus:border-dourado"
                 />
               </div>
 
               <div>
-                <label className="block font-jost text-xs uppercase tracking-wider text-carvao/60 mb-1.5">
+                <label className="block font-archivo text-xs uppercase tracking-wider text-preto/60 mb-1.5">
                   Preço Base (R$) *
                 </label>
                 <input
@@ -276,18 +276,18 @@ export default function ProdutoModal({
                   value={precoBase}
                   onChange={(e) => setPrecoBase(e.target.value)}
                   required
-                  className="w-full bg-nevoa border border-rosa-antigo/40 rounded-sm px-3 py-2 font-jost text-sm text-carvao focus:outline-none focus:border-ameixa"
+                  className="w-full bg-branco border border-claro rounded-sm px-3 py-2 font-archivo text-sm text-preto focus:outline-none focus:border-dourado"
                 />
               </div>
 
               <div>
-                <label className="block font-jost text-xs uppercase tracking-wider text-carvao/60 mb-1.5">
+                <label className="block font-archivo text-xs uppercase tracking-wider text-preto/60 mb-1.5">
                   Categoria
                 </label>
                 <select
                   value={categoriaId}
                   onChange={(e) => setCategoriaId(e.target.value)}
-                  className="w-full bg-nevoa border border-rosa-antigo/40 rounded-sm px-3 py-2 font-jost text-sm text-carvao focus:outline-none focus:border-ameixa"
+                  className="w-full bg-branco border border-claro rounded-sm px-3 py-2 font-archivo text-sm text-preto focus:outline-none focus:border-dourado"
                 >
                   <option value="">Sem categoria</option>
                   {categorias.map((c) => (
@@ -304,22 +304,22 @@ export default function ProdutoModal({
                   id="ativo"
                   checked={ativo}
                   onChange={(e) => setAtivo(e.target.checked)}
-                  className="w-4 h-4 accent-ameixa"
+                  className="w-4 h-4 accent-dourado"
                 />
-                <label htmlFor="ativo" className="font-jost text-sm text-carvao">
+                <label htmlFor="ativo" className="font-archivo text-sm text-preto">
                   Produto ativo (visível na loja)
                 </label>
               </div>
 
               <div className="col-span-2">
-                <label className="block font-jost text-xs uppercase tracking-wider text-carvao/60 mb-1.5">
+                <label className="block font-archivo text-xs uppercase tracking-wider text-preto/60 mb-1.5">
                   Descrição
                 </label>
                 <textarea
                   value={descricao}
                   onChange={(e) => setDescricao(e.target.value)}
                   rows={3}
-                  className="w-full bg-nevoa border border-rosa-antigo/40 rounded-sm px-3 py-2 font-jost text-sm text-carvao focus:outline-none focus:border-ameixa resize-none"
+                  className="w-full bg-branco border border-claro rounded-sm px-3 py-2 font-archivo text-sm text-preto focus:outline-none focus:border-dourado resize-none"
                 />
               </div>
             </div>
@@ -328,11 +328,11 @@ export default function ProdutoModal({
           {/* Variantes */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="font-cormorant text-lg text-carvao">Variantes</h3>
+              <h3 className="font-bodoni text-lg text-preto">Variantes</h3>
               <button
                 type="button"
                 onClick={addVariant}
-                className="flex items-center gap-1 font-jost text-xs text-ameixa hover:text-carvao"
+                className="flex items-center gap-1 font-archivo text-xs text-dourado hover:text-preto"
               >
                 <Plus size={14} /> Adicionar
               </button>
@@ -342,38 +342,38 @@ export default function ProdutoModal({
               {variants.map((variant, idx) => (
                 <div
                   key={idx}
-                  className="grid grid-cols-5 gap-2 p-3 bg-nevoa border border-rosa-antigo/20 rounded-sm"
+                  className="grid grid-cols-5 gap-2 p-3 bg-branco border border-claro/20 rounded-sm"
                 >
                   <input
                     placeholder="Tamanho"
                     value={variant.tamanho}
                     onChange={(e) => updateVariant(idx, 'tamanho', e.target.value)}
-                    className="col-span-1 bg-marfim border border-rosa-antigo/30 rounded-sm px-2 py-1.5 font-jost text-xs text-carvao focus:outline-none focus:border-ameixa"
+                    className="col-span-1 bg-branco border border-claro rounded-sm px-2 py-1.5 font-archivo text-xs text-preto focus:outline-none focus:border-dourado"
                   />
                   <input
                     placeholder="Cor"
                     value={variant.cor}
                     onChange={(e) => updateVariant(idx, 'cor', e.target.value)}
-                    className="col-span-1 bg-marfim border border-rosa-antigo/30 rounded-sm px-2 py-1.5 font-jost text-xs text-carvao focus:outline-none focus:border-ameixa"
+                    className="col-span-1 bg-branco border border-claro rounded-sm px-2 py-1.5 font-archivo text-xs text-preto focus:outline-none focus:border-dourado"
                   />
                   <input
                     placeholder="SKU"
                     value={variant.sku}
                     onChange={(e) => updateVariant(idx, 'sku', e.target.value)}
-                    className="col-span-1 bg-marfim border border-rosa-antigo/30 rounded-sm px-2 py-1.5 font-jost text-xs text-carvao focus:outline-none focus:border-ameixa"
+                    className="col-span-1 bg-branco border border-claro rounded-sm px-2 py-1.5 font-archivo text-xs text-preto focus:outline-none focus:border-dourado"
                   />
                   <input
                     type="number"
                     placeholder="Estoque"
                     value={variant.estoque}
                     onChange={(e) => updateVariant(idx, 'estoque', parseInt(e.target.value) || 0)}
-                    className="col-span-1 bg-marfim border border-rosa-antigo/30 rounded-sm px-2 py-1.5 font-jost text-xs text-carvao focus:outline-none focus:border-ameixa"
+                    className="col-span-1 bg-branco border border-claro rounded-sm px-2 py-1.5 font-archivo text-xs text-preto focus:outline-none focus:border-dourado"
                   />
                   <button
                     type="button"
                     onClick={() => removeVariant(idx)}
                     disabled={variants.length === 1}
-                    className="flex items-center justify-center text-carvao/30 hover:text-red-400 disabled:opacity-20"
+                    className="flex items-center justify-center text-preto/30 hover:text-red-400 disabled:opacity-20"
                   >
                     <Trash2 size={14} />
                   </button>
@@ -385,11 +385,11 @@ export default function ProdutoModal({
           {/* Imagens */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="font-cormorant text-lg text-carvao">Imagens</h3>
+              <h3 className="font-bodoni text-lg text-preto">Imagens</h3>
               <button
                 type="button"
                 onClick={addImage}
-                className="flex items-center gap-1 font-jost text-xs text-ameixa hover:text-carvao"
+                className="flex items-center gap-1 font-archivo text-xs text-dourado hover:text-preto"
               >
                 <Plus size={14} /> Adicionar
               </button>
@@ -399,20 +399,20 @@ export default function ProdutoModal({
               {images.map((img, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center gap-2 p-3 bg-nevoa border border-rosa-antigo/20 rounded-sm"
+                  className="flex items-center gap-2 p-3 bg-branco border border-claro/20 rounded-sm"
                 >
                   <input
                     placeholder="URL da imagem"
                     value={img.url}
                     onChange={(e) => updateImage(idx, 'url', e.target.value)}
-                    className="flex-1 bg-marfim border border-rosa-antigo/30 rounded-sm px-2 py-1.5 font-jost text-xs text-carvao focus:outline-none focus:border-ameixa"
+                    className="flex-1 bg-branco border border-claro rounded-sm px-2 py-1.5 font-archivo text-xs text-preto focus:outline-none focus:border-dourado"
                   />
-                  <label className="flex items-center gap-1 font-jost text-xs text-carvao/60">
+                  <label className="flex items-center gap-1 font-archivo text-xs text-preto/60">
                     <input
                       type="checkbox"
                       checked={img.is_placeholder}
                       onChange={(e) => updateImage(idx, 'is_placeholder', e.target.checked)}
-                      className="accent-ameixa"
+                      className="accent-dourado"
                     />
                     Placeholder
                   </label>
@@ -420,7 +420,7 @@ export default function ProdutoModal({
                     type="button"
                     onClick={() => removeImage(idx)}
                     disabled={images.length === 1}
-                    className="text-carvao/30 hover:text-red-400 disabled:opacity-20"
+                    className="text-preto/30 hover:text-red-400 disabled:opacity-20"
                   >
                     <Trash2 size={14} />
                   </button>
@@ -430,18 +430,18 @@ export default function ProdutoModal({
           </div>
 
           {/* Actions */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-rosa-antigo/20">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-claro/20">
             <button
               type="button"
               onClick={onClose}
-              className="px-6 py-2.5 font-jost text-sm text-carvao/60 hover:text-carvao border border-rosa-antigo/30 rounded-sm hover:border-rosa-antigo transition-colors"
+              className="px-6 py-2.5 font-archivo text-sm text-preto/60 hover:text-preto border border-claro rounded-sm hover:border-claro transition-colors"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2.5 font-jost text-sm font-medium bg-ameixa text-marfim rounded-sm hover:bg-carvao transition-colors disabled:opacity-60"
+              className="px-6 py-2.5 font-archivo text-sm font-medium bg-dourado text-branco rounded-sm hover:bg-preto transition-colors disabled:opacity-60"
             >
               {loading ? 'Salvando...' : isEditing ? 'Salvar Alterações' : 'Criar Produto'}
             </button>

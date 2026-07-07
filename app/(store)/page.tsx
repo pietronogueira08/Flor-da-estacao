@@ -24,18 +24,18 @@ export default async function HomePage() {
   const novidades = products && products.length > 0
     ? products
     : [
-        { id: "1", slug: "vestido-floral-1", nome: "Vestido Midi Floral", preco: 289.90, categoria: "Vestidos", is_placeholder: false, imagem_url: "/prod-vestido.png", cores: ["#D2A9B1"] },
-        { id: "2", slug: "blusa-linho-2", nome: "Blusa de Linho Romântica", preco: 159.90, categoria: "Blusas", is_placeholder: false, imagem_url: "/prod-blusa.png", cores: ["#FFF5F7", "#241B1E"] },
-        { id: "3", slug: "saia-midi-3", nome: "Saia Midi Plissada", preco: 199.90, categoria: "Saias", is_placeholder: false, imagem_url: "/prod-saia.png", cores: ["#6B7860"] },
-        { id: "4", slug: "camisa-seda-4", nome: "Camisa de Seda Botânica", preco: 329.90, categoria: "Camisas", is_placeholder: false, imagem_url: "/prod-camisa.png", cores: ["#FBF2F0"] },
+        { id: "1", slug: "vestido-floral-1", nome: "Vestido Midi Floral", preco: 289.90, categoria: "Vestidos", is_placeholder: false, imagem_url: "/prod-vestido.png", cores: ["#D9D9D9"] },
+        { id: "2", slug: "blusa-linho-2", nome: "Blusa de Linho Romântica", preco: 159.90, categoria: "Blusas", is_placeholder: false, imagem_url: "/prod-blusa.png", cores: ["#FAFAFA", "#1A1A1A"] },
+        { id: "3", slug: "saia-midi-3", nome: "Saia Midi Plissada", preco: 199.90, categoria: "Saias", is_placeholder: false, imagem_url: "/prod-saia.png", cores: ["#A5A5A5"] },
+        { id: "4", slug: "camisa-seda-4", nome: "Camisa de Seda Botânica", preco: 329.90, categoria: "Camisas", is_placeholder: false, imagem_url: "/prod-camisa.png", cores: ["#FAFAFA"] },
       ];
 
   // Mais Vendidos (reutiliza os mesmos dados por ora com badge)
   const maisVendidos = [
-    { id: "1", slug: "vestido-floral-1", nome: "Vestido Midi Floral", preco: 289.90, categoria: "Vestidos", is_placeholder: false, imagem_url: "/prod-vestido.png", cores: ["#D2A9B1"] },
-    { id: "3", slug: "saia-midi-3", nome: "Saia Midi Plissada", preco: 199.90, categoria: "Saias", is_placeholder: false, imagem_url: "/prod-saia.png", cores: ["#6B7860"] },
-    { id: "2", slug: "blusa-linho-2", nome: "Blusa de Linho Romântica", preco: 159.90, categoria: "Blusas", is_placeholder: false, imagem_url: "/prod-blusa.png", cores: ["#FFF5F7", "#241B1E"] },
-    { id: "4", slug: "camisa-seda-4", nome: "Camisa de Seda Botânica", preco: 329.90, categoria: "Camisas", is_placeholder: false, imagem_url: "/prod-camisa.png", cores: ["#FBF2F0"] },
+    { id: "1", slug: "vestido-floral-1", nome: "Vestido Midi Floral", preco: 289.90, categoria: "Vestidos", is_placeholder: false, imagem_url: "/prod-vestido.png", cores: ["#D9D9D9"] },
+    { id: "3", slug: "saia-midi-3", nome: "Saia Midi Plissada", preco: 199.90, categoria: "Saias", is_placeholder: false, imagem_url: "/prod-saia.png", cores: ["#A5A5A5"] },
+    { id: "2", slug: "blusa-linho-2", nome: "Blusa de Linho Romântica", preco: 159.90, categoria: "Blusas", is_placeholder: false, imagem_url: "/prod-blusa.png", cores: ["#FAFAFA", "#1A1A1A"] },
+    { id: "4", slug: "camisa-seda-4", nome: "Camisa de Seda Botânica", preco: 329.90, categoria: "Camisas", is_placeholder: false, imagem_url: "/prod-camisa.png", cores: ["#FAFAFA"] },
   ];
 
   const categorias = [
@@ -52,33 +52,23 @@ export default async function HomePage() {
 
       {/* ━━━━━━━━━━━━━━━━━━━━ 1. HERO ━━━━━━━━━━━━━━━━━━━━ */}
       <section
-        className="pt-10 pb-20 px-4 flex flex-col items-center relative overflow-hidden min-h-[80vh]"
-        style={{
-          backgroundImage: 'url("/hero-bg.png")',
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
+        className="w-full flex flex-col items-center relative overflow-hidden"
         aria-label="Seção principal da loja"
       >
-        <div className="absolute inset-0 bg-marfim/30 z-0" />
-        <div className="relative z-10 w-full flex flex-col items-center">
-          <BotanicalHero />
-          <div className="text-center mt-[-40px] z-10 relative px-4">
-            {/* [RASCUNHO — revisar antes de publicar] */}
-            <h1 className="font-cormorant text-5xl md:text-6xl text-carvao italic leading-tight mb-3">
-              Roupas que florescem com você
-            </h1>
-            <p className="font-jost text-musgo text-sm tracking-widest uppercase mb-8">
-              Coleção Verão 2025
-            </p>
-            <Link
-              href="/produtos"
-              className="inline-block bg-ameixa text-marfim font-jost text-sm uppercase tracking-widest px-8 py-4 hover:bg-carvao transition-colors duration-300 rounded-sm focus-visible:ring-2 focus-visible:ring-ameixa focus-visible:ring-offset-2"
-            >
-              Ver coleção
-            </Link>
-          </div>
+        <BotanicalHero />
+        <div className="text-center py-10 px-4 bg-branco w-full">
+          <h1 className="font-bodoni text-5xl md:text-6xl text-preto italic leading-tight mb-3">
+            Silêncio que veste
+          </h1>
+          <p className="font-archivo text-zaya text-sm tracking-widest uppercase mb-8">
+            Coleção Verão 2025
+          </p>
+          <Link
+            href="/produtos"
+            className="inline-block bg-dourado text-branco font-archivo text-sm uppercase tracking-widest px-8 py-4 hover:bg-preto transition-colors duration-300 rounded-sm focus-visible:ring-2 focus-visible:ring-dourado focus-visible:ring-offset-2"
+          >
+            Ver coleção
+          </Link>
         </div>
       </section>
 
@@ -90,19 +80,19 @@ export default async function HomePage() {
             <Link
               key={cat.slug}
               href={`/categoria/${cat.slug}`}
-              className="group flex flex-col items-center min-w-[40vw] md:min-w-0 snap-start focus-visible:ring-2 focus-visible:ring-ameixa rounded-sm"
+              className="group flex flex-col items-center min-w-[40vw] md:min-w-0 snap-start focus-visible:ring-2 focus-visible:ring-dourado rounded-sm"
             >
-              <div className="relative w-full aspect-square rounded-sm overflow-hidden mb-3 bg-rosa-antigo/10">
+              <div className="relative w-full aspect-square rounded-sm overflow-hidden mb-3 bg-claro/20">
                 <Image
                   src={cat.img}
-                  alt={`Categoria ${cat.nome} — Flor da Estação`}
+                  alt={`Categoria ${cat.nome} — Zaya`}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 768px) 45vw, (max-width: 1200px) 20vw, 15vw"
                   unoptimized
                 />
               </div>
-              <span className="font-jost text-carvao text-sm text-center group-hover:text-ameixa transition-colors">
+              <span className="font-archivo text-preto text-sm text-center group-hover:text-dourado transition-colors">
                 {cat.nome}
               </span>
             </Link>
@@ -120,8 +110,8 @@ export default async function HomePage() {
       {/* ━━━━━━━━━━━━━━━━━━━━ 4. NOVIDADES ━━━━━━━━━━━━━━━━━━━━ */}
       <section className="py-16 px-4 md:px-8 container mx-auto" aria-label="Novidades">
         <div className="text-center mb-12">
-          <p className="font-jost text-musgo text-xs tracking-widest uppercase mb-3">Chegando agora</p>
-          <h2 className="font-cormorant text-4xl md:text-5xl text-carvao italic">Novidades</h2>
+          <p className="font-archivo text-zaya text-xs tracking-widest uppercase mb-3">Chegando agora</p>
+          <h2 className="font-bodoni text-4xl md:text-5xl text-preto italic">Novidades</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 gap-y-12">
           {novidades.map((prod: any) => (
@@ -142,7 +132,7 @@ export default async function HomePage() {
         <div className="flex justify-center mt-12">
           <Link
             href="/produtos"
-            className="inline-block text-ameixa border border-ameixa px-8 py-3 font-jost text-sm uppercase tracking-widest hover:bg-ameixa hover:text-marfim transition-colors rounded-sm focus-visible:ring-2 focus-visible:ring-ameixa"
+            className="inline-block text-dourado border border-dourado px-8 py-3 font-archivo text-sm uppercase tracking-widest hover:bg-dourado hover:text-branco transition-colors rounded-sm focus-visible:ring-2 focus-visible:ring-dourado"
           >
             Ver tudo
           </Link>
@@ -157,8 +147,8 @@ export default async function HomePage() {
       {/* ━━━━━━━━━━━━━━━━━━━━ 6. MAIS VENDIDOS ━━━━━━━━━━━━━━━━━━━━ */}
       <section className="py-16 px-4 md:px-8 container mx-auto" aria-label="Mais vendidos">
         <div className="text-center mb-12">
-          <p className="font-jost text-musgo text-xs tracking-widest uppercase mb-3">Os queridinhos</p>
-          <h2 className="font-cormorant text-4xl md:text-5xl text-carvao italic">Mais Vendidos</h2>
+          <p className="font-archivo text-zaya text-xs tracking-widest uppercase mb-3">Os queridinhos</p>
+          <h2 className="font-bodoni text-4xl md:text-5xl text-preto italic">Mais Vendidos</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 gap-y-12">
           {maisVendidos.map((prod) => (

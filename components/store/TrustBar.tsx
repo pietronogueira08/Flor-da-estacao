@@ -44,16 +44,16 @@ export function TrustBar() {
   ];
 
   return (
-    <section className="bg-nevoa border-t border-b border-rosa-antigo/20 py-10 px-4 md:px-8">
+    <section className="bg-branco border-t border-b border-claro py-10 px-4 md:px-8">
       <div className="container mx-auto">
         {/* Desktop: 4 colunas */}
         <ul className="hidden md:grid grid-cols-4 gap-8">
           {items.map((item) => (
             <li key={item.title} className="flex flex-col items-center text-center gap-3">
-              <span className="text-ameixa">{item.icon}</span>
+              <span className="text-dourado">{item.icon}</span>
               <div>
-                <p className="font-jost text-sm font-medium text-carvao">{item.title}</p>
-                <p className="font-jost text-xs text-musgo mt-0.5">{item.desc}</p>
+                <p className="font-archivo text-sm font-medium text-preto">{item.title}</p>
+                <p className="font-archivo text-xs text-zaya mt-0.5">{item.desc}</p>
               </div>
             </li>
           ))}
@@ -62,10 +62,10 @@ export function TrustBar() {
         <ul className="flex flex-col gap-4 md:hidden">
           {items.map((item) => (
             <li key={item.title} className="flex items-center gap-4">
-              <span className="text-ameixa shrink-0">{item.icon}</span>
+              <span className="text-dourado shrink-0">{item.icon}</span>
               <div>
-                <p className="font-jost text-sm font-medium text-carvao">{item.title}</p>
-                <p className="font-jost text-xs text-musgo">{item.desc}</p>
+                <p className="font-archivo text-sm font-medium text-preto">{item.title}</p>
+                <p className="font-archivo text-xs text-zaya">{item.desc}</p>
               </div>
             </li>
           ))}

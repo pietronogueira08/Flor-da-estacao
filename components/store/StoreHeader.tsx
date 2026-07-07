@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useCart } from "@/lib/hooks/useCart";
+import { ZayaWordmark } from "@/components/store/ZayaWordmark";
 
 const categorias = [
   { nome: "Novidades", slug: "novidades" },
@@ -50,7 +51,7 @@ export function StoreHeader() {
   return (
     <header
       className={`fixed top-8 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-marfim shadow-sm py-3" : "bg-transparent py-5"
+        isScrolled ? "bg-branco shadow-sm py-3" : "bg-transparent py-5"
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8 flex items-center justify-between">
@@ -64,7 +65,7 @@ export function StoreHeader() {
               onClick={() => setColecaoOpen((o) => !o)}
               aria-expanded={colecaoOpen}
               aria-haspopup="true"
-              className="relative font-jost text-carvao hover:text-ameixa transition-colors group flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-ameixa rounded-sm"
+              className="relative font-archivo text-preto hover:text-dourado transition-colors group flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-dourado rounded-sm"
             >
               Coleção
               <svg
@@ -79,18 +80,18 @@ export function StoreHeader() {
               >
                 <path d="M6 9l6 6 6-6" />
               </svg>
-              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-ameixa transition-all duration-300 group-hover:w-full" />
+              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-dourado transition-all duration-300 group-hover:w-full" />
             </button>
 
             {/* Dropdown */}
             {colecaoOpen && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-48 bg-marfim shadow-lg border border-rosa-antigo/20 rounded-sm overflow-hidden z-50">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-48 bg-branco shadow-lg border border-claro/20 rounded-sm overflow-hidden z-50">
                 {categorias.map((cat) => (
                   <Link
                     key={cat.slug}
                     href={`/categoria/${cat.slug}`}
                     onClick={() => setColecaoOpen(false)}
-                    className="block px-4 py-2.5 font-jost text-sm text-carvao hover:bg-rosa-antigo/10 hover:text-ameixa transition-colors focus-visible:ring-2 focus-visible:ring-ameixa"
+                    className="block px-4 py-2.5 font-archivo text-sm text-preto hover:bg-claro/10 hover:text-dourado transition-colors focus-visible:ring-2 focus-visible:ring-dourado"
                   >
                     {cat.nome}
                   </Link>
@@ -99,26 +100,24 @@ export function StoreHeader() {
             )}
           </div>
 
-          <Link href="/categoria/novidades" className="relative font-jost text-carvao hover:text-ameixa transition-colors group focus-visible:ring-2 focus-visible:ring-ameixa rounded-sm">
+          <Link href="/categoria/novidades" className="relative font-archivo text-preto hover:text-dourado transition-colors group focus-visible:ring-2 focus-visible:ring-dourado rounded-sm">
             Novidades
-            <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-ameixa transition-all duration-300 group-hover:w-full" />
+            <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-dourado transition-all duration-300 group-hover:w-full" />
           </Link>
 
-          <Link href="/sobre" className="relative font-jost text-carvao hover:text-ameixa transition-colors group focus-visible:ring-2 focus-visible:ring-ameixa rounded-sm">
+          <Link href="/sobre" className="relative font-archivo text-preto hover:text-dourado transition-colors group focus-visible:ring-2 focus-visible:ring-dourado rounded-sm">
             A Marca
-            <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-ameixa transition-all duration-300 group-hover:w-full" />
+            <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-dourado transition-all duration-300 group-hover:w-full" />
           </Link>
         </nav>
 
         {/* ── Logo Central ── */}
         <Link
           href="/"
-          className="absolute left-1/2 -translate-x-1/2 flex items-center hover:scale-105 hover:opacity-90 transition-all duration-500 focus-visible:ring-2 focus-visible:ring-ameixa rounded-sm"
-          aria-label="Flor da Estação — Página inicial"
+          className="absolute left-1/2 -translate-x-1/2 flex items-center hover:scale-105 hover:opacity-90 transition-all duration-500 focus-visible:ring-2 focus-visible:ring-dourado rounded-sm"
+          aria-label="Zaya — Página inicial"
         >
-          <span className="font-cormorant text-3xl md:text-4xl text-ameixa italic tracking-wide font-medium">
-            Flor da Estação
-          </span>
+          <ZayaWordmark width={110} height={36} />
         </Link>
 
         {/* ── Ações (direita) ── */}
@@ -127,7 +126,7 @@ export function StoreHeader() {
           <Link
             href="/busca"
             aria-label="Buscar produtos"
-            className="text-carvao hover:text-ameixa transition-transform duration-300 hover:scale-110 active:scale-95 hidden md:flex focus-visible:ring-2 focus-visible:ring-ameixa rounded-sm"
+            className="text-preto hover:text-dourado transition-transform duration-300 hover:scale-110 active:scale-95 hidden md:flex focus-visible:ring-2 focus-visible:ring-dourado rounded-sm"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <circle cx="11" cy="11" r="8" />
@@ -139,7 +138,7 @@ export function StoreHeader() {
           <button
             onClick={openCart}
             aria-label={`Carrinho${cartCount > 0 ? ` — ${cartCount} ${cartCount === 1 ? "item" : "itens"}` : ""}`}
-            className="text-carvao hover:text-ameixa transition-transform duration-300 hover:scale-110 active:scale-95 relative group focus-visible:ring-2 focus-visible:ring-ameixa rounded-sm"
+            className="text-preto hover:text-dourado transition-transform duration-300 hover:scale-110 active:scale-95 relative group focus-visible:ring-2 focus-visible:ring-dourado rounded-sm"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-rotate-3 transition-transform duration-300" aria-hidden="true">
               <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
@@ -147,7 +146,7 @@ export function StoreHeader() {
               <path d="M16 10a4 4 0 0 1-8 0" />
             </svg>
             {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-ameixa text-marfim text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full" aria-hidden="true">
+              <span className="absolute -top-2 -right-2 bg-dourado text-branco text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full" aria-hidden="true">
                 {cartCount}
               </span>
             )}
@@ -158,7 +157,7 @@ export function StoreHeader() {
             onClick={() => setMenuOpen((o) => !o)}
             aria-expanded={menuOpen}
             aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
-            className="md:hidden text-carvao hover:text-ameixa transition-colors focus-visible:ring-2 focus-visible:ring-ameixa rounded-sm"
+            className="md:hidden text-preto hover:text-dourado transition-colors focus-visible:ring-2 focus-visible:ring-dourado rounded-sm"
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               {menuOpen ? (
@@ -182,14 +181,14 @@ export function StoreHeader() {
       {menuOpen && (
         <nav
           aria-label="Menu mobile"
-          className="md:hidden bg-marfim border-t border-rosa-antigo/20 shadow-lg"
+          className="md:hidden bg-branco border-t border-claro/20 shadow-lg"
         >
           <div className="container mx-auto px-4 py-4 flex flex-col gap-1">
             {/* Coleção accordion */}
             <div>
               <button
                 onClick={() => setColecaoOpen((o) => !o)}
-                className="w-full flex items-center justify-between py-3 font-jost text-carvao hover:text-ameixa transition-colors focus-visible:ring-2 focus-visible:ring-ameixa"
+                className="w-full flex items-center justify-between py-3 font-archivo text-preto hover:text-dourado transition-colors focus-visible:ring-2 focus-visible:ring-dourado"
               >
                 <span>Coleção</span>
                 <svg
@@ -206,13 +205,13 @@ export function StoreHeader() {
                 </svg>
               </button>
               {colecaoOpen && (
-                <div className="pl-4 pb-2 flex flex-col gap-1 border-l border-rosa-antigo/30">
+                <div className="pl-4 pb-2 flex flex-col gap-1 border-l border-claro/30">
                   {categorias.map((cat) => (
                     <Link
                       key={cat.slug}
                       href={`/categoria/${cat.slug}`}
                       onClick={() => { setMenuOpen(false); setColecaoOpen(false); }}
-                      className="py-2 font-jost text-sm text-musgo hover:text-ameixa transition-colors focus-visible:ring-2 focus-visible:ring-ameixa"
+                      className="py-2 font-archivo text-sm text-zaya hover:text-dourado transition-colors focus-visible:ring-2 focus-visible:ring-dourado"
                     >
                       {cat.nome}
                     </Link>
@@ -221,13 +220,13 @@ export function StoreHeader() {
               )}
             </div>
 
-            <Link href="/categoria/novidades" onClick={() => setMenuOpen(false)} className="py-3 font-jost text-carvao hover:text-ameixa transition-colors border-t border-rosa-antigo/10 focus-visible:ring-2 focus-visible:ring-ameixa">
+            <Link href="/categoria/novidades" onClick={() => setMenuOpen(false)} className="py-3 font-archivo text-preto hover:text-dourado transition-colors border-t border-claro/10 focus-visible:ring-2 focus-visible:ring-dourado">
               Novidades
             </Link>
-            <Link href="/sobre" onClick={() => setMenuOpen(false)} className="py-3 font-jost text-carvao hover:text-ameixa transition-colors border-t border-rosa-antigo/10 focus-visible:ring-2 focus-visible:ring-ameixa">
+            <Link href="/sobre" onClick={() => setMenuOpen(false)} className="py-3 font-archivo text-preto hover:text-dourado transition-colors border-t border-claro/10 focus-visible:ring-2 focus-visible:ring-dourado">
               A Marca
             </Link>
-            <Link href="/busca" onClick={() => setMenuOpen(false)} className="py-3 font-jost text-carvao hover:text-ameixa transition-colors border-t border-rosa-antigo/10 focus-visible:ring-2 focus-visible:ring-ameixa">
+            <Link href="/busca" onClick={() => setMenuOpen(false)} className="py-3 font-archivo text-preto hover:text-dourado transition-colors border-t border-claro/10 focus-visible:ring-2 focus-visible:ring-dourado">
               Buscar
             </Link>
           </div>

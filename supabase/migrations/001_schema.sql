@@ -1,5 +1,5 @@
 -- ========================================
--- Migration 001: Schema completo Flor da Estação
+-- Migration 001: Schema completo Zaya
 -- ========================================
 
 -- Extensões necessárias

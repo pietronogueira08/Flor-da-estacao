@@ -2,105 +2,46 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ZayaWordmark } from "@/components/store/ZayaWordmark";
 
 export function BotanicalHero() {
-  const svgRef = useRef<SVGSVGElement>(null);
+  const wordmarkRef = useRef<HTMLDivElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    if (!svgRef.current) return;
+    if (!wordmarkRef.current || !subtitleRef.current) return;
 
-    const paths = svgRef.current.querySelectorAll("path");
-    
-    gsap.set(paths, {
-      strokeDasharray: (i, el) => el.getTotalLength(),
-      strokeDashoffset: (i, el) => el.getTotalLength(),
-    });
+    gsap.fromTo(
+      wordmarkRef.current,
+      { opacity: 0, scale: 0.96 },
+      { opacity: 1, scale: 1, duration: 1.4, ease: "power2.out", delay: 0.3 }
+    );
 
-    gsap.to(paths, {
-      strokeDashoffset: 0,
-      duration: 2.5,
-      ease: "power2.out",
-      stagger: 0.2,
-      delay: 0.2,
-    });
+    gsap.fromTo(
+      subtitleRef.current,
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 1, ease: "power2.out", delay: 0.9 }
+    );
   }, []);
 
   return (
-    <div className="w-full flex justify-center py-12">
-      <svg
-        ref={svgRef}
-        width="600"
-        height="800"
-        viewBox="0 0 600 800"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="max-w-full h-auto"
+    <div
+      className="w-full flex flex-col items-center justify-center py-20 md:py-32"
+      style={{
+        background: "radial-gradient(ellipse at center, #E8E8E8 0%, #C0C0C0 40%, #A5A5A5 100%)",
+      }}
+      aria-label="Hero Zaya"
+    >
+      <div ref={wordmarkRef} style={{ opacity: 0 }} className="flex items-center justify-center">
+        <ZayaWordmark width={220} height={72} />
+      </div>
+      <p
+        ref={subtitleRef}
+        style={{ opacity: 0 }}
+        className="font-archivo text-preto/60 text-xs tracking-[0.3em] uppercase mt-6"
       >
-        {/* Ramo central */}
-        <path
-          d="M 300 750 Q 250 500, 320 250 T 280 100"
-          stroke="#D2A9B1"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          fill="none"
-        />
-        {/* Folhas */}
-        <path
-          d="M 283 620 C 240 600, 220 550, 260 520 C 270 540, 275 580, 283 620 Z"
-          stroke="#D2A9B1"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-          fill="none"
-        />
-        <path
-          d="M 305 450 C 350 430, 380 390, 340 350 C 330 380, 320 420, 305 450 Z"
-          stroke="#D2A9B1"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-          fill="none"
-        />
-        <path
-          d="M 315 280 C 270 260, 250 220, 290 190 C 300 210, 305 250, 315 280 Z"
-          stroke="#D2A9B1"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-          fill="none"
-        />
-        {/* Flores */}
-        <path
-          d="M 250 520 C 240 490, 210 490, 210 520 C 210 550, 240 550, 250 520 Z"
-          stroke="#D2A9B1"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-          fill="none"
-        />
-        <path
-          d="M 340 350 C 360 330, 390 340, 380 370 C 370 400, 340 390, 340 350 Z"
-          stroke="#D2A9B1"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-          fill="none"
-        />
-        {/* Bagas */}
-        <path
-          d="M 320 600 A 10 10 0 1 1 319.9 600"
-          stroke="#D2A9B1"
-          strokeWidth="1.5"
-          fill="none"
-        />
-        <path
-          d="M 280 380 A 8 8 0 1 1 279.9 380"
-          stroke="#D2A9B1"
-          strokeWidth="1.5"
-          fill="none"
-        />
-        <path
-          d="M 330 200 A 12 12 0 1 1 329.9 200"
-          stroke="#D2A9B1"
-          strokeWidth="1.5"
-          fill="none"
-        />
-      </svg>
+        coleção verão 2025
+      </p>
     </div>
   );
 }

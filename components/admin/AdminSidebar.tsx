@@ -10,7 +10,7 @@ import {
   Package,
   ClipboardList,
   LogOut,
-  Flower2,
+  Gem,
 } from 'lucide-react'
 
 const navItems = [
@@ -32,13 +32,13 @@ export default function AdminSidebar() {
   }
 
   return (
-    <aside className="w-64 bg-marfim border-r border-rosa-antigo/40 flex flex-col h-full shadow-sm">
+    <aside className="w-64 bg-branco border-r border-claro flex flex-col h-full shadow-sm">
       {/* Logo / Brand */}
-      <div className="px-6 py-8 border-b border-rosa-antigo/30">
+      <div className="px-6 py-8 border-b border-claro">
         <Link href="/" className="flex items-center gap-3 mb-1 hover:opacity-80 transition-opacity">
           <Image
             src="/logo.svg"
-            alt="Flor da Estação"
+            alt="Zaya"
             width={32}
             height={32}
             className="h-8 w-8"
@@ -47,11 +47,11 @@ export default function AdminSidebar() {
             onError={() => {/* silently fail */}}
           />
           <div>
-            <p className="font-cormorant text-lg font-semibold text-carvao leading-tight">
-              Flor da Estação
+            <p className="font-bodoni text-lg font-semibold text-preto leading-tight">
+              Zaya
             </p>
-            <p className="font-jost text-xs text-musgo tracking-widest uppercase">
-              Estação OS
+            <p className="font-archivo text-xs text-zaya tracking-widest uppercase">
+              Atelier Zaya
             </p>
           </div>
         </Link>
@@ -65,15 +65,15 @@ export default function AdminSidebar() {
             <Link
               key={href}
               href={href}
-              className={`flex items-center gap-3 px-4 py-3 rounded-sm font-jost text-sm transition-all duration-150 group ${
+              className={`flex items-center gap-3 px-4 py-3 rounded-sm font-archivo text-sm transition-all duration-150 group ${
                 isActive
-                  ? 'bg-rosa-antigo/30 text-ameixa font-medium border-l-2 border-ameixa'
-                  : 'text-carvao/70 hover:bg-rosa-antigo/10 hover:text-ameixa'
+                  ? 'bg-dourado/15 text-dourado font-medium border-l-2 border-dourado'
+                  : 'text-preto/60 hover:bg-claro/40 hover:text-dourado'
               }`}
             >
               <Icon
                 size={18}
-                className={isActive ? 'text-ameixa' : 'text-carvao/50 group-hover:text-ameixa'}
+                className={isActive ? 'text-dourado' : 'text-preto/40 group-hover:text-dourado'}
               />
               {label}
             </Link>
@@ -82,17 +82,17 @@ export default function AdminSidebar() {
       </nav>
 
       {/* Decorative element */}
-      <div className="px-6 py-4 flex justify-center opacity-20">
-        <Flower2 size={28} className="text-rosa-antigo" />
+      <div className="px-6 py-4 flex justify-center opacity-30">
+        <Gem size={22} className="text-dourado" />
       </div>
 
       {/* Logout */}
-      <div className="px-4 pb-6 border-t border-rosa-antigo/30 pt-4">
+      <div className="px-4 pb-6 border-t border-claro pt-4">
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-4 py-3 w-full text-left font-jost text-sm text-carvao/60 hover:text-ameixa hover:bg-rosa-antigo/10 rounded-sm transition-all duration-150 group"
+          className="flex items-center gap-3 px-4 py-3 w-full text-left font-archivo text-sm text-preto/50 hover:text-dourado hover:bg-claro/30 rounded-sm transition-all duration-150 group"
         >
-          <LogOut size={18} className="group-hover:text-ameixa" />
+          <LogOut size={18} className="group-hover:text-dourado" />
           Sair
         </button>
       </div>

@@ -9,7 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts'
-import { ShoppingCart, TrendingUp, Package, AlertTriangle, Flower2 } from 'lucide-react'
+import { ShoppingCart, TrendingUp, Package, AlertTriangle, Gem } from 'lucide-react'
 
 interface DashboardData {
   pedidosHoje: number
@@ -79,27 +79,27 @@ interface MetricCardProps {
 function MetricCard({ title, value, subtitle, icon, accent, warning }: MetricCardProps) {
   return (
     <div
-      className={`bg-marfim border rounded-sm p-6 shadow-sm ${
-        warning ? 'border-red-200' : 'border-rosa-antigo/30'
+      className={`bg-branco border rounded-sm p-6 shadow-sm ${
+        warning ? 'border-red-200' : 'border-claro'
       }`}
     >
       <div className="flex items-start justify-between">
         <div>
-          <p className="font-jost text-xs uppercase tracking-wider text-carvao/50 mb-2">
+          <p className="font-archivo text-xs uppercase tracking-wider text-preto/50 mb-2">
             {title}
           </p>
           <p
-            className={`font-cormorant text-4xl font-semibold ${
-              warning ? 'text-red-600' : accent ? 'text-ameixa' : 'text-carvao'
+            className={`font-bodoni text-4xl font-semibold ${
+              warning ? 'text-red-600' : accent ? 'text-dourado' : 'text-preto'
             }`}
           >
             {value}
           </p>
-          <p className="font-jost text-xs text-carvao/50 mt-2">{subtitle}</p>
+          <p className="font-archivo text-xs text-preto/50 mt-2">{subtitle}</p>
         </div>
         <div
           className={`p-3 rounded-sm ${
-            warning ? 'bg-red-50 text-red-400' : 'bg-rosa-antigo/20 text-ameixa'
+            warning ? 'bg-red-50 text-red-400' : 'bg-claro/20 text-dourado'
           }`}
         >
           {icon}
@@ -112,24 +112,24 @@ function MetricCard({ title, value, subtitle, icon, accent, warning }: MetricCar
 // Estado vazio — Supabase não configurado
 function EmptyState() {
   return (
-    <div className="min-h-screen bg-nevoa">
-      <div className="border-b border-rosa-antigo/30 bg-marfim px-8 py-6">
-        <h1 className="font-cormorant text-3xl text-carvao italic">Dashboard</h1>
-        <p className="font-jost text-sm text-musgo mt-1">Estação OS · Visão Geral</p>
+    <div className="min-h-screen bg-branco">
+      <div className="border-b border-claro bg-branco px-8 py-6">
+        <h1 className="font-bodoni text-3xl text-preto italic">Dashboard</h1>
+        <p className="font-archivo text-sm text-zaya mt-1">Atelier Zaya · Visão Geral</p>
       </div>
       <div className="flex items-center justify-center h-[calc(100vh-100px)]">
         <div className="text-center">
-          <Flower2 size={48} className="text-rosa-antigo/40 mx-auto mb-4" />
-          <h2 className="font-cormorant text-2xl text-carvao/50 italic">
+          <Gem size={48} className="text-claro/40 mx-auto mb-4" />
+          <h2 className="font-bodoni text-2xl text-preto/50 italic">
             Conecte o Supabase para ver os dados
           </h2>
-          <p className="font-jost text-sm text-carvao/40 mt-2 max-w-sm">
+          <p className="font-archivo text-sm text-preto/40 mt-2 max-w-sm">
             Configure as variáveis de ambiente no arquivo{' '}
-            <code className="font-mono text-xs bg-rosa-antigo/10 px-1 rounded">.env.local</code>{' '}
+            <code className="font-mono text-xs bg-claro/10 px-1 rounded">.env.local</code>{' '}
             para exibir as métricas da loja.
           </p>
-          <div className="mt-4 bg-marfim border border-rosa-antigo/30 rounded-sm p-4 text-left max-w-sm mx-auto">
-            <p className="font-mono text-xs text-carvao/60 space-y-1">
+          <div className="mt-4 bg-branco border border-claro rounded-sm p-4 text-left max-w-sm mx-auto">
+            <p className="font-mono text-xs text-preto/60 space-y-1">
               <span className="block">NEXT_PUBLIC_SUPABASE_URL=...</span>
               <span className="block">NEXT_PUBLIC_SUPABASE_ANON_KEY=...</span>
             </p>
@@ -144,11 +144,11 @@ export default function DashboardClient({ data }: { data: DashboardData | null }
   if (!data) return <EmptyState />
 
   return (
-    <div className="min-h-screen bg-nevoa">
+    <div className="min-h-screen bg-branco">
       {/* Header */}
-      <div className="border-b border-rosa-antigo/30 bg-marfim px-8 py-6">
-        <h1 className="font-cormorant text-3xl text-carvao italic">Dashboard</h1>
-        <p className="font-jost text-sm text-musgo mt-1">Estação OS · Visão Geral</p>
+      <div className="border-b border-claro bg-branco px-8 py-6">
+        <h1 className="font-bodoni text-3xl text-preto italic">Dashboard</h1>
+        <p className="font-archivo text-sm text-zaya mt-1">Atelier Zaya · Visão Geral</p>
       </div>
 
       <div className="p-8 space-y-8">
@@ -183,11 +183,11 @@ export default function DashboardClient({ data }: { data: DashboardData | null }
         </div>
 
         {/* Chart */}
-        <div className="bg-marfim border border-rosa-antigo/30 rounded-sm shadow-sm p-6">
-          <h2 className="font-cormorant text-xl text-carvao italic mb-1">
+        <div className="bg-branco border border-claro rounded-sm shadow-sm p-6">
+          <h2 className="font-bodoni text-xl text-preto italic mb-1">
             Vendas — Últimos 30 dias
           </h2>
-          <p className="font-jost text-xs text-carvao/50 mb-6">
+          <p className="font-archivo text-xs text-preto/50 mb-6">
             Receita diária de pedidos confirmados
           </p>
           {data.graficoVendas.length > 0 ? (
@@ -202,12 +202,12 @@ export default function DashboardClient({ data }: { data: DashboardData | null }
                 <CartesianGrid strokeDasharray="3 3" stroke="#D2A9B1" strokeOpacity={0.3} />
                 <XAxis
                   dataKey="data"
-                  tick={{ fontFamily: 'Jost', fontSize: 11, fill: '#241B1E80' }}
+                  tick={{ fontFamily: 'Archivo', fontSize: 11, fill: '#241B1E80' }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fontFamily: 'Jost', fontSize: 11, fill: '#241B1E80' }}
+                  tick={{ fontFamily: 'Archivo', fontSize: 11, fill: '#241B1E80' }}
                   axisLine={false}
                   tickLine={false}
                   tickFormatter={(v) => `R$${v}`}
@@ -217,7 +217,7 @@ export default function DashboardClient({ data }: { data: DashboardData | null }
                     backgroundColor: '#FFF5F7',
                     border: '1px solid #D2A9B1',
                     borderRadius: '2px',
-                    fontFamily: 'Jost',
+                    fontFamily: 'Archivo',
                     fontSize: 12,
                   }}
                   formatter={(value) => [formatCurrency(Number(value) || 0), 'Receita']}
@@ -233,7 +233,7 @@ export default function DashboardClient({ data }: { data: DashboardData | null }
             </ResponsiveContainer>
           ) : (
             <div className="h-60 flex items-center justify-center">
-              <p className="font-jost text-sm text-carvao/40">
+              <p className="font-archivo text-sm text-preto/40">
                 Nenhuma venda confirmada nos últimos 30 dias
               </p>
             </div>
@@ -243,70 +243,70 @@ export default function DashboardClient({ data }: { data: DashboardData | null }
         {/* Bottom grid */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
           {/* Mais vendidos */}
-          <div className="bg-marfim border border-rosa-antigo/30 rounded-sm shadow-sm p-6">
-            <h2 className="font-cormorant text-xl text-carvao italic mb-1">
+          <div className="bg-branco border border-claro rounded-sm shadow-sm p-6">
+            <h2 className="font-bodoni text-xl text-preto italic mb-1">
               Produtos Mais Vendidos
             </h2>
-            <p className="font-jost text-xs text-carvao/50 mb-4">Top 5 por quantidade</p>
+            <p className="font-archivo text-xs text-preto/50 mb-4">Top 5 por quantidade</p>
             {data.maisVendidos.length > 0 ? (
               <div className="space-y-3">
                 {data.maisVendidos.map((produto, idx) => (
                   <div
                     key={produto.id}
-                    className="flex items-center gap-4 py-2 border-b border-rosa-antigo/10 last:border-0"
+                    className="flex items-center gap-4 py-2 border-b border-claro/10 last:border-0"
                   >
-                    <span className="font-cormorant text-2xl text-rosa-antigo/50 w-6 text-center">
+                    <span className="font-bodoni text-2xl text-claro/50 w-6 text-center">
                       {idx + 1}
                     </span>
                     <div className="flex-1 min-w-0">
-                      <p className="font-jost text-sm text-carvao truncate">{produto.nome}</p>
-                      <p className="font-jost text-xs text-musgo">
+                      <p className="font-archivo text-sm text-preto truncate">{produto.nome}</p>
+                      <p className="font-archivo text-xs text-zaya">
                         {formatCurrency(produto.preco)}
                       </p>
                     </div>
-                    <span className="font-jost text-sm font-medium text-ameixa">
+                    <span className="font-archivo text-sm font-medium text-dourado">
                       {produto.total} un.
                     </span>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="font-jost text-sm text-carvao/40 py-4 text-center">
+              <p className="font-archivo text-sm text-preto/40 py-4 text-center">
                 Nenhuma venda registrada
               </p>
             )}
           </div>
 
           {/* Pedidos recentes */}
-          <div className="bg-marfim border border-rosa-antigo/30 rounded-sm shadow-sm p-6">
-            <h2 className="font-cormorant text-xl text-carvao italic mb-1">
+          <div className="bg-branco border border-claro rounded-sm shadow-sm p-6">
+            <h2 className="font-bodoni text-xl text-preto italic mb-1">
               Pedidos Recentes
             </h2>
-            <p className="font-jost text-xs text-carvao/50 mb-4">Últimos 5 pedidos</p>
+            <p className="font-archivo text-xs text-preto/50 mb-4">Últimos 5 pedidos</p>
             {data.pedidosRecentes.length > 0 ? (
               <div className="space-y-3">
                 {data.pedidosRecentes.map((pedido) => (
                   <div
                     key={pedido.id}
-                    className="flex items-center gap-4 py-2 border-b border-rosa-antigo/10 last:border-0"
+                    className="flex items-center gap-4 py-2 border-b border-claro/10 last:border-0"
                   >
                     <div className="flex-1 min-w-0">
-                      <p className="font-jost text-sm text-carvao truncate">
+                      <p className="font-archivo text-sm text-preto truncate">
                         {pedido.cliente_nome}
                       </p>
-                      <p className="font-jost text-xs text-carvao/50">
+                      <p className="font-archivo text-xs text-preto/50">
                         {formatDate(pedido.criado_em)}
                       </p>
                     </div>
                     <div className="flex items-center gap-2">
                       <span
-                        className={`font-jost text-xs px-2 py-0.5 rounded-full border ${
+                        className={`font-archivo text-xs px-2 py-0.5 rounded-full border ${
                           statusColors[pedido.status] ?? 'bg-gray-100 text-gray-700'
                         }`}
                       >
                         {statusLabels[pedido.status] ?? pedido.status}
                       </span>
-                      <span className="font-jost text-sm font-medium text-carvao">
+                      <span className="font-archivo text-sm font-medium text-preto">
                         {formatCurrency(pedido.total)}
                       </span>
                     </div>
@@ -314,7 +314,7 @@ export default function DashboardClient({ data }: { data: DashboardData | null }
                 ))}
               </div>
             ) : (
-              <p className="font-jost text-sm text-carvao/40 py-4 text-center">
+              <p className="font-archivo text-sm text-preto/40 py-4 text-center">
                 Nenhum pedido registrado
               </p>
             )}

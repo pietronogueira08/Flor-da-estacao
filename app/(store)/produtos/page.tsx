@@ -4,8 +4,8 @@ import { Divider } from "@/components/ui/Divider";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = {
-  title: "Todos os Produtos | Flor da Estação",
-  description: "Nossa coleção completa de moda feminina com identidade botânica.",
+  title: "Todos os Produtos | Zaya",
+  description: "Nossa coleção completa de moda feminina com identidade editorial Zaya.",
 };
 
 export default async function ProdutosPage() {

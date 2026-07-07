@@ -1,5 +1,5 @@
 -- ========================================
--- Migration 003: Newsletter Leads — Flor da Estação
+-- Migration 003: Newsletter Leads — Zaya
 -- ========================================
 
 CREATE TABLE IF NOT EXISTS newsletter_leads (

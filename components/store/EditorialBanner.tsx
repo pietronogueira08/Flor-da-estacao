@@ -7,27 +7,27 @@ export function EditorialBanner() {
       {/* Background image */}
       <Image
         src="/about-us.png"
-        alt="Mulher vestindo Flor da Estação em cenário natural botânico"
+        alt="Editorial Zaya — silhueta feminina em cenário de estúdio"
         fill
         className="object-cover object-center"
         sizes="100vw"
         unoptimized
       />
       {/* Overlay */}
-      <div className="absolute inset-0 bg-carvao/40" />
+      <div className="absolute inset-0 bg-preto/40" />
 
       {/* Conteúdo */}
       <div className="relative z-10 text-center px-6 max-w-2xl mx-auto">
-        <p className="font-jost text-rosa-antigo text-xs tracking-widest uppercase mb-4">
+        <p className="font-archivo text-claro text-xs tracking-widest uppercase mb-4">
           Coleção Verão 2025
         </p>
         {/* [RASCUNHO — revisar antes de publicar] */}
-        <h2 className="font-cormorant text-5xl md:text-6xl text-marfim italic leading-tight mb-6">
-          Para a mulher que carrega flores onde vai.
+        <h2 className="font-bodoni text-5xl md:text-6xl text-branco italic leading-tight mb-6">
+          Para a mulher que não precisa de mais — só do melhor.
         </h2>
         <Link
           href="/produtos"
-          className="inline-block bg-marfim text-ameixa font-jost text-sm uppercase tracking-widest px-8 py-3 hover:bg-ameixa hover:text-marfim transition-colors duration-300 rounded-sm"
+          className="inline-block bg-branco text-dourado font-archivo text-sm uppercase tracking-widest px-8 py-3 hover:bg-dourado hover:text-branco transition-colors duration-300 rounded-sm"
         >
           Explorar coleção
         </Link>

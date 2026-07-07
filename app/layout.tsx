@@ -1,25 +1,30 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Jost } from "next/font/google";
+import { Bodoni_Moda, Archivo } from "next/font/google";
 import "./globals.css";
 
-const cormorantGaramond = Cormorant_Garamond({
+const bodoniModa = Bodoni_Moda({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
-  variable: "--font-cormorant-garamond",
+  variable: "--font-bodoni-moda",
   display: "swap",
 });
 
-const jost = Jost({
+const archivo = Archivo({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-jost",
+  variable: "--font-archivo",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Flor da Estação — Moda Feminina",
-  description: "Roupas femininas com identidade botânica e romântica. Descubra a coleção Flor da Estação.",
+  title: "Zaya — Moda Feminina",
+  description: "Zaya. Moda feminina com identidade editorial e refinamento discreto. Descubra a nova coleção.",
+  openGraph: {
+    title: "Zaya — Moda Feminina",
+    description: "Moda feminina com identidade editorial e refinamento discreto.",
+    siteName: "Zaya",
+  },
 };
 
 export default function RootLayout({
@@ -30,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${cormorantGaramond.variable} ${jost.variable} antialiased`}
+        className={`${bodoniModa.variable} ${archivo.variable} antialiased`}
       >
         {children}
       </body>

@@ -56,13 +56,13 @@ export default function MinhaContaPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-16 min-h-[70vh]">
-      <h1 className="text-4xl font-cormorant-garamond text-[#241B1E] mb-2 text-center">Meus Pedidos</h1>
-      <p className="text-gray-500 font-jost text-center mb-10">Acompanhe o status das suas compras na Flor da Estação.</p>
+      <h1 className="text-4xl font-cormorant-garamond text-escuro mb-2 text-center">Meus Pedidos</h1>
+      <p className="text-gray-500 font-archivo text-center mb-10">Acompanhe o status das suas compras na loja.</p>
       
-      <div className="max-w-md mx-auto bg-[#FBF2F0] p-6 rounded-lg mb-12">
+      <div className="max-w-md mx-auto bg-branco border border-claro p-6 rounded-lg mb-12">
         <form onSubmit={buscarPedidos} className="space-y-4">
           <div>
-            <label className="block text-sm font-jost text-[#241B1E] mb-2">Digite seu e-mail de compra</label>
+            <label className="block text-sm font-jost text-escuro mb-2">Digite seu e-mail de compra</label>
             <div className="relative">
               <input 
                 type="email" 

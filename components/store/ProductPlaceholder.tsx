@@ -2,44 +2,33 @@ import React from "react";
 
 export function ProductPlaceholder({ className = "" }: { className?: string }) {
   return (
-    <div className={`w-full aspect-[3/4] bg-nevoa flex flex-col items-center justify-center relative overflow-hidden ${className}`}>
+    <div className={`w-full aspect-[3/4] bg-claro/30 flex flex-col items-center justify-center relative overflow-hidden ${className}`}>
       <svg
-        width="64"
-        height="64"
-        viewBox="0 0 64 64"
+        width="48"
+        height="48"
+        viewBox="0 0 48 48"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="text-rosa-antigo mb-4"
+        className="text-zaya mb-3"
       >
+        {/* Clothes hanger icon */}
         <path
-          d="M32 16 C32 16 40 24 40 32 C40 40 32 48 32 48 C32 48 24 40 24 32 C24 24 32 16 32 16 Z"
+          d="M24 10 C24 10 28 10 28 14 C28 16 26 17 24 18 L6 30 C4 31 4 34 6 35 C8 36 10 35 10 33"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
-          d="M32 48 L32 56"
+          d="M10 33 L38 33 C40 33 42 31 40 30 L24 18"
           stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-        <path
-          d="M24 32 C16 32 8 40 8 48 C16 48 24 40 24 32 Z"
-          stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <path
-          d="M40 32 C48 32 56 40 56 48 C48 48 40 40 40 32 Z"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <circle cx="24" cy="8" r="2" stroke="currentColor" strokeWidth="1.5" />
       </svg>
-      <span className="font-jost text-musgo text-sm">foto em breve</span>
+      <span className="font-archivo text-zaya text-xs tracking-widest uppercase">foto em breve</span>
     </div>
   );
 }

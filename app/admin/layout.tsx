@@ -1,26 +1,26 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Jost } from "next/font/google";
+import { Bodoni_Moda, Archivo } from "next/font/google";
 import "../globals.css";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 
-const cormorantGaramond = Cormorant_Garamond({
+const bodoniModa = Bodoni_Moda({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
-  variable: "--font-cormorant-garamond",
+  variable: "--font-bodoni-moda",
   display: "swap",
 });
 
-const jost = Jost({
+const archivo = Archivo({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-jost",
+  variable: "--font-archivo",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Estação OS — Painel Administrativo",
-  description: "Painel administrativo da loja Flor da Estação",
+  title: "Atelier Zaya — Painel",
+  description: "Painel administrativo da Zaya",
 };
 
 export default function AdminLayout({
@@ -31,7 +31,7 @@ export default function AdminLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${cormorantGaramond.variable} ${jost.variable} antialiased bg-nevoa`}
+        className={`${bodoniModa.variable} ${archivo.variable} antialiased bg-branco`}
       >
         <div className="flex h-screen overflow-hidden">
           <AdminSidebar />

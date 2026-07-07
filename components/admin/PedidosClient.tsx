@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { X, ChevronRight, Flower2 } from 'lucide-react'
+import { X, ChevronRight, Gem } from 'lucide-react'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 
@@ -99,11 +99,11 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
   const endereco = detalhe?.endereco ?? {}
 
   return (
-    <div className="min-h-screen bg-nevoa">
+    <div className="min-h-screen bg-branco">
       {/* Header */}
-      <div className="border-b border-rosa-antigo/30 bg-marfim px-8 py-6">
-        <h1 className="font-cormorant text-3xl text-carvao italic">Pedidos</h1>
-        <p className="font-jost text-sm text-musgo mt-1">
+      <div className="border-b border-claro bg-branco px-8 py-6">
+        <h1 className="font-bodoni text-3xl text-preto italic">Pedidos</h1>
+        <p className="font-archivo text-sm text-zaya mt-1">
           {pedidos.length} pedido{pedidos.length !== 1 ? 's' : ''} no total
         </p>
       </div>
@@ -113,10 +113,10 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
         <div className="flex gap-2 flex-wrap mb-6">
           <button
             onClick={() => setFiltroStatus('todos')}
-            className={`px-4 py-2 font-jost text-sm rounded-sm border transition-colors ${
+            className={`px-4 py-2 font-archivo text-sm rounded-sm border transition-colors ${
               filtroStatus === 'todos'
-                ? 'bg-ameixa text-marfim border-ameixa'
-                : 'bg-marfim text-carvao/60 border-rosa-antigo/30 hover:border-ameixa'
+                ? 'bg-dourado text-branco border-dourado'
+                : 'bg-branco text-preto/60 border-claro hover:border-dourado'
             }`}
           >
             Todos ({pedidos.length})
@@ -127,10 +127,10 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
               <button
                 key={s}
                 onClick={() => setFiltroStatus(s)}
-                className={`px-4 py-2 font-jost text-sm rounded-sm border transition-colors ${
+                className={`px-4 py-2 font-archivo text-sm rounded-sm border transition-colors ${
                   filtroStatus === s
-                    ? 'bg-ameixa text-marfim border-ameixa'
-                    : 'bg-marfim text-carvao/60 border-rosa-antigo/30 hover:border-ameixa'
+                    ? 'bg-dourado text-branco border-dourado'
+                    : 'bg-branco text-preto/60 border-claro hover:border-dourado'
                 }`}
               >
                 {statusLabels[s]} ({count})
@@ -141,19 +141,19 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
 
         {/* Table */}
         {pedidosFiltrados.length === 0 ? (
-          <div className="bg-marfim border border-rosa-antigo/30 rounded-sm p-12 text-center">
-            <Flower2 size={40} className="text-rosa-antigo/40 mx-auto mb-3" />
-            <p className="font-cormorant text-xl text-carvao/50 italic">Nenhum pedido encontrado</p>
+          <div className="bg-branco border border-claro rounded-sm p-12 text-center">
+            <Gem size={40} className="text-claro/40 mx-auto mb-3" />
+            <p className="font-bodoni text-xl text-preto/50 italic">Nenhum pedido encontrado</p>
           </div>
         ) : (
-          <div className="bg-marfim border border-rosa-antigo/30 rounded-sm shadow-sm overflow-hidden">
+          <div className="bg-branco border border-claro rounded-sm shadow-sm overflow-hidden">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-rosa-antigo/20">
+                <tr className="border-b border-claro/20">
                   {['Cliente', 'Data', 'Itens', 'Total', 'Status', ''].map((h) => (
                     <th
                       key={h}
-                      className="text-left px-5 py-4 font-jost text-xs uppercase tracking-wider text-carvao/50"
+                      className="text-left px-5 py-4 font-archivo text-xs uppercase tracking-wider text-preto/50"
                     >
                       {h}
                     </th>
@@ -164,34 +164,34 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
                 {pedidosFiltrados.map((pedido) => (
                   <tr
                     key={pedido.id}
-                    className="border-b border-rosa-antigo/10 hover:bg-nevoa/50 transition-colors cursor-pointer"
+                    className="border-b border-claro/10 hover:bg-branco/50 transition-colors cursor-pointer"
                     onClick={() => setDetalhe(pedido)}
                   >
                     <td className="px-5 py-3">
-                      <p className="font-jost text-sm font-medium text-carvao">{pedido.cliente_nome}</p>
-                      <p className="font-jost text-xs text-carvao/50">{pedido.cliente_email}</p>
+                      <p className="font-archivo text-sm font-medium text-preto">{pedido.cliente_nome}</p>
+                      <p className="font-archivo text-xs text-preto/50">{pedido.cliente_email}</p>
                     </td>
                     <td className="px-5 py-3">
-                      <p className="font-jost text-xs text-carvao/70">
+                      <p className="font-archivo text-xs text-preto/70">
                         {format(new Date(pedido.criado_em), 'dd/MM/yyyy', { locale: ptBR })}
                       </p>
-                      <p className="font-jost text-xs text-carvao/40">
+                      <p className="font-archivo text-xs text-preto/40">
                         {format(new Date(pedido.criado_em), 'HH:mm', { locale: ptBR })}
                       </p>
                     </td>
                     <td className="px-5 py-3">
-                      <p className="font-jost text-sm text-carvao">
+                      <p className="font-archivo text-sm text-preto">
                         {Array.isArray(pedido.order_items) ? pedido.order_items.length : 0} item(s)
                       </p>
                     </td>
                     <td className="px-5 py-3">
-                      <p className="font-jost text-sm font-medium text-carvao">
+                      <p className="font-archivo text-sm font-medium text-preto">
                         {formatCurrency(pedido.total)}
                       </p>
                     </td>
                     <td className="px-5 py-3">
                       <span
-                        className={`font-jost text-xs px-2.5 py-1 rounded-full border ${
+                        className={`font-archivo text-xs px-2.5 py-1 rounded-full border ${
                           statusColors[pedido.status as Status] ?? 'bg-gray-100 text-gray-700'
                         }`}
                       >
@@ -199,7 +199,7 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
                       </span>
                     </td>
                     <td className="px-5 py-3">
-                      <ChevronRight size={16} className="text-carvao/30" />
+                      <ChevronRight size={16} className="text-preto/30" />
                     </td>
                   </tr>
                 ))}
@@ -212,15 +212,15 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
       {/* Order Detail Modal */}
       {detalhe && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-carvao/40 backdrop-blur-sm" onClick={() => setDetalhe(null)} />
-          <div className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-marfim border border-rosa-antigo/40 rounded-sm shadow-2xl m-4">
+          <div className="absolute inset-0 bg-preto/40 backdrop-blur-sm" onClick={() => setDetalhe(null)} />
+          <div className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-branco border border-claro rounded-sm shadow-2xl m-4">
             {/* Modal Header */}
-            <div className="flex items-center justify-between px-6 py-5 border-b border-rosa-antigo/30">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-claro">
               <div>
-                <h2 className="font-cormorant text-2xl text-carvao italic">Detalhes do Pedido</h2>
-                <p className="font-mono text-xs text-carvao/40 mt-0.5">#{String(detalhe.id).slice(0, 8).toUpperCase()}</p>
+                <h2 className="font-bodoni text-2xl text-preto italic">Detalhes do Pedido</h2>
+                <p className="font-mono text-xs text-preto/40 mt-0.5">#{String(detalhe.id).slice(0, 8).toUpperCase()}</p>
               </div>
-              <button onClick={() => setDetalhe(null)} className="text-carvao/40 hover:text-ameixa">
+              <button onClick={() => setDetalhe(null)} className="text-preto/40 hover:text-dourado">
                 <X size={20} />
               </button>
             </div>
@@ -228,7 +228,7 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
             <div className="p-6 space-y-6">
               {/* Status timeline */}
               <div>
-                <p className="font-jost text-xs uppercase tracking-wider text-carvao/50 mb-3">
+                <p className="font-archivo text-xs uppercase tracking-wider text-preto/50 mb-3">
                   Status do Pedido
                 </p>
                 <div className="flex items-center gap-1">
@@ -242,18 +242,18 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
                     return (
                       <div key={s} className="flex items-center flex-1">
                         <div
-                          className={`flex-1 text-center py-1.5 px-1 font-jost text-xs rounded-sm ${
+                          className={`flex-1 text-center py-1.5 px-1 font-archivo text-xs rounded-sm ${
                             isCurrent
-                              ? 'bg-ameixa text-marfim font-medium'
+                              ? 'bg-dourado text-branco font-medium'
                               : isActive
-                              ? 'bg-ameixa/20 text-ameixa'
-                              : 'bg-rosa-antigo/10 text-carvao/40'
+                              ? 'bg-dourado/20 text-dourado'
+                              : 'bg-claro/10 text-preto/40'
                           }`}
                         >
                           {statusLabels[s]}
                         </div>
                         {idx < 3 && (
-                          <div className={`w-3 h-px ${isActive && stepIdx < currentIdx ? 'bg-ameixa' : 'bg-rosa-antigo/20'}`} />
+                          <div className={`w-3 h-px ${isActive && stepIdx < currentIdx ? 'bg-dourado' : 'bg-claro/20'}`} />
                         )}
                       </div>
                     )
@@ -261,25 +261,25 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
                 </div>
                 {detalhe.status === 'cancelado' && (
                   <div className="mt-2 px-3 py-2 bg-red-50 border border-red-200 rounded-sm">
-                    <p className="font-jost text-xs text-red-700">Este pedido foi cancelado</p>
+                    <p className="font-archivo text-xs text-red-700">Este pedido foi cancelado</p>
                   </div>
                 )}
               </div>
 
               {/* Cliente */}
-              <div className="bg-nevoa border border-rosa-antigo/20 rounded-sm p-4 space-y-1.5">
-                <p className="font-jost text-xs uppercase tracking-wider text-carvao/50 mb-2">Cliente</p>
-                <p className="font-jost text-sm font-medium text-carvao">{detalhe.cliente_nome}</p>
-                <p className="font-jost text-xs text-carvao/70">{detalhe.cliente_email}</p>
+              <div className="bg-branco border border-claro/20 rounded-sm p-4 space-y-1.5">
+                <p className="font-archivo text-xs uppercase tracking-wider text-preto/50 mb-2">Cliente</p>
+                <p className="font-archivo text-sm font-medium text-preto">{detalhe.cliente_nome}</p>
+                <p className="font-archivo text-xs text-preto/70">{detalhe.cliente_email}</p>
                 {detalhe.cliente_telefone && (
-                  <p className="font-jost text-xs text-carvao/70">{detalhe.cliente_telefone}</p>
+                  <p className="font-archivo text-xs text-preto/70">{detalhe.cliente_telefone}</p>
                 )}
               </div>
 
               {/* Endereço */}
-              <div className="bg-nevoa border border-rosa-antigo/20 rounded-sm p-4">
-                <p className="font-jost text-xs uppercase tracking-wider text-carvao/50 mb-2">Endereço de Entrega</p>
-                <p className="font-jost text-sm text-carvao/80 leading-relaxed">
+              <div className="bg-branco border border-claro/20 rounded-sm p-4">
+                <p className="font-archivo text-xs uppercase tracking-wider text-preto/50 mb-2">Endereço de Entrega</p>
+                <p className="font-archivo text-sm text-preto/80 leading-relaxed">
                   {endereco.rua}{endereco.numero ? `, ${endereco.numero}` : ''}
                   {endereco.complemento ? `, ${endereco.complemento}` : ''}
                   {endereco.bairro || endereco.cidade ? <><br />{endereco.bairro} — {endereco.cidade}/{endereco.estado}</> : null}
@@ -289,22 +289,22 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
 
               {/* Itens */}
               <div>
-                <p className="font-jost text-xs uppercase tracking-wider text-carvao/50 mb-3">Itens do Pedido</p>
+                <p className="font-archivo text-xs uppercase tracking-wider text-preto/50 mb-3">Itens do Pedido</p>
                 <div className="space-y-2">
                   {Array.isArray(detalhe.order_items) && detalhe.order_items.map((item: Pedido) => (
                     <div
                       key={item.id}
-                      className="flex items-center justify-between py-2 border-b border-rosa-antigo/10"
+                      className="flex items-center justify-between py-2 border-b border-claro/10"
                     >
                       <div>
-                        <p className="font-jost text-sm text-carvao">{getItemProductName(item)}</p>
-                        <p className="font-jost text-xs text-carvao/50">{getItemVariantInfo(item)}</p>
+                        <p className="font-archivo text-sm text-preto">{getItemProductName(item)}</p>
+                        <p className="font-archivo text-xs text-preto/50">{getItemVariantInfo(item)}</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-jost text-sm text-carvao">
+                        <p className="font-archivo text-sm text-preto">
                           {item.quantidade}x {formatCurrency(item.preco_unitario)}
                         </p>
-                        <p className="font-jost text-xs text-ameixa font-medium">
+                        <p className="font-archivo text-xs text-dourado font-medium">
                           {formatCurrency(item.quantidade * item.preco_unitario)}
                         </p>
                       </div>
@@ -314,18 +314,18 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
               </div>
 
               {/* Totais */}
-              <div className="bg-nevoa border border-rosa-antigo/20 rounded-sm p-4 space-y-2">
-                <div className="flex justify-between font-jost text-sm text-carvao/70">
+              <div className="bg-branco border border-claro/20 rounded-sm p-4 space-y-2">
+                <div className="flex justify-between font-archivo text-sm text-preto/70">
                   <span>Subtotal</span>
                   <span>{formatCurrency(detalhe.subtotal)}</span>
                 </div>
-                <div className="flex justify-between font-jost text-sm text-carvao/70">
+                <div className="flex justify-between font-archivo text-sm text-preto/70">
                   <span>Frete</span>
                   <span>{formatCurrency(detalhe.frete)}</span>
                 </div>
-                <div className="flex justify-between font-jost text-base font-semibold text-carvao border-t border-rosa-antigo/20 pt-2">
+                <div className="flex justify-between font-archivo text-base font-semibold text-preto border-t border-claro/20 pt-2">
                   <span>Total</span>
-                  <span className="text-ameixa">{formatCurrency(detalhe.total)}</span>
+                  <span className="text-dourado">{formatCurrency(detalhe.total)}</span>
                 </div>
               </div>
 
@@ -335,7 +335,7 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
                   <button
                     onClick={() => handleAdvanceStatus(detalhe)}
                     disabled={advancing}
-                    className="flex-1 py-2.5 bg-ameixa text-marfim rounded-sm font-jost text-sm font-medium hover:bg-carvao transition-colors disabled:opacity-60"
+                    className="flex-1 py-2.5 bg-dourado text-branco rounded-sm font-archivo text-sm font-medium hover:bg-preto transition-colors disabled:opacity-60"
                   >
                     {advancing
                       ? 'Atualizando...'
@@ -345,7 +345,7 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
                 {detalhe.status !== 'cancelado' && detalhe.status !== 'entregue' && (
                   <button
                     onClick={() => handleCancel(detalhe.id)}
-                    className="px-4 py-2.5 border border-red-200 text-red-600 rounded-sm font-jost text-sm hover:bg-red-50 transition-colors"
+                    className="px-4 py-2.5 border border-red-200 text-red-600 rounded-sm font-archivo text-sm hover:bg-red-50 transition-colors"
                   >
                     Cancelar
                   </button>

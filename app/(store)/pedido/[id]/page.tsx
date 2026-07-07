@@ -118,7 +118,7 @@ export default function PedidoConfirmadoPage() {
         </div>
         <h1 className="text-4xl font-cormorant-garamond text-[#241B1E] mb-4">Pedido Confirmado!</h1>
         <p className="text-gray-600 font-jost text-lg">
-          Obrigado por escolher a Flor da Estação, {pedido.cliente_nome?.split(' ')[0] || 'Cliente'}.
+          Obrigado por escolher a Zaya, {pedido.cliente_nome?.split(' ')[0] || 'Cliente'}.
         </p>
       </div>
 

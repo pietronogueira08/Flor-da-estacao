@@ -21,21 +21,21 @@ export function SocialProofSection() {
       nome: "Carla Mendes",
       cidade: "Campos dos Goytacazes, RJ",
       texto:
-        "Entrega rápida, embalagem linda e a roupa superou minhas expectativas. A Flor da Estação virou minha loja favorita!",
+        "Entrega rápida, embalagem linda e a roupa superou minhas expectativas. A Zaya virou minha loja favorita!",
       nota: 5,
       inicial: "C",
     },
   ];
 
   return (
-    <section className="py-20 px-4 md:px-8 bg-nevoa border-t border-rosa-antigo/20">
+    <section className="py-20 px-4 md:px-8 bg-branco border-t border-claro/20">
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <p className="font-jost text-musgo text-xs tracking-widest uppercase mb-3">
+          <p className="font-archivo text-zaya text-xs tracking-widest uppercase mb-3">
             O que dizem nossas clientes
           </p>
-          <h2 className="font-cormorant text-4xl text-carvao italic">
-            Histórias que florescem
+          <h2 className="font-bodoni text-4xl text-preto italic">
+            O que dizem as nossas
           </h2>
         </div>
 
@@ -44,7 +44,7 @@ export function SocialProofSection() {
           {depoimentos.map((dep) => (
             <article
               key={dep.nome}
-              className="min-w-[80vw] md:min-w-0 snap-start bg-marfim border border-rosa-antigo/20 rounded-sm p-6 flex flex-col gap-4"
+              className="min-w-[80vw] md:min-w-0 snap-start bg-branco border border-claro/20 rounded-sm p-6 flex flex-col gap-4"
             >
               {/* Estrelas */}
               <div className="flex gap-1" aria-label={`${dep.nota} de 5 estrelas`}>
@@ -55,7 +55,7 @@ export function SocialProofSection() {
                     height="14"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    className="text-ameixa"
+                    className="text-dourado"
                     aria-hidden="true"
                   >
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
@@ -64,23 +64,23 @@ export function SocialProofSection() {
               </div>
 
               {/* Texto */}
-              <blockquote className="font-jost text-sm text-carvao/80 leading-relaxed flex-1">
+              <blockquote className="font-archivo text-sm text-preto/80 leading-relaxed flex-1">
                 &ldquo;{dep.texto}&rdquo;
               </blockquote>
 
               {/* Avatar + nome */}
               <footer className="flex items-center gap-3">
                 <div
-                  className="w-9 h-9 rounded-full bg-rosa-antigo flex items-center justify-center font-cormorant text-marfim text-lg font-semibold shrink-0"
+                  className="w-9 h-9 rounded-full bg-zaya flex items-center justify-center font-bodoni text-branco text-lg font-semibold shrink-0"
                   aria-hidden="true"
                 >
                   {dep.inicial}
                 </div>
                 <div>
-                  <p className="font-jost text-sm font-medium text-carvao">
+                  <p className="font-archivo text-sm font-medium text-preto">
                     {dep.nome}
                   </p>
-                  <p className="font-jost text-xs text-musgo">{dep.cidade}</p>
+                  <p className="font-archivo text-xs text-zaya">{dep.cidade}</p>
                 </div>
               </footer>
             </article>

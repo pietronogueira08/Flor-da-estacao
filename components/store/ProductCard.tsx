@@ -34,10 +34,10 @@ export function ProductCard({
   return (
     <div className="group block relative">
       {/* Imagem */}
-      <div className="relative overflow-hidden bg-marfim rounded-sm mb-3">
+      <div className="relative overflow-hidden bg-branco rounded-sm mb-3">
         {/* Badge */}
         {badge && (
-          <span className="absolute top-2 left-2 z-10 font-jost text-[10px] uppercase tracking-widest px-2 py-1 rounded-sm bg-ameixa text-marfim">
+          <span className="absolute top-2 left-2 z-10 font-archivo text-[10px] uppercase tracking-widest px-2 py-1 rounded-sm bg-dourado text-branco">
             {badge}
           </span>
         )}
@@ -46,7 +46,7 @@ export function ProductCard({
         <button
           onClick={() => setFavoritado((f) => !f)}
           aria-label={favoritado ? "Remover dos favoritos" : "Adicionar aos favoritos"}
-          className="absolute top-2 right-2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-marfim/80 backdrop-blur-sm hover:bg-marfim transition-colors focus-visible:ring-2 focus-visible:ring-ameixa"
+          className="absolute top-2 right-2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-branco/80 backdrop-blur-sm hover:bg-branco transition-colors focus-visible:ring-2 focus-visible:ring-dourado"
         >
           <svg
             width="16"
@@ -57,7 +57,7 @@ export function ProductCard({
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={favoritado ? "text-ameixa" : "text-carvao/60"}
+            className={favoritado ? "text-dourado" : "text-preto/60"}
             aria-hidden="true"
           >
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
@@ -72,7 +72,7 @@ export function ProductCard({
             <div className="aspect-[3/4] relative w-full overflow-hidden">
               <Image
                 src={imageUrl}
-                alt={`${nome} — ${categoria} Flor da Estação`}
+                alt={`${nome} — ${categoria} Zaya`}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
@@ -83,7 +83,7 @@ export function ProductCard({
         )}
 
         {/* Quick-add / Seletor de tamanho — desktop: no hover | mobile: sempre visível */}
-        <div className="absolute bottom-0 left-0 right-0 bg-marfim/95 backdrop-blur-sm p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 md:translate-y-full md:group-hover:translate-y-0 flex flex-col gap-2">
+        <div className="absolute bottom-0 left-0 right-0 bg-branco/95 backdrop-blur-sm p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 md:translate-y-full md:group-hover:translate-y-0 flex flex-col gap-2">
           {/* Tamanhos */}
           <div className="flex gap-1.5 justify-center">
             {tamanhos.map((tam) => (
@@ -92,10 +92,10 @@ export function ProductCard({
                 onClick={() => setTamSelecionado(tam)}
                 aria-label={`Tamanho ${tam}`}
                 aria-pressed={tamSelecionado === tam}
-                className={`w-8 h-8 text-xs font-jost border rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-ameixa ${
+                className={`w-8 h-8 text-xs font-archivo border rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-dourado ${
                   tamSelecionado === tam
-                    ? "bg-ameixa text-marfim border-ameixa"
-                    : "border-carvao/30 text-carvao hover:border-ameixa hover:text-ameixa"
+                    ? "bg-dourado text-branco border-dourado"
+                    : "border-preto/30 text-preto hover:border-dourado hover:text-dourado"
                 }`}
               >
                 {tam}
@@ -105,7 +105,7 @@ export function ProductCard({
           {/* Botão Adicionar */}
           <Link
             href={`/produto/${slug}`}
-            className="block text-center font-jost text-xs uppercase tracking-widest bg-ameixa text-marfim py-2 rounded-sm hover:bg-carvao transition-colors focus-visible:ring-2 focus-visible:ring-ameixa"
+            className="block text-center font-archivo text-xs uppercase tracking-widest bg-dourado text-branco py-2 rounded-sm hover:bg-preto transition-colors focus-visible:ring-2 focus-visible:ring-dourado"
           >
             Ver produto
           </Link>
@@ -118,11 +118,11 @@ export function ProductCard({
       </div>
 
       {/* Info do produto */}
-      <Link href={`/produto/${slug}`} className="block space-y-1 focus-visible:ring-2 focus-visible:ring-ameixa rounded-sm">
-        <p className="font-jost text-xs text-musgo uppercase tracking-wider">{categoria}</p>
-        <h3 className="font-cormorant text-xl text-carvao leading-tight">{nome}</h3>
+      <Link href={`/produto/${slug}`} className="block space-y-1 focus-visible:ring-2 focus-visible:ring-dourado rounded-sm">
+        <p className="font-archivo text-xs text-zaya uppercase tracking-wider">{categoria}</p>
+        <h3 className="font-bodoni text-xl text-preto leading-tight">{nome}</h3>
         <div className="flex items-center justify-between mt-2">
-          <p className="font-jost text-carvao font-medium">
+          <p className="font-archivo text-preto font-medium">
             R$ {preco.toFixed(2).replace(".", ",")}
           </p>
           {cores.length > 0 && (
@@ -130,7 +130,7 @@ export function ProductCard({
               {cores.map((cor, i) => (
                 <span
                   key={i}
-                  className="w-3 h-3 rounded-full border border-carvao/20"
+                  className="w-3 h-3 rounded-full border border-preto/20"
                   style={{ backgroundColor: cor }}
                   aria-hidden="true"
                 />
@@ -149,10 +149,10 @@ export function ProductCard({
               onClick={() => setTamSelecionado(tam)}
               aria-label={`Tamanho ${tam}`}
               aria-pressed={tamSelecionado === tam}
-              className={`w-8 h-8 text-xs font-jost border rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-ameixa ${
+              className={`w-8 h-8 text-xs font-archivo border rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-dourado ${
                 tamSelecionado === tam
-                  ? "bg-ameixa text-marfim border-ameixa"
-                  : "border-carvao/30 text-carvao"
+                  ? "bg-dourado text-branco border-dourado"
+                  : "border-preto/30 text-preto"
               }`}
             >
               {tam}
@@ -161,7 +161,7 @@ export function ProductCard({
         </div>
         <Link
           href={`/produto/${slug}`}
-          className="block text-center font-jost text-xs uppercase tracking-widest border border-ameixa text-ameixa py-2 rounded-sm hover:bg-ameixa hover:text-marfim transition-colors focus-visible:ring-2 focus-visible:ring-ameixa"
+          className="block text-center font-archivo text-xs uppercase tracking-widest border border-dourado text-dourado py-2 rounded-sm hover:bg-dourado hover:text-branco transition-colors focus-visible:ring-2 focus-visible:ring-dourado"
         >
           Ver produto
         </Link>

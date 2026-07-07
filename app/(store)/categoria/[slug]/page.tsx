@@ -7,7 +7,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const title = slug.charAt(0).toUpperCase() + slug.slice(1).replace("-", " ");
   return {
-    title: `${title} | Flor da Estação`,
+    title: `${title} | Zaya`,
   };
 }
 

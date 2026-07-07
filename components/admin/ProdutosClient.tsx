@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { Plus, Search, Edit, Trash2, Eye, EyeOff, Flower2 } from 'lucide-react'
+import { Plus, Search, Edit, Trash2, Eye, EyeOff, Gem } from 'lucide-react'
 import ProdutoModal from './ProdutoModal'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -64,19 +64,19 @@ export default function ProdutosClient({
   }
 
   return (
-    <div className="min-h-screen bg-nevoa">
+    <div className="min-h-screen bg-branco">
       {/* Header */}
-      <div className="border-b border-rosa-antigo/30 bg-marfim px-8 py-6">
+      <div className="border-b border-claro bg-branco px-8 py-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="font-cormorant text-3xl text-carvao italic">Produtos</h1>
-            <p className="font-jost text-sm text-musgo mt-1">
+            <h1 className="font-bodoni text-3xl text-preto italic">Produtos</h1>
+            <p className="font-archivo text-sm text-zaya mt-1">
               {produtos.length} produto{produtos.length !== 1 ? 's' : ''} cadastrado{produtos.length !== 1 ? 's' : ''}
             </p>
           </div>
           <button
             onClick={() => { setEditingProduto(null); setModalOpen(true) }}
-            className="flex items-center gap-2 bg-ameixa text-marfim px-5 py-2.5 font-jost text-sm font-medium hover:bg-carvao transition-colors rounded-sm"
+            className="flex items-center gap-2 bg-dourado text-branco px-5 py-2.5 font-archivo text-sm font-medium hover:bg-preto transition-colors rounded-sm"
           >
             <Plus size={16} />
             Novo Produto
@@ -87,49 +87,49 @@ export default function ProdutosClient({
       <div className="p-8">
         {/* Search */}
         <div className="relative mb-6 max-w-md">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-carvao/40" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-preto/40" />
           <input
             value={busca}
             onChange={(e) => setBusca(e.target.value)}
             placeholder="Buscar por nome ou categoria..."
-            className="w-full pl-9 pr-4 py-2.5 bg-marfim border border-rosa-antigo/40 rounded-sm font-jost text-sm text-carvao placeholder-carvao/30 focus:outline-none focus:border-ameixa"
+            className="w-full pl-9 pr-4 py-2.5 bg-branco border border-claro rounded-sm font-archivo text-sm text-preto placeholder-preto/30 focus:outline-none focus:border-dourado"
           />
         </div>
 
         {/* Table */}
         {produtosFiltrados.length === 0 ? (
-          <div className="bg-marfim border border-rosa-antigo/30 rounded-sm p-12 text-center">
-            <Flower2 size={40} className="text-rosa-antigo/40 mx-auto mb-3" />
-            <p className="font-cormorant text-xl text-carvao/50 italic">
+          <div className="bg-branco border border-claro rounded-sm p-12 text-center">
+            <Gem size={40} className="text-claro/40 mx-auto mb-3" />
+            <p className="font-bodoni text-xl text-preto/50 italic">
               {busca ? 'Nenhum produto encontrado' : 'Nenhum produto cadastrado'}
             </p>
-            <p className="font-jost text-sm text-carvao/40 mt-1">
+            <p className="font-archivo text-sm text-preto/40 mt-1">
               {busca
                 ? 'Tente outros termos de busca'
                 : 'Clique em "Novo Produto" para começar'}
             </p>
           </div>
         ) : (
-          <div className="bg-marfim border border-rosa-antigo/30 rounded-sm shadow-sm overflow-hidden">
+          <div className="bg-branco border border-claro rounded-sm shadow-sm overflow-hidden">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-rosa-antigo/20">
-                  <th className="text-left px-6 py-4 font-jost text-xs uppercase tracking-wider text-carvao/50">
+                <tr className="border-b border-claro/20">
+                  <th className="text-left px-6 py-4 font-archivo text-xs uppercase tracking-wider text-preto/50">
                     Produto
                   </th>
-                  <th className="text-left px-4 py-4 font-jost text-xs uppercase tracking-wider text-carvao/50">
+                  <th className="text-left px-4 py-4 font-archivo text-xs uppercase tracking-wider text-preto/50">
                     Categoria
                   </th>
-                  <th className="text-left px-4 py-4 font-jost text-xs uppercase tracking-wider text-carvao/50">
+                  <th className="text-left px-4 py-4 font-archivo text-xs uppercase tracking-wider text-preto/50">
                     Preço Base
                   </th>
-                  <th className="text-left px-4 py-4 font-jost text-xs uppercase tracking-wider text-carvao/50">
+                  <th className="text-left px-4 py-4 font-archivo text-xs uppercase tracking-wider text-preto/50">
                     Variantes
                   </th>
-                  <th className="text-left px-4 py-4 font-jost text-xs uppercase tracking-wider text-carvao/50">
+                  <th className="text-left px-4 py-4 font-archivo text-xs uppercase tracking-wider text-preto/50">
                     Status
                   </th>
-                  <th className="text-right px-6 py-4 font-jost text-xs uppercase tracking-wider text-carvao/50">
+                  <th className="text-right px-6 py-4 font-archivo text-xs uppercase tracking-wider text-preto/50">
                     Ações
                   </th>
                 </tr>
@@ -138,30 +138,30 @@ export default function ProdutosClient({
                 {produtosFiltrados.map((produto) => (
                   <tr
                     key={produto.id}
-                    className="border-b border-rosa-antigo/10 hover:bg-nevoa/50 transition-colors"
+                    className="border-b border-claro/10 hover:bg-branco/50 transition-colors"
                   >
                     <td className="px-6 py-4">
-                      <p className="font-jost text-sm font-medium text-carvao">{produto.nome}</p>
-                      <p className="font-jost text-xs text-carvao/40 mt-0.5">/{produto.slug}</p>
+                      <p className="font-archivo text-sm font-medium text-preto">{produto.nome}</p>
+                      <p className="font-archivo text-xs text-preto/40 mt-0.5">/{produto.slug}</p>
                     </td>
                     <td className="px-4 py-4">
-                      <span className="font-jost text-xs px-2.5 py-1 bg-rosa-antigo/15 text-ameixa rounded-full">
+                      <span className="font-archivo text-xs px-2.5 py-1 bg-claro/15 text-dourado rounded-full">
                         {getProdutoCategoriaNome(produto)}
                       </span>
                     </td>
                     <td className="px-4 py-4">
-                      <p className="font-jost text-sm text-carvao">
+                      <p className="font-archivo text-sm text-preto">
                         {formatCurrency(produto.preco_base)}
                       </p>
                     </td>
                     <td className="px-4 py-4">
-                      <p className="font-jost text-sm text-carvao">
+                      <p className="font-archivo text-sm text-preto">
                         {getProdutoVarianteCount(produto)} variantes
                       </p>
                     </td>
                     <td className="px-4 py-4">
                       <span
-                        className={`font-jost text-xs px-2.5 py-1 rounded-full border ${
+                        className={`font-archivo text-xs px-2.5 py-1 rounded-full border ${
                           produto.ativo
                             ? 'bg-green-50 text-green-700 border-green-200'
                             : 'bg-gray-50 text-gray-500 border-gray-200'
@@ -174,21 +174,21 @@ export default function ProdutosClient({
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => handleToggleAtivo(produto.id, produto.ativo)}
-                          className="p-2 text-carvao/40 hover:text-ameixa hover:bg-rosa-antigo/10 rounded-sm transition-colors"
+                          className="p-2 text-preto/40 hover:text-dourado hover:bg-claro/10 rounded-sm transition-colors"
                           title={produto.ativo ? 'Desativar' : 'Ativar'}
                         >
                           {produto.ativo ? <EyeOff size={16} /> : <Eye size={16} />}
                         </button>
                         <button
                           onClick={() => { setEditingProduto(produto); setModalOpen(true) }}
-                          className="p-2 text-carvao/40 hover:text-ameixa hover:bg-rosa-antigo/10 rounded-sm transition-colors"
+                          className="p-2 text-preto/40 hover:text-dourado hover:bg-claro/10 rounded-sm transition-colors"
                           title="Editar"
                         >
                           <Edit size={16} />
                         </button>
                         <button
                           onClick={() => handleDelete(produto.id, produto.nome)}
-                          className="p-2 text-carvao/40 hover:text-red-500 hover:bg-red-50 rounded-sm transition-colors"
+                          className="p-2 text-preto/40 hover:text-red-500 hover:bg-red-50 rounded-sm transition-colors"
                           title="Excluir"
                         >
                           <Trash2 size={16} />
