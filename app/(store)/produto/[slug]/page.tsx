@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const supabase = await createClient();
-  const { data: product } = await supabase.from("produtos").select("*").eq("slug", slug).single();
+  const { data: product } = await supabase.from("products").select("*").eq("slug", slug).single();
   
   if (!product) {
     return {
@@ -26,7 +26,15 @@ export default async function ProdutoPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const supabase = await createClient();
   
-  let { data: product } = await supabase.from("produtos").select("*").eq("slug", slug).single();
+  let { data: product } = await supabase
+    .from("products")
+    .select(`
+      *,
+      categories (nome),
+      product_images (url, is_placeholder)
+    `)
+    .eq("slug", slug)
+    .single();
   
   // Fallback if product not found (could be placeholder)
   if (!product) {
@@ -35,32 +43,42 @@ export default async function ProdutoPage({ params }: { params: Promise<{ slug: 
       id: slug,
       slug: slug,
       nome: slug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" "),
-      preco: 199.90,
-      categoria: "Coleção",
+      preco_base: 199.90,
+      categories: { nome: "Coleção" },
       descricao: "Peça exclusiva da nossa coleção botânica. Tecido leve, caimento perfeito e acabamento impecável.",
-      is_placeholder: true,
+      product_images: [],
       cores: ["#D2A9B1", "#FBF2F0"],
     };
   }
 
   // Fetch related products
   const { data: related } = await supabase
-    .from("produtos")
-    .select("*")
-    .eq("categoria", product.categoria)
+    .from("products")
+    .select(`
+      *,
+      categories (nome),
+      product_images (url, is_placeholder)
+    `)
+    .eq("categoria_id", product.categoria_id)
     .neq("id", product.id)
     .limit(4);
 
-  const relacionados = related && related.length > 0 ? related : [
-    { id: "r1", slug: "relacionado-1", nome: "Produto Relacionado 1", preco: 159.90, categoria: product.categoria, is_placeholder: true },
-    { id: "r2", slug: "relacionado-2", nome: "Produto Relacionado 2", preco: 259.90, categoria: product.categoria, is_placeholder: true },
-    { id: "r3", slug: "relacionado-3", nome: "Produto Relacionado 3", preco: 189.90, categoria: product.categoria, is_placeholder: true },
-    { id: "r4", slug: "relacionado-4", nome: "Produto Relacionado 4", preco: 219.90, categoria: product.categoria, is_placeholder: true },
-  ];
+  const realRelated = related ? related.filter(p => !p.id.startsWith('b1000000')) : [];
+  
+  const relacionados = realRelated.length > 0 ? realRelated : (related || []);
+
+  const mappedProduct = {
+    ...product,
+    preco: product.preco_base,
+    categoria: product.categories?.nome || "Produto",
+    imagem_url: product.product_images?.[0]?.url,
+    is_placeholder: !product.product_images?.[0]?.url,
+    cores: product.cores || []
+  };
 
   return (
     <div className="container mx-auto px-4 lg:px-8 py-12">
-      <ProductDetails product={product} />
+      <ProductDetails product={mappedProduct} />
 
       <div className="mt-32">
         <Divider className="mb-12" />
@@ -74,10 +92,11 @@ export default async function ProdutoPage({ params }: { params: Promise<{ slug: 
               id={rel.id}
               slug={rel.slug}
               nome={rel.nome}
-              categoria={rel.categoria || "Produto"}
-              preco={rel.preco}
-              is_placeholder={rel.is_placeholder || !rel.imagem_url}
-              imageUrl={rel.imagem_url}
+              categoria={rel.categories?.nome || "Produto"}
+              preco={rel.preco_base}
+              is_placeholder={!rel.product_images?.[0]?.url}
+              imageUrl={rel.product_images?.[0]?.url}
+              cores={[]}
             />
           ))}
         </div>
