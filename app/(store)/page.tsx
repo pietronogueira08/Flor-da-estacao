@@ -17,9 +17,9 @@ export default async function HomePage() {
   const supabase = await createClient();
 
   const { data: products } = await supabase
-    .from("produtos")
+    .from("products")
     .select("*")
-    .order("created_at", { ascending: false })
+    .order("criado_em", { ascending: false })
     .limit(8);
 
   const novidades = products && products.length > 0
