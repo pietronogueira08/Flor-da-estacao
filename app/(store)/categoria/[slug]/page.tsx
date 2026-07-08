@@ -14,12 +14,27 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function CategoriaPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const supabase = await createClient();
-  const { data: products } = await supabase.from("produtos").select("*").eq("categoria", slug).order("created_at", { ascending: false });
+  const { data: products } = await supabase
+    .from("products")
+    .select(`
+      *,
+      categories!inner (nome, slug),
+      product_images (url, is_placeholder)
+    `)
+    .eq('categories.slug', slug)
+    .order("criado_em", { ascending: false });
 
-  const catalogo = products && products.length > 0 ? products : [
-    { id: "1", slug: "produto-exemplo", nome: "Produto Exemplo", preco: 199.90, categoria: slug, is_placeholder: true },
-    { id: "2", slug: "produto-exemplo-2", nome: "Produto Exemplo 2", preco: 299.90, categoria: slug, is_placeholder: true },
-  ];
+  const allProducts = products || [];
+  const realProducts = allProducts.filter(p => !p.id.startsWith('b1000000'));
+  
+  let catalogo = realProducts.length > 0 ? realProducts : allProducts;
+  
+  if (catalogo.length === 0) {
+    catalogo = [
+      { id: "1", slug: "produto-exemplo", nome: "Produto Exemplo", preco_base: 199.90, categories: { nome: slug }, product_images: [] },
+      { id: "2", slug: "produto-exemplo-2", nome: "Produto Exemplo 2", preco_base: 299.90, categories: { nome: slug }, product_images: [] },
+    ];
+  }
 
   const title = slug.charAt(0).toUpperCase() + slug.slice(1).replace("-", " ");
 
@@ -56,11 +71,11 @@ export default async function CategoriaPage({ params }: { params: Promise<{ slug
                 id={prod.id}
                 slug={prod.slug}
                 nome={prod.nome}
-                categoria={prod.categoria || slug}
-                preco={prod.preco}
-                is_placeholder={prod.is_placeholder || !prod.imagem_url}
-                imageUrl={prod.imagem_url}
-                cores={prod.cores || []}
+                categoria={prod.categories?.nome || slug}
+                preco={prod.preco_base}
+                is_placeholder={!prod.product_images?.[0]?.url}
+                imageUrl={prod.product_images?.[0]?.url}
+                cores={[]}
               />
             ))}
           </div>

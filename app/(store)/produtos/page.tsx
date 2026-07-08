@@ -10,16 +10,30 @@ export const metadata = {
 
 export default async function ProdutosPage() {
   const supabase = await createClient();
-  const { data: products } = await supabase.from("produtos").select("*").order("created_at", { ascending: false });
+  const { data: products } = await supabase
+    .from("products")
+    .select(`
+      *,
+      categories (nome),
+      product_images (url, is_placeholder)
+    `)
+    .order("criado_em", { ascending: false });
 
-  const catalogo = products && products.length > 0 ? products : [
-    { id: "1", slug: "vestido-floral-1", nome: "Vestido Midi Floral", preco: 289.90, categoria: "Vestidos", is_placeholder: false, imagem_url: "/prod-vestido.png" },
-    { id: "2", slug: "blusa-linho-2", nome: "Blusa de Linho Romântica", preco: 159.90, categoria: "Blusas", is_placeholder: false, imagem_url: "/prod-blusa.png" },
-    { id: "3", slug: "saia-midi-3", nome: "Saia Midi Plissada", preco: 199.90, categoria: "Saias", is_placeholder: false, imagem_url: "/prod-saia.png" },
-    { id: "4", slug: "camisa-seda-4", nome: "Camisa de Seda Botânica", preco: 329.90, categoria: "Camisas", is_placeholder: false, imagem_url: "/prod-camisa.png" },
-    { id: "5", slug: "vestido-longo-5", nome: "Vestido Longo Nevoa", preco: 349.90, categoria: "Vestidos", is_placeholder: true },
-    { id: "6", slug: "calca-alfaiataria-6", nome: "Calça Alfaiataria", preco: 229.90, categoria: "Calças", is_placeholder: true },
-  ];
+  const allProducts = products || [];
+  const realProducts = allProducts.filter(p => !p.id.startsWith('b1000000'));
+  
+  let catalogo = realProducts.length > 0 ? realProducts : allProducts;
+  
+  if (catalogo.length === 0) {
+    catalogo = [
+      { id: "1", slug: "vestido-floral-1", nome: "Vestido Midi Floral", preco_base: 289.90, categories: { nome: "Vestidos" }, product_images: [{ url: "/prod-vestido.png" }] },
+      { id: "2", slug: "blusa-linho-2", nome: "Blusa de Linho Romântica", preco_base: 159.90, categories: { nome: "Blusas" }, product_images: [{ url: "/prod-blusa.png" }] },
+      { id: "3", slug: "saia-midi-3", nome: "Saia Midi Plissada", preco_base: 199.90, categories: { nome: "Saias" }, product_images: [{ url: "/prod-saia.png" }] },
+      { id: "4", slug: "camisa-seda-4", nome: "Camisa de Seda Botânica", preco_base: 329.90, categories: { nome: "Camisas" }, product_images: [{ url: "/prod-camisa.png" }] },
+      { id: "5", slug: "vestido-longo-5", nome: "Vestido Longo Nevoa", preco_base: 349.90, categories: { nome: "Vestidos" }, product_images: [] },
+      { id: "6", slug: "calca-alfaiataria-6", nome: "Calça Alfaiataria", preco_base: 229.90, categories: { nome: "Calças" }, product_images: [] },
+    ];
+  }
 
   return (
     <div className="container mx-auto px-4 lg:px-8 py-12">
@@ -74,11 +88,11 @@ export default async function ProdutosPage() {
                 id={prod.id}
                 slug={prod.slug}
                 nome={prod.nome}
-                categoria={prod.categoria || "Produto"}
-                preco={prod.preco}
-                is_placeholder={prod.is_placeholder || !prod.imagem_url}
-                imageUrl={prod.imagem_url}
-                cores={prod.cores || []}
+                categoria={prod.categories?.nome || "Produto"}
+                preco={prod.preco_base}
+                is_placeholder={!prod.product_images?.[0]?.url}
+                imageUrl={prod.product_images?.[0]?.url}
+                cores={[]}
               />
             ))}
           </div>

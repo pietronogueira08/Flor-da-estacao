@@ -25,8 +25,12 @@ async function getProdutos() {
       supabase.from('categories').select('id, nome, slug').order('nome'),
     ])
 
+    const allProducts = (produtosResult.data ?? []) as AnyRecord[];
+    const realProducts = allProducts.filter(p => !p.id.startsWith('b1000000'));
+    const displayProducts = realProducts.length > 0 ? realProducts : allProducts;
+
     return {
-      produtos: (produtosResult.data ?? []) as AnyRecord[],
+      produtos: displayProducts,
       categorias: (categoriasResult.data ?? []) as AnyRecord[],
     }
   } catch {
