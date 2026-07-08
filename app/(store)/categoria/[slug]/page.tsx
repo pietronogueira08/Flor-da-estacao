@@ -25,17 +25,8 @@ export default async function CategoriaPage({ params }: { params: Promise<{ slug
     .order("criado_em", { ascending: false });
 
   const allProducts = products || [];
-  const realProducts = allProducts.filter(p => !p.id.startsWith('b1000000'));
+  const catalogo = allProducts.filter(p => !p.id.startsWith('b1000000'));
   
-  let catalogo = realProducts.length > 0 ? realProducts : allProducts;
-  
-  if (catalogo.length === 0) {
-    catalogo = [
-      { id: "1", slug: "produto-exemplo", nome: "Produto Exemplo", preco_base: 199.90, categories: { nome: slug }, product_images: [] },
-      { id: "2", slug: "produto-exemplo-2", nome: "Produto Exemplo 2", preco_base: 299.90, categories: { nome: slug }, product_images: [] },
-    ];
-  }
-
   const title = slug.charAt(0).toUpperCase() + slug.slice(1).replace("-", " ");
 
   return (
@@ -64,21 +55,28 @@ export default async function CategoriaPage({ params }: { params: Promise<{ slug
         </aside>
 
         <div className="flex-grow">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6 gap-y-12">
-            {catalogo.map((prod: any) => (
-              <ProductCard
-                key={prod.id}
-                id={prod.id}
-                slug={prod.slug}
-                nome={prod.nome}
-                categoria={prod.categories?.nome || slug}
-                preco={prod.preco_base}
-                is_placeholder={!prod.product_images?.[0]?.url}
-                imageUrl={prod.product_images?.[0]?.url}
-                cores={[]}
-              />
-            ))}
-          </div>
+          {catalogo.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-20 text-center bg-claro/5 rounded-sm border border-claro/20">
+              <p className="font-bodoni text-3xl text-preto italic mb-2">Nenhuma peça encontrada</p>
+              <p className="font-archivo text-sm text-zaya">Em breve teremos novidades incríveis nesta categoria.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6 gap-y-12">
+              {catalogo.map((prod: any) => (
+                <ProductCard
+                  key={prod.id}
+                  id={prod.id}
+                  slug={prod.slug}
+                  nome={prod.nome}
+                  categoria={prod.categories?.nome || slug}
+                  preco={prod.preco_base}
+                  is_placeholder={!prod.product_images?.[0]?.url}
+                  imageUrl={prod.product_images?.[0]?.url}
+                  cores={[]}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
