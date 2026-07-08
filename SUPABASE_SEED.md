@@ -1,6 +1,6 @@
-# Finalizar Banco de Dados Zaya
+﻿# Finalizar Banco de Dados Zaya
 
-Como o seu banco j� tinha a primeira parte instalada, copie apenas este bloco abaixo e rode no SQL Editor para preencher os produtos e regras adicionais.
+Como o seu banco já tinha a primeira parte instalada, copie apenas este bloco abaixo e rode no SQL Editor para preencher os produtos e regras adicionais.
 
 ``sql
 -- ========================================
@@ -347,7 +347,6 @@ INSERT INTO stock_movements (variant_id, variacao_qtd, motivo, criado_em) VALUES
   ('c1000000-0000-0000-0000-000000000027',  5, 'Reposição emergencial',    NOW() - INTERVAL '5 days'),
   ('c1000000-0000-0000-0000-000000000030', -3, 'Ajuste inventário',        NOW() - INTERVAL '3 days'),
   ('c1000000-0000-0000-0000-000000000057', -2, 'Amostras para influencer', NOW() - INTERVAL '7 days');
-
 
 -- ========================================
 -- Migration 003: Newsletter Leads — Zaya
