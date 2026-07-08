@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
+import { ZayaWordmark } from '@/components/store/ZayaWordmark'
 import {
   LayoutDashboard,
   ShoppingBag,
@@ -35,18 +36,9 @@ export default function AdminSidebar() {
     <aside className="w-64 bg-branco border-r border-claro flex flex-col h-full shadow-sm">
       {/* Logo / Brand */}
       <div className="px-6 py-8 border-b border-claro">
-        <Link href="/" className="flex items-center gap-3 mb-1 hover:opacity-80 transition-opacity">
-          <Image
-            src="/logo.svg"
-            alt="Zaya"
-            width={32}
-            height={32}
-            className="h-8 w-8"
-            unoptimized
-            priority
-            onError={() => {/* silently fail */}}
-          />
-          <div>
+        <Link href="/" className="flex flex-col items-center gap-3 mb-1 hover:opacity-80 transition-opacity">
+          <ZayaWordmark width={120} height={40} />
+          <div className="text-center">
             <p className="font-bodoni text-lg font-semibold text-preto leading-tight">
               Zaya
             </p>

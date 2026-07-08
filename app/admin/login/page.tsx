@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
+import { ZayaWordmark } from '@/components/store/ZayaWordmark'
 import { Gem } from 'lucide-react'
 
 export default function AdminLoginPage() {
@@ -53,22 +54,9 @@ export default function AdminLoginPage() {
         {/* Card */}
         <div className="bg-branco border border-claro rounded-sm shadow-lg p-8">
           {/* Logo */}
-          <div className="text-center mb-8">
-            <div className="flex justify-center mb-4">
-              <div className="w-16 h-16 flex items-center justify-center">
-                <Image
-                  src="/logo.svg"
-                  alt="Zaya"
-                  width={64}
-                  height={64}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            </div>
-            <h1 className="font-bodoni text-3xl text-preto italic font-semibold">
-              Zaya
-            </h1>
-            <p className="font-archivo text-xs text-zaya tracking-[0.2em] uppercase mt-1">
+          <div className="text-center mb-8 flex flex-col items-center">
+            <ZayaWordmark width={140} height={46} />
+            <p className="font-archivo text-xs text-zaya tracking-[0.2em] uppercase mt-4">
               Atelier Zaya · Painel Admin
             </p>
           </div>
