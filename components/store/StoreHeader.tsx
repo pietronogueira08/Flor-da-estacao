@@ -58,6 +58,11 @@ export function StoreHeader() {
 
         {/* ── Navegação Desktop ── */}
         <nav className="hidden md:flex items-center gap-8" aria-label="Navegação principal">
+          
+          <Link href="/" className="relative font-archivo text-preto hover:text-dourado transition-colors group focus-visible:ring-2 focus-visible:ring-dourado rounded-sm">
+            Home
+            <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-dourado transition-all duration-300 group-hover:w-full" />
+          </Link>
 
           {/* Mega-menu Coleção */}
           <div ref={colecaoRef} className="relative">
@@ -117,7 +122,7 @@ export function StoreHeader() {
           className="absolute left-1/2 -translate-x-1/2 flex items-center hover:scale-105 hover:opacity-90 transition-all duration-500 focus-visible:ring-2 focus-visible:ring-dourado rounded-sm"
           aria-label="Zaya — Página inicial"
         >
-          <ZayaWordmark width={140} height={46} />
+          <span className="font-bodoni text-3xl md:text-4xl text-preto italic tracking-widest uppercase">Zaya</span>
         </Link>
 
         {/* ── Ações (direita) ── */}
@@ -220,6 +225,9 @@ export function StoreHeader() {
               )}
             </div>
 
+            <Link href="/" onClick={() => setMenuOpen(false)} className="py-3 font-archivo text-preto hover:text-dourado transition-colors border-t border-claro/10 focus-visible:ring-2 focus-visible:ring-dourado">
+              Home
+            </Link>
             <Link href="/categoria/novidades" onClick={() => setMenuOpen(false)} className="py-3 font-archivo text-preto hover:text-dourado transition-colors border-t border-claro/10 focus-visible:ring-2 focus-visible:ring-dourado">
               Novidades
             </Link>
