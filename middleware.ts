@@ -42,9 +42,10 @@ export async function middleware(request: NextRequest) {
   const isLoginPage = request.nextUrl.pathname === '/admin/login'
 
   if (isAdminRoute && !isLoginPage && !user) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/admin/login'
-    return NextResponse.redirect(url)
+    // LOGIN BYPASS: Comentado para permitir acesso direto sem login
+    // const url = request.nextUrl.clone()
+    // url.pathname = '/admin/login'
+    // return NextResponse.redirect(url)
   }
 
   if (isLoginPage && user) {
