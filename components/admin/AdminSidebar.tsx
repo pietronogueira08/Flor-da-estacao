@@ -19,6 +19,7 @@ const navItems = [
   { href: '/admin/produtos',  icon: ShoppingBag,    label: 'Produtos'   },
   { href: '/admin/estoque',   icon: Package,        label: 'Estoque'    },
   { href: '/admin/pedidos',   icon: ClipboardList,  label: 'Pedidos'    },
+  { href: '/admin/customizacao', icon: Gem,         label: 'Customização'}
 ]
 
 export default function AdminSidebar() {

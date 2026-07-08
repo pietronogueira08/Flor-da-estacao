@@ -25,12 +25,14 @@ async function getDashboardData() {
     const { count: pedidosHoje } = await supabase
       .from('orders')
       .select('*', { count: 'exact', head: true })
+      .not('id', 'like', 'd1000000-%')
       .gte('criado_em', today.toISOString())
 
     // Receita do mês
     const { data: receitaMes } = await supabase
       .from('orders')
       .select('total')
+      .not('id', 'like', 'd1000000-%')
       .gte('criado_em', firstDayOfMonth.toISOString())
       .in('status', ['pago', 'enviado', 'entregue'])
 
@@ -40,18 +42,21 @@ async function getDashboardData() {
     const { count: produtosAtivos } = await supabase
       .from('products')
       .select('*', { count: 'exact', head: true })
+      .not('id', 'like', 'b1000000-%')
       .eq('ativo', true)
 
     // Estoque baixo (≤ 3)
     const { count: estoqueBaixo } = await supabase
       .from('product_variants')
       .select('*', { count: 'exact', head: true })
+      .not('id', 'like', 'c1000000-%')
       .lte('estoque', 3)
 
     // Pedidos recentes
     const { data: pedidosRecentes } = await supabase
       .from('orders')
       .select('id, cliente_nome, total, status, criado_em')
+      .not('id', 'like', 'd1000000-%')
       .order('criado_em', { ascending: false })
       .limit(5)
 
@@ -59,6 +64,7 @@ async function getDashboardData() {
     const { data: vendasPeriodo } = await supabase
       .from('orders')
       .select('total, criado_em')
+      .not('id', 'like', 'd1000000-%')
       .gte('criado_em', thirtyDaysAgo.toISOString())
       .in('status', ['pago', 'enviado', 'entregue'])
       .order('criado_em', { ascending: true })
@@ -81,6 +87,7 @@ async function getDashboardData() {
       const variant = item.product_variants as unknown as { product_id: string; products: { nome: string; preco_base: number } } | null
       if (!variant?.products) return
       const pid = variant.product_id
+      if (pid.startsWith('b1000000-')) return // Excluir produtos de demonstração da IA
       const existing = produtoMap.get(pid)
       if (existing) {
         existing.total += item.quantidade

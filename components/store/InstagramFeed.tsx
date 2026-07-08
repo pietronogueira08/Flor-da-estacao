@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const feedImages = [
+const defaultFeedImages = [
   { id: 1, src: "/hero-bg.png", alt: "Editorial Zaya" },
   { id: 2, src: "/about-us.png", alt: "Bastidores Zaya" },
   { id: 3, src: "/prod-vestido.png", alt: "Vestido Zaya" },
@@ -10,7 +10,11 @@ const feedImages = [
   { id: 6, src: "/prod-camisa.png", alt: "Camisa Zaya" },
 ];
 
-export function InstagramFeed() {
+export function InstagramFeed({ feedImages = [] }: { feedImages?: string[] }) {
+  const images = feedImages.length > 0 
+    ? feedImages.map((src, idx) => ({ id: idx, src, alt: `Instagram Zaya ${idx + 1}` }))
+    : defaultFeedImages;
+
   return (
     <section className="py-16 px-4 md:px-8 bg-branco" aria-label="Feed do Instagram">
       <div className="container mx-auto">
@@ -29,7 +33,7 @@ export function InstagramFeed() {
 
         {/* Grid de 6 fotos */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4">
-          {feedImages.map((img) => (
+          {images.map((img) => (
             <a
               key={img.id}
               href="https://www.instagram.com/zaya_loja/"

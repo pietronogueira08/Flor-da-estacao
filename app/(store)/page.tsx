@@ -16,15 +16,27 @@ export const revalidate = 60;
 export default async function HomePage() {
   const supabase = await createClient();
 
-  const { data: products } = await supabase
-    .from("products")
-    .select(`
-      *,
-      categories (nome),
-      product_images (url, is_placeholder)
-    `)
-    .order("criado_em", { ascending: false })
-    .limit(8);
+  const [productsResponse, settingsResponse] = await Promise.all([
+    supabase
+      .from("products")
+      .select(`
+        *,
+        categories (nome),
+        product_images (url, is_placeholder)
+      `)
+      .order("criado_em", { ascending: false })
+      .limit(8),
+    supabase
+      .from("store_settings")
+      .select("*")
+      .eq("id", 1)
+      .single()
+  ]);
+
+  const products = productsResponse.data;
+  const settings = settingsResponse.data;
+  const heroImages = settings?.hero_images || [];
+  const instagramImages = settings?.instagram_images || [];
 
   const allProducts = products || [];
   const realProducts = allProducts.filter(p => !p.id.startsWith('b1000000'));
@@ -57,7 +69,7 @@ export default async function HomePage() {
         className="w-full flex flex-col items-center relative overflow-hidden"
         aria-label="Seção principal da loja"
       >
-        <BotanicalHero />
+        <BotanicalHero heroImages={heroImages} />
         <div className="text-center pb-12 px-4 bg-branco w-full">
           <h1 className="font-bodoni text-5xl md:text-6xl text-preto italic leading-tight mb-8">
             Silêncio que veste
@@ -146,7 +158,7 @@ export default async function HomePage() {
       {/* Sem divisor porque Feed tem fundo sólido */}
 
       {/* ━━━━━━━━━━━━━━━━━━━━ 6. FEED INSTAGRAM ━━━━━━━━━━━━━━━━━━━━ */}
-      <InstagramFeed />
+      <InstagramFeed feedImages={instagramImages} />
 
       <Divider />
 
