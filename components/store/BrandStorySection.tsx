@@ -8,7 +8,7 @@ export function BrandStorySection() {
         {/* Foto */}
         <div className="relative aspect-[4/5] w-full max-w-md mx-auto md:mx-0 rounded-sm overflow-hidden">
           <Image
-            src="/about-us.png"
+            src="/zaya-about-premium.png"
             alt="Atelier Zaya — estética editorial e refinamento discreto"
             fill
             className="object-cover"

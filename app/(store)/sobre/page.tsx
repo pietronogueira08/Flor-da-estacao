@@ -17,7 +17,7 @@ export default function SobrePage() {
 
       <div className="aspect-video relative bg-claro/30 mb-16 rounded-sm overflow-hidden flex items-center justify-center">
         <Image 
-          src="/about-us.png" 
+          src="/zaya-about-premium.png" 
           alt="Atelier Zaya" 
           fill 
           className="object-cover"
