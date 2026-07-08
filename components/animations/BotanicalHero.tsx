@@ -68,13 +68,6 @@ export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
       )}
 
       <div className="relative z-10 flex flex-col items-center">
-        <p
-          ref={subtitleRef}
-          style={{ opacity: 0 }}
-          className="font-archivo text-preto text-xs tracking-[0.3em] uppercase mb-6 drop-shadow-sm"
-        >
-          coleção verão 2025
-        </p>
         <div ref={wordmarkRef} style={{ opacity: 0 }} className="flex items-center justify-center drop-shadow-sm">
           <ZayaWordmark width={220} height={72} />
         </div>
