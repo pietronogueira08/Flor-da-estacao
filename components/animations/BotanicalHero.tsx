@@ -47,7 +47,7 @@ export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
 
   return (
     <div
-      className="w-full flex flex-col items-center justify-center py-20 md:py-32 relative"
+      className="w-full flex flex-col items-center justify-center min-h-[60vh] md:min-h-[85vh] relative"
       style={hasImages ? {} : {
         background: "radial-gradient(ellipse at center, #E8E8E8 0%, #C0C0C0 40%, #A5A5A5 100%)",
       }}
@@ -63,7 +63,7 @@ export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
             priority
             unoptimized
           />
-          <div className="absolute inset-0 bg-branco/30" />
+          <div className="absolute inset-0 bg-branco/10" />
         </div>
       )}
 
