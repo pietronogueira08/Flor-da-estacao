@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 const messages = [
-  "Frete grátis acima de R$ 399",
-  "Parcele em até 6x sem juros",
-  "Trocas gratuitas em 30 dias",
+  { text: "Frete grátis acima de R$ 399", icon: "/ic-caminhao.png" },
+  { text: "Parcele em até 6x sem juros", icon: "/ic-maquina.png" },
+  { text: "Trocas gratuitas em 30 dias", icon: "/ic-setas.png" },
 ];
 
 export function UtilityBar() {
@@ -30,7 +31,15 @@ export function UtilityBar() {
                 : "opacity-0 translate-y-3"
             }`}
           >
-            {msg}
+            <Image 
+              src={msg.icon} 
+              alt="Ícone" 
+              width={14} 
+              height={14} 
+              className="mr-2 object-contain brightness-0 invert" 
+              unoptimized
+            />
+            {msg.text}
           </span>
         ))}
       </div>

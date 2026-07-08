@@ -53,12 +53,12 @@ export default async function HomePage() {
   }
 
   const categorias = [
-    { nome: "Vestidos", slug: "vestidos", img: "/cat-vestidos.png" },
-    { nome: "Blusas & Camisas", slug: "blusas-camisas", img: "/cat-blusas.png" },
-    { nome: "Saias", slug: "saias", img: "/cat-saias.png" },
-    { nome: "Calças", slug: "calcas", img: "/cat-calcas.png" },
-    { nome: "Tricots", slug: "tricots", img: "/cat-tricots.png" },
-    { nome: "Acessórios", slug: "acessorios", img: "/cat-acessorios.png" },
+    { nome: "Vestidos", slug: "vestidos", img: "/cat-vestidos-real.jpeg" },
+    { nome: "Blusas & Camisas", slug: "blusas-camisas", img: "/cat-blusas-real.jpeg" },
+    { nome: "Saias", slug: "saias", img: "/cat-saias-real.jpeg" },
+    { nome: "Calças", slug: "calcas", img: "/cat-calcas-real.jpeg" },
+    { nome: "Tricots", slug: "tricots", img: "/cat-tricots-real.jpeg" },
+    { nome: "Acessórios", slug: "acessorios", img: "/cat-acessorios-real.jpeg" },
   ];
 
   return (
