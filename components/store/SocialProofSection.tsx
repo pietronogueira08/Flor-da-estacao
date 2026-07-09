@@ -7,7 +7,7 @@ export function SocialProofSection() {
       texto:
         "O vestido chegou ainda mais lindo do que nas fotos. O tecido é delicado e o caimento é perfeito. Com certeza vou comprar mais!",
       nota: 5,
-      inicial: "A",
+      foto: "https://randomuser.me/api/portraits/women/12.jpg",
     },
     {
       nome: "Beatriz Souza",
@@ -15,7 +15,7 @@ export function SocialProofSection() {
       texto:
         "Adoro a identidade da marca. Cada peça conta uma história. Recebi elogios o dia todo usando a blusa que comprei aqui.",
       nota: 5,
-      inicial: "B",
+      foto: "https://randomuser.me/api/portraits/women/44.jpg",
     },
     {
       nome: "Carla Mendes",
@@ -23,7 +23,7 @@ export function SocialProofSection() {
       texto:
         "Entrega rápida, embalagem linda e a roupa superou minhas expectativas. A Zaya virou minha loja favorita!",
       nota: 5,
-      inicial: "C",
+      foto: "https://randomuser.me/api/portraits/women/68.jpg",
     },
   ];
 
@@ -70,12 +70,11 @@ export function SocialProofSection() {
 
               {/* Avatar + nome */}
               <footer className="flex items-center gap-3">
-                <div
-                  className="w-9 h-9 rounded-full bg-zaya flex items-center justify-center font-bodoni text-branco text-lg font-semibold shrink-0 ring-1 ring-dourado ring-offset-2"
-                  aria-hidden="true"
-                >
-                  {dep.inicial}
-                </div>
+                <img
+                  src={dep.foto}
+                  alt={`Foto de ${dep.nome}`}
+                  className="w-10 h-10 rounded-full object-cover shrink-0 ring-1 ring-dourado ring-offset-2"
+                />
                 <div>
                   <p className="font-archivo text-sm font-medium text-preto">
                     {dep.nome}

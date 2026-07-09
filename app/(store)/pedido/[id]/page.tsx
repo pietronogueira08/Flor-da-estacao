@@ -72,7 +72,7 @@ export default function PedidoConfirmadoPage() {
         // Em um caso real, buscaríamos no DB. Como não temos DB em dev, vamos simular ou tentar buscar.
         const { data, error } = await supabase
           .from('orders')
-          .select('*, order_items(*, product_variants(products(name, price)))')
+          .select('*, order_items(*, product_variants(products(nome, preco_base)))')
           .eq('id', id as string)
           .single();
 
