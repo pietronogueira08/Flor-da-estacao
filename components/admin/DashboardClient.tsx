@@ -195,27 +195,27 @@ export default function DashboardClient({ data }: { data: DashboardData | null }
               <AreaChart data={data.graficoVendas}>
                 <defs>
                   <linearGradient id="colorVendas" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#D2A9B1" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#D2A9B1" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#B69A6B" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#B69A6B" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#D2A9B1" strokeOpacity={0.3} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#B69A6B" strokeOpacity={0.3} />
                 <XAxis
                   dataKey="data"
-                  tick={{ fontFamily: 'Archivo', fontSize: 11, fill: '#241B1E80' }}
+                  tick={{ fontFamily: 'Archivo', fontSize: 11, fill: '#1A1A1A80' }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fontFamily: 'Archivo', fontSize: 11, fill: '#241B1E80' }}
+                  tick={{ fontFamily: 'Archivo', fontSize: 11, fill: '#1A1A1A80' }}
                   axisLine={false}
                   tickLine={false}
                   tickFormatter={(v) => `R$${v}`}
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#FFF5F7',
-                    border: '1px solid #D2A9B1',
+                    backgroundColor: '#FAFAFA',
+                    border: '1px solid #B69A6B',
                     borderRadius: '2px',
                     fontFamily: 'Archivo',
                     fontSize: 12,
@@ -225,7 +225,7 @@ export default function DashboardClient({ data }: { data: DashboardData | null }
                 <Area
                   type="monotone"
                   dataKey="valor"
-                  stroke="#7D4F5A"
+                  stroke="#1A1A1A"
                   strokeWidth={2}
                   fill="url(#colorVendas)"
                 />
