@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { MagneticInstagram } from "@/components/animations/MagneticInstagram";
 
 const defaultFeedImages = [
   { id: 1, src: "/hero-bg.png", alt: "Editorial Zaya" },
@@ -25,7 +26,7 @@ export function InstagramFeed({ feedImages = [] }: { feedImages?: any[] }) {
       <div className="container mx-auto">
         <div className="flex flex-col items-center text-center mb-10">
           <p className="font-archivo text-zaya text-xs tracking-widest uppercase mb-3">Nossa Essência Diária</p>
-          <h2 className="font-bodoni text-4xl text-preto italic mb-6">@zaya_loja</h2>
+          <MagneticInstagram text="@zaya_loja" />
           <Link
             href="https://www.instagram.com/zaya_loja/"
             target="_blank"
