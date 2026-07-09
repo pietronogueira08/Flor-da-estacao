@@ -36,23 +36,23 @@ export function StoreFooter() {
           {/* Loja */}
           <div>
             <h4 className="font-bodoni text-xl text-preto mb-4">Loja</h4>
-            <ul className="space-y-2">
-              <li><Link href="/produtos" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm">Todos os produtos</Link></li>
-              <li><Link href="/categoria/novidades" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm">Novidades</Link></li>
-              <li><Link href="/categoria/vestidos" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm">Vestidos</Link></li>
-              <li><Link href="/categoria/blusas-camisas" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm">Blusas &amp; Camisas</Link></li>
+            <ul className="space-y-1">
+              <li><Link href="/produtos" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Todos os produtos</Link></li>
+              <li><Link href="/categoria/novidades" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Novidades</Link></li>
+              <li><Link href="/categoria/vestidos" className="font-arquivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Vestidos</Link></li>
+              <li><Link href="/categoria/blusas-camisas" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Blusas &amp; Camisas</Link></li>
             </ul>
           </div>
 
           {/* Ajuda */}
           <div>
             <h4 className="font-bodoni text-xl text-preto mb-4">Ajuda</h4>
-            <ul className="space-y-2">
-              <li><Link href="/contato" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm">Contato</Link></li>
-              <li><Link href="/trocas" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm">Trocas e Devoluções</Link></li>
-              <li><Link href="/sobre" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm">Nossa História</Link></li>
-              <li><Link href="/privacidade" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm">Política de Privacidade</Link></li>
-              <li><Link href="/termos" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm">Termos de Uso</Link></li>
+            <ul className="space-y-1">
+              <li><Link href="/contato" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Contato</Link></li>
+              <li><Link href="/trocas" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Trocas e Devoluções</Link></li>
+              <li><Link href="/sobre" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Nossa História</Link></li>
+              <li><Link href="/privacidade" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Política de Privacidade</Link></li>
+              <li><Link href="/termos" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Termos de Uso</Link></li>
             </ul>
           </div>
 
@@ -84,15 +84,15 @@ export function StoreFooter() {
         </div>
 
         {/* Rodapé final */}
-        <div className="text-center pt-8 border-t border-claro/20 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="font-archivo text-xs text-zaya">
+        <div className="text-center pt-8 border-t border-claro/20 flex flex-col items-center md:flex-row md:justify-between gap-4">
+          <p className="font-archivo text-xs text-zaya text-center">
             © 2025 Zaya. Todos os direitos reservados.
           </p>
           <div className="flex gap-4">
-            <Link href="/privacidade" className="font-archivo text-xs text-zaya hover:text-dourado transition-colors focus-visible:ring-2 focus-visible:ring-dourado rounded-sm">
+            <Link href="/privacidade" className="font-archivo text-xs text-zaya hover:text-dourado transition-colors focus-visible:ring-2 focus-visible:ring-dourado rounded-sm py-2">
               Privacidade
             </Link>
-            <Link href="/termos" className="font-archivo text-xs text-zaya hover:text-dourado transition-colors focus-visible:ring-2 focus-visible:ring-dourado rounded-sm">
+            <Link href="/termos" className="font-archivo text-xs text-zaya hover:text-dourado transition-colors focus-visible:ring-2 focus-visible:ring-dourado rounded-sm py-2">
               Termos
             </Link>
           </div>

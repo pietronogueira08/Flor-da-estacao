@@ -71,12 +71,12 @@ export default async function HomePage() {
       >
         <BotanicalHero heroImages={heroImages} />
         <div className="text-center pb-12 px-4 bg-branco w-full">
-          <h1 className="font-bodoni text-5xl md:text-6xl text-preto italic leading-tight mb-8">
+          <h1 className="font-bodoni text-3xl md:text-5xl lg:text-6xl text-preto italic leading-tight mb-8">
             Silêncio que veste
           </h1>
           <Link
             href="/produtos"
-            className="inline-block bg-dourado text-branco hover:bg-preto font-archivo text-sm uppercase tracking-widest px-8 py-4 transition-colors duration-300 rounded-sm focus-visible:ring-2 focus-visible:ring-dourado focus-visible:ring-offset-2"
+            className="block md:inline-block bg-dourado text-branco hover:bg-preto font-archivo text-sm uppercase tracking-widest px-8 py-4 transition-colors duration-300 rounded-sm focus-visible:ring-2 focus-visible:ring-dourado focus-visible:ring-offset-2 w-full md:w-auto text-center"
           >
             Ver coleção
           </Link>
@@ -86,7 +86,10 @@ export default async function HomePage() {
       {/* ━━━━━━━━━━━━━━━━━━━━ 2. CATEGORIAS ━━━━━━━━━━━━━━━━━━━━ */}
       <section className="py-16 px-4 md:px-8 container mx-auto" aria-label="Categorias">
         {/* Mobile: carrossel horizontal | Desktop: grid 6 colunas */}
-        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 md:grid md:grid-cols-3 lg:grid-cols-6 md:overflow-visible md:pb-0">
+        <div
+          className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 md:grid md:grid-cols-3 lg:grid-cols-6 md:overflow-visible md:pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
           {categorias.map((cat) => (
             <Link
               key={cat.slug}

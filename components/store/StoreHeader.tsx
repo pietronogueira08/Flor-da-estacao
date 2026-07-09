@@ -143,7 +143,7 @@ export function StoreHeader() {
           <button
             onClick={openCart}
             aria-label={`Carrinho${cartCount > 0 ? ` — ${cartCount} ${cartCount === 1 ? "item" : "itens"}` : ""}`}
-            className="text-preto hover:text-dourado transition-transform duration-300 hover:scale-110 active:scale-95 relative group focus-visible:ring-2 focus-visible:ring-dourado rounded-sm"
+            className="text-preto hover:text-dourado transition-transform duration-300 hover:scale-110 active:scale-95 relative group focus-visible:ring-2 focus-visible:ring-dourado rounded-sm min-h-[44px] min-w-[44px] flex items-center justify-center"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-rotate-3 transition-transform duration-300" aria-hidden="true">
               <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
@@ -162,7 +162,7 @@ export function StoreHeader() {
             onClick={() => setMenuOpen((o) => !o)}
             aria-expanded={menuOpen}
             aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
-            className="md:hidden text-preto hover:text-dourado transition-colors focus-visible:ring-2 focus-visible:ring-dourado rounded-sm"
+            className="md:hidden text-preto hover:text-dourado transition-colors focus-visible:ring-2 focus-visible:ring-dourado rounded-sm min-h-[44px] min-w-[44px] flex items-center justify-center"
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               {menuOpen ? (

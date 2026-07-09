@@ -61,7 +61,7 @@ export function CartDrawer() {
       {/* Drawer */}
       <div
         ref={drawerRef}
-        className="absolute top-0 right-0 h-full w-full max-w-md bg-branco shadow-2xl flex flex-col -translate-y-full"
+        className="absolute top-0 right-0 h-full w-full sm:max-w-md bg-branco shadow-2xl flex flex-col -translate-y-full"
         role="dialog"
         aria-modal="true"
         aria-label="Carrinho de Compras"
@@ -72,7 +72,7 @@ export function CartDrawer() {
           <button
             onClick={closeCart}
             aria-label="Fechar carrinho"
-            className="text-preto hover:text-dourado transition-transform hover:scale-110 focus-visible:ring-2 focus-visible:ring-dourado rounded-sm"
+            className="text-preto hover:text-dourado transition-transform hover:scale-110 focus-visible:ring-2 focus-visible:ring-dourado rounded-sm min-h-[44px] min-w-[44px] flex items-center justify-center"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -132,18 +132,18 @@ export function CartDrawer() {
                   </div>
                   
                   <div className="flex justify-between items-end">
-                    <div className="flex items-center border border-claro/30 rounded-sm h-8">
+                    <div className="flex items-center border border-claro/30 rounded-sm h-10">
                       <button 
                         onClick={() => updateQuantity(item.variantId, item.quantidade - 1)}
-                        className="px-2 text-preto hover:text-dourado transition-colors"
+                        className="px-3 text-preto hover:text-dourado transition-colors min-w-[40px] h-full flex items-center justify-center"
                         aria-label="Diminuir quantidade"
                       >
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                       </button>
-                      <span className="w-6 text-center font-archivo text-sm text-preto">{item.quantidade}</span>
+                      <span className="w-8 text-center font-archivo text-sm text-preto">{item.quantidade}</span>
                       <button 
                         onClick={() => updateQuantity(item.variantId, item.quantidade + 1)}
-                        className="px-2 text-preto hover:text-dourado transition-colors"
+                        className="px-3 text-preto hover:text-dourado transition-colors min-w-[40px] h-full flex items-center justify-center"
                         aria-label="Aumentar quantidade"
                       >
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>

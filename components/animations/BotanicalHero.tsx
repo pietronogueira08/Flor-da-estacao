@@ -47,7 +47,7 @@ export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
 
   return (
     <div
-      className="w-full flex flex-col items-center justify-center min-h-[60vh] md:min-h-[85vh] relative"
+      className="w-full flex flex-col items-center justify-center min-h-[100svh] md:min-h-[85vh] relative"
       style={hasImages ? {} : {
         background: "radial-gradient(ellipse at center, #E8E8E8 0%, #C0C0C0 40%, #A5A5A5 100%)",
       }}
@@ -59,18 +59,32 @@ export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
             src={heroImages[currentIndex]}
             alt="Zaya Hero Background"
             fill
-            className="object-cover"
+            className="object-cover object-center"
             priority
             unoptimized
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-branco/10" />
         </div>
       )}
 
-      <div className="relative z-10 flex flex-col items-center">
+      <div className="relative z-10 flex flex-col items-center gap-4 px-4 text-center">
         <div ref={wordmarkRef} style={{ opacity: 0 }} className="flex items-center justify-center drop-shadow-sm">
-          <ZayaWordmark width={220} height={72} />
+          {/* Mobile: larger wordmark for better readability */}
+          <span className="md:hidden">
+            <ZayaWordmark width={280} height={92} />
+          </span>
+          <span className="hidden md:flex">
+            <ZayaWordmark width={220} height={72} />
+          </span>
         </div>
+        <p
+          ref={subtitleRef}
+          style={{ opacity: 0 }}
+          className="font-archivo text-sm md:text-base tracking-widest uppercase text-preto/80 drop-shadow-sm"
+        >
+          Silêncio que veste
+        </p>
       </div>
     </div>
   );

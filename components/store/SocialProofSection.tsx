@@ -40,11 +40,14 @@ export function SocialProofSection() {
         </div>
 
         {/* Desktop: 3 colunas | Mobile: scroll horizontal */}
-        <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 md:overflow-visible pb-4 md:pb-0">
+        <div
+          className="flex gap-6 overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 md:overflow-visible pb-4 md:pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
           {depoimentos.map((dep) => (
             <article
               key={dep.nome}
-              className="min-w-[80vw] md:min-w-0 snap-start bg-branco border border-claro/20 rounded-sm p-6 flex flex-col gap-4"
+              className="min-w-[85vw] md:min-w-0 snap-start bg-branco border border-claro/20 rounded-sm p-6 flex flex-col gap-4"
             >
               {/* Estrelas */}
               <div className="flex gap-1" aria-label={`${dep.nota} de 5 estrelas`}>

@@ -162,7 +162,7 @@ export function ProductCard({
       {/* Info do produto */}
       <Link href={`/produto/${slug}`} className="block space-y-1 focus-visible:ring-2 focus-visible:ring-dourado rounded-sm">
         <p className="font-archivo text-xs text-zaya uppercase tracking-wider">{categoria}</p>
-        <h3 className="font-bodoni text-xl text-preto leading-tight">{nome}</h3>
+        <h3 className="font-bodoni text-lg md:text-xl text-preto leading-tight line-clamp-2">{nome}</h3>
         <div className="flex items-center justify-between mt-2">
           <p className="font-archivo text-preto font-medium">
             R$ {preco.toFixed(2).replace(".", ",")}
@@ -184,14 +184,14 @@ export function ProductCard({
 
       {/* Mobile: quick-add sempre visível */}
       <div className="md:hidden mt-2">
-        <div className="flex gap-1.5 mb-2">
+        <div className="flex gap-2 mb-2">
           {tamanhos.map((tam) => (
             <button
               key={tam}
               onClick={(e) => { e.preventDefault(); setTamSelecionado(tam); }}
               aria-label={`Tamanho ${tam}`}
               aria-pressed={tamSelecionado === tam}
-              className={`w-8 h-8 text-xs font-archivo border rounded-sm transition-all duration-300 active:scale-75 focus-visible:ring-2 focus-visible:ring-dourado ${
+              className={`w-10 h-10 text-xs font-archivo border rounded-sm transition-all duration-300 active:scale-75 focus-visible:ring-2 focus-visible:ring-dourado ${
                 tamSelecionado === tam
                   ? "bg-dourado text-branco border-dourado scale-110 shadow-md"
                   : "border-preto/30 text-preto"
