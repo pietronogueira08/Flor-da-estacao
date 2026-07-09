@@ -39,8 +39,13 @@ export function StoreFooter() {
             <ul className="space-y-1 w-full">
               <li><Link href="/produtos" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Todos os produtos</Link></li>
               <li><Link href="/categoria/novidades" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Novidades</Link></li>
-              <li><Link href="/categoria/vestidos" className="font-arquivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Vestidos</Link></li>
-              <li><Link href="/categoria/blusas-camisas" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Blusas &amp; Camisas</Link></li>
+              <li><Link href="/categoria/calcas" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Calças</Link></li>
+              <li><Link href="/categoria/blusas" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Blusas</Link></li>
+              <li><Link href="/categoria/vestidos" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Vestidos</Link></li>
+              <li><Link href="/categoria/conjuntos" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Conjuntos</Link></li>
+              <li><Link href="/categoria/macacao" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Macacão</Link></li>
+              <li><Link href="/categoria/short" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Short</Link></li>
+              <li><Link href="/categoria/saia" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Saia</Link></li>
             </ul>
           </div>
 

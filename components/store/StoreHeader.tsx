@@ -7,12 +7,13 @@ import { ZayaWordmark } from "@/components/store/ZayaWordmark";
 
 const categorias = [
   { nome: "Novidades", slug: "novidades" },
-  { nome: "Vestidos", slug: "vestidos" },
-  { nome: "Blusas & Camisas", slug: "blusas-camisas" },
-  { nome: "Saias", slug: "saias" },
   { nome: "Calças", slug: "calcas" },
-  { nome: "Tricots", slug: "tricots" },
-  { nome: "Acessórios", slug: "acessorios" },
+  { nome: "Blusas", slug: "blusas" },
+  { nome: "Vestidos", slug: "vestidos" },
+  { nome: "Conjuntos", slug: "conjuntos" },
+  { nome: "Macacão", slug: "macacao" },
+  { nome: "Short", slug: "short" },
+  { nome: "Saia", slug: "saia" },
 ];
 
 export function StoreHeader() {
