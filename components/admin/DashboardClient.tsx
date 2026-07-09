@@ -113,7 +113,7 @@ function MetricCard({ title, value, subtitle, icon, accent, warning }: MetricCar
 function EmptyState() {
   return (
     <div className="min-h-screen bg-branco">
-      <div className="border-b border-claro bg-branco px-8 py-6">
+      <div className="border-b border-claro bg-branco px-4 md:px-8 py-6">
         <h1 className="font-bodoni text-3xl text-preto italic">Dashboard</h1>
         <p className="font-archivo text-sm text-zaya mt-1">Atelier Zaya · Visão Geral</p>
       </div>
@@ -146,14 +146,14 @@ export default function DashboardClient({ data }: { data: DashboardData | null }
   return (
     <div className="min-h-screen bg-branco">
       {/* Header */}
-      <div className="border-b border-claro bg-branco px-8 py-6">
+      <div className="border-b border-claro bg-branco px-4 md:px-8 py-6">
         <h1 className="font-bodoni text-3xl text-preto italic">Dashboard</h1>
         <p className="font-archivo text-sm text-zaya mt-1">Atelier Zaya · Visão Geral</p>
       </div>
 
-      <div className="p-8 space-y-8">
+      <div className="p-4 md:p-8 space-y-6">
         {/* Metric Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
           <MetricCard
             title="Pedidos Hoje"
             value={data.pedidosHoje}
@@ -183,7 +183,7 @@ export default function DashboardClient({ data }: { data: DashboardData | null }
         </div>
 
         {/* Chart */}
-        <div className="bg-branco border border-claro rounded-sm shadow-sm p-6">
+        <div className="bg-branco border border-claro rounded-sm shadow-sm p-4 md:p-6">
           <h2 className="font-bodoni text-xl text-preto italic mb-1">
             Vendas — Últimos 30 dias
           </h2>
@@ -191,7 +191,8 @@ export default function DashboardClient({ data }: { data: DashboardData | null }
             Receita diária de pedidos confirmados
           </p>
           {data.graficoVendas.length > 0 ? (
-            <ResponsiveContainer width="100%" height={240}>
+            <div className="overflow-x-auto">
+            <ResponsiveContainer width="100%" height={240} minWidth={320}>
               <AreaChart data={data.graficoVendas}>
                 <defs>
                   <linearGradient id="colorVendas" x1="0" y1="0" x2="0" y2="1">
@@ -231,6 +232,7 @@ export default function DashboardClient({ data }: { data: DashboardData | null }
                 />
               </AreaChart>
             </ResponsiveContainer>
+            </div>
           ) : (
             <div className="h-60 flex items-center justify-center">
               <p className="font-archivo text-sm text-preto/40">

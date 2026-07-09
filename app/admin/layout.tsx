@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Bodoni_Moda, Archivo } from "next/font/google";
 import "../globals.css";
 import AdminSidebar from "@/components/admin/AdminSidebar";
+import AdminBottomBar from "@/components/admin/AdminBottomBar";
+import AdminMobileHeader from "@/components/admin/AdminMobileHeader";
 
 const bodoniModa = Bodoni_Moda({
   subsets: ["latin"],
@@ -34,11 +36,21 @@ export default function AdminLayout({
         className={`${bodoniModa.variable} ${archivo.variable} antialiased bg-branco`}
       >
         <div className="flex h-screen overflow-hidden">
-          <AdminSidebar />
-          <main className="flex-1 overflow-y-auto">
+          {/* Sidebar — apenas desktop (md+) */}
+          <div className="hidden md:flex">
+            <AdminSidebar />
+          </div>
+
+          {/* Conteúdo principal */}
+          <main className="flex-1 overflow-y-auto pt-14 md:pt-0 pb-20 md:pb-0">
+            {/* Header mobile */}
+            <AdminMobileHeader />
             {children}
           </main>
         </div>
+
+        {/* Bottom navigation bar — apenas mobile */}
+        <AdminBottomBar />
       </body>
     </html>
   );

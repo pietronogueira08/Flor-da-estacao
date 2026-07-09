@@ -101,7 +101,7 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
   return (
     <div className="min-h-screen bg-branco">
       {/* Header */}
-      <div className="border-b border-claro bg-branco px-8 py-6">
+      <div className="border-b border-claro bg-branco px-4 md:px-8 py-6">
         <h1 className="font-bodoni text-3xl text-preto italic">Pedidos</h1>
         <p className="font-archivo text-sm text-zaya mt-1">
           {pedidos.length} pedido{pedidos.length !== 1 ? 's' : ''} no total
@@ -139,73 +139,112 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
           })}
         </div>
 
-        {/* Table */}
+        {/* Table / Cards */}
         {pedidosFiltrados.length === 0 ? (
           <div className="bg-branco border border-claro rounded-sm p-12 text-center">
             <Gem size={40} className="text-claro/40 mx-auto mb-3" />
             <p className="font-bodoni text-xl text-preto/50 italic">Nenhum pedido encontrado</p>
           </div>
         ) : (
-          <div className="bg-branco border border-claro rounded-sm shadow-sm overflow-hidden">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-claro/20">
-                  {['Cliente', 'Data', 'Itens', 'Total', 'Status', ''].map((h) => (
-                    <th
-                      key={h}
-                      className="text-left px-5 py-4 font-archivo text-xs uppercase tracking-wider text-preto/50"
-                    >
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {pedidosFiltrados.map((pedido) => (
-                  <tr
-                    key={pedido.id}
-                    className="border-b border-claro/10 hover:bg-branco/50 transition-colors cursor-pointer"
-                    onClick={() => setDetalhe(pedido)}
-                  >
-                    <td className="px-5 py-3">
-                      <p className="font-archivo text-sm font-medium text-preto">{pedido.cliente_nome}</p>
-                      <p className="font-archivo text-xs text-preto/50">{pedido.cliente_email}</p>
-                    </td>
-                    <td className="px-5 py-3">
-                      <p className="font-archivo text-xs text-preto/70">
-                        {format(new Date(pedido.criado_em), 'dd/MM/yyyy', { locale: ptBR })}
-                      </p>
-                      <p className="font-archivo text-xs text-preto/40">
-                        {format(new Date(pedido.criado_em), 'HH:mm', { locale: ptBR })}
-                      </p>
-                    </td>
-                    <td className="px-5 py-3">
-                      <p className="font-archivo text-sm text-preto">
-                        {Array.isArray(pedido.order_items) ? pedido.order_items.length : 0} item(s)
-                      </p>
-                    </td>
-                    <td className="px-5 py-3">
-                      <p className="font-archivo text-sm font-medium text-preto">
-                        {formatCurrency(pedido.total)}
-                      </p>
-                    </td>
-                    <td className="px-5 py-3">
+          <>
+            {/* Mobile Cards (< md) */}
+            <div className="block md:hidden space-y-3">
+              {pedidosFiltrados.map((pedido) => (
+                <div
+                  key={pedido.id}
+                  className="bg-branco border border-claro rounded-sm shadow-sm p-4 flex items-center gap-3 cursor-pointer active:bg-claro/10 transition-colors"
+                  onClick={() => setDetalhe(pedido)}
+                >
+                  <div className="flex-1 min-w-0">
+                    <p className="font-archivo text-sm font-semibold text-preto truncate">
+                      {pedido.cliente_nome}
+                    </p>
+                    <p className="font-archivo text-xs text-preto/50 truncate">
+                      {pedido.cliente_email}
+                    </p>
+                    <p className="font-archivo text-xs text-preto/40 mt-0.5">
+                      {format(new Date(pedido.criado_em), "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}
+                    </p>
+                    <div className="flex items-center gap-2 mt-2">
                       <span
-                        className={`font-archivo text-xs px-2.5 py-1 rounded-full border ${
+                        className={`font-archivo text-xs px-2 py-0.5 rounded-full border ${
                           statusColors[pedido.status as Status] ?? 'bg-gray-100 text-gray-700'
                         }`}
                       >
                         {statusLabels[pedido.status as Status] ?? pedido.status}
                       </span>
-                    </td>
-                    <td className="px-5 py-3">
-                      <ChevronRight size={16} className="text-preto/30" />
-                    </td>
+                      <span className="font-archivo text-sm font-semibold text-dourado">
+                        {formatCurrency(pedido.total)}
+                      </span>
+                    </div>
+                  </div>
+                  <ChevronRight size={18} className="text-preto/30 shrink-0" />
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Table (md+) */}
+            <div className="hidden md:block bg-branco border border-claro rounded-sm shadow-sm overflow-x-auto">
+              <table className="w-full min-w-[600px]">
+                <thead>
+                  <tr className="border-b border-claro/20">
+                    {['Cliente', 'Data', 'Itens', 'Total', 'Status', ''].map((h) => (
+                      <th
+                        key={h}
+                        className="text-left px-5 py-4 font-archivo text-xs uppercase tracking-wider text-preto/50"
+                      >
+                        {h}
+                      </th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {pedidosFiltrados.map((pedido) => (
+                    <tr
+                      key={pedido.id}
+                      className="border-b border-claro/10 hover:bg-branco/50 transition-colors cursor-pointer"
+                      onClick={() => setDetalhe(pedido)}
+                    >
+                      <td className="px-5 py-3">
+                        <p className="font-archivo text-sm font-medium text-preto">{pedido.cliente_nome}</p>
+                        <p className="font-archivo text-xs text-preto/50">{pedido.cliente_email}</p>
+                      </td>
+                      <td className="px-5 py-3">
+                        <p className="font-archivo text-xs text-preto/70">
+                          {format(new Date(pedido.criado_em), 'dd/MM/yyyy', { locale: ptBR })}
+                        </p>
+                        <p className="font-archivo text-xs text-preto/40">
+                          {format(new Date(pedido.criado_em), 'HH:mm', { locale: ptBR })}
+                        </p>
+                      </td>
+                      <td className="px-5 py-3">
+                        <p className="font-archivo text-sm text-preto">
+                          {Array.isArray(pedido.order_items) ? pedido.order_items.length : 0} item(s)
+                        </p>
+                      </td>
+                      <td className="px-5 py-3">
+                        <p className="font-archivo text-sm font-medium text-preto">
+                          {formatCurrency(pedido.total)}
+                        </p>
+                      </td>
+                      <td className="px-5 py-3">
+                        <span
+                          className={`font-archivo text-xs px-2.5 py-1 rounded-full border ${
+                            statusColors[pedido.status as Status] ?? 'bg-gray-100 text-gray-700'
+                          }`}
+                        >
+                          {statusLabels[pedido.status as Status] ?? pedido.status}
+                        </span>
+                      </td>
+                      <td className="px-5 py-3">
+                        <ChevronRight size={16} className="text-preto/30" />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </div>
 
@@ -213,7 +252,7 @@ export default function PedidosClient({ pedidos }: { pedidos: Pedido[] }) {
       {detalhe && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-preto/40 backdrop-blur-sm" onClick={() => setDetalhe(null)} />
-          <div className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-branco border border-claro rounded-sm shadow-2xl m-4">
+          <div className="relative w-[95vw] max-w-lg max-h-[85vh] overflow-y-auto bg-branco border border-claro rounded-sm shadow-2xl m-4">
             {/* Modal Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-claro">
               <div>
