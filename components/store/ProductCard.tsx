@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ProductPlaceholder } from "./ProductPlaceholder";
+import { useCart } from "@/lib/hooks/useCart";
 
 export interface ProductCardProps {
   id: string;
@@ -29,7 +30,34 @@ export function ProductCard({
 }: ProductCardProps) {
   const [favoritado, setFavoritado] = useState(false);
   const [tamSelecionado, setTamSelecionado] = useState<string | null>(null);
+  const [isAdding, setIsAdding] = useState(false);
+  const { addItem, openCart } = useCart();
   const tamanhos = ["P", "M", "G"];
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!tamSelecionado) return;
+    
+    setIsAdding(true);
+    
+    // Create a generic variantId for the quick-add
+    const defaultCor = cores && cores.length > 0 ? "Padrão" : "Única";
+    const variantId = `${id}-${tamSelecionado}-${defaultCor}`;
+    
+    addItem({
+      variantId,
+      nome,
+      preco,
+      cor: defaultCor,
+      tamanho: tamSelecionado,
+      imageUrl: imageUrl || "",
+    });
+
+    setTimeout(() => {
+      setIsAdding(false);
+      openCart();
+    }, 600);
+  };
 
   return (
     <div className="group block relative">
@@ -89,12 +117,12 @@ export function ProductCard({
             {tamanhos.map((tam) => (
               <button
                 key={tam}
-                onClick={() => setTamSelecionado(tam)}
+                onClick={(e) => { e.preventDefault(); setTamSelecionado(tam); }}
                 aria-label={`Tamanho ${tam}`}
                 aria-pressed={tamSelecionado === tam}
-                className={`w-8 h-8 text-xs font-archivo border rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-dourado ${
+                className={`w-8 h-8 text-xs font-archivo border rounded-sm transition-all duration-300 active:scale-75 focus-visible:ring-2 focus-visible:ring-dourado ${
                   tamSelecionado === tam
-                    ? "bg-dourado text-branco border-dourado"
+                    ? "bg-dourado text-branco border-dourado scale-110 shadow-md"
                     : "border-preto/30 text-preto hover:border-dourado hover:text-dourado"
                 }`}
               >
@@ -103,12 +131,26 @@ export function ProductCard({
             ))}
           </div>
           {/* Botão Adicionar */}
-          <Link
-            href={`/produto/${slug}`}
-            className="block text-center font-archivo text-xs uppercase tracking-widest bg-dourado text-branco py-2 rounded-sm hover:bg-preto transition-colors focus-visible:ring-2 focus-visible:ring-dourado"
-          >
-            Ver produto
-          </Link>
+          {tamSelecionado ? (
+            <button
+              onClick={handleAddToCart}
+              disabled={isAdding}
+              className={`block w-full text-center font-archivo text-xs uppercase tracking-widest py-2 rounded-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-dourado ${
+                isAdding 
+                  ? "bg-green-600 text-branco scale-95 opacity-90" 
+                  : "bg-dourado text-branco hover:bg-preto hover:scale-[1.02] active:scale-95 shadow-sm"
+              }`}
+            >
+              {isAdding ? "Adicionado ✓" : "Adicionar à Sacola"}
+            </button>
+          ) : (
+            <Link
+              href={`/produto/${slug}`}
+              className="block w-full text-center font-archivo text-xs uppercase tracking-widest bg-dourado text-branco py-2 rounded-sm hover:bg-preto transition-colors focus-visible:ring-2 focus-visible:ring-dourado"
+            >
+              Ver produto
+            </Link>
+          )}
         </div>
 
         {/* Mobile: botão sempre visível abaixo da imagem */}
@@ -146,12 +188,12 @@ export function ProductCard({
           {tamanhos.map((tam) => (
             <button
               key={tam}
-              onClick={() => setTamSelecionado(tam)}
+              onClick={(e) => { e.preventDefault(); setTamSelecionado(tam); }}
               aria-label={`Tamanho ${tam}`}
               aria-pressed={tamSelecionado === tam}
-              className={`w-8 h-8 text-xs font-archivo border rounded-sm transition-colors focus-visible:ring-2 focus-visible:ring-dourado ${
+              className={`w-8 h-8 text-xs font-archivo border rounded-sm transition-all duration-300 active:scale-75 focus-visible:ring-2 focus-visible:ring-dourado ${
                 tamSelecionado === tam
-                  ? "bg-dourado text-branco border-dourado"
+                  ? "bg-dourado text-branco border-dourado scale-110 shadow-md"
                   : "border-preto/30 text-preto"
               }`}
             >
@@ -159,12 +201,26 @@ export function ProductCard({
             </button>
           ))}
         </div>
-        <Link
-          href={`/produto/${slug}`}
-          className="block text-center font-archivo text-xs uppercase tracking-widest border border-dourado text-dourado py-2 rounded-sm hover:bg-dourado hover:text-branco transition-colors focus-visible:ring-2 focus-visible:ring-dourado"
-        >
-          Ver produto
-        </Link>
+        {tamSelecionado ? (
+          <button
+            onClick={handleAddToCart}
+            disabled={isAdding}
+            className={`block w-full text-center font-archivo text-xs uppercase tracking-widest py-2 rounded-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-dourado ${
+              isAdding 
+                ? "bg-green-600 text-branco scale-95 opacity-90 border border-green-600" 
+                : "border border-dourado bg-dourado text-branco active:scale-95 shadow-sm"
+            }`}
+          >
+            {isAdding ? "Adicionado ✓" : "Adicionar à Sacola"}
+          </button>
+        ) : (
+          <Link
+            href={`/produto/${slug}`}
+            className="block w-full text-center font-archivo text-xs uppercase tracking-widest border border-dourado text-dourado py-2 rounded-sm hover:bg-dourado hover:text-branco transition-colors focus-visible:ring-2 focus-visible:ring-dourado"
+          >
+            Ver produto
+          </Link>
+        )}
       </div>
     </div>
   );
