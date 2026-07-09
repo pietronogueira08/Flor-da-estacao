@@ -44,9 +44,9 @@ export default async function HomePage() {
     { nome: "Calças", slug: "calcas", img: "/cat-calcas-real.jpeg" },
     { nome: "Blusas", slug: "blusas", img: "/cat-blusas-real.jpeg" },
     { nome: "Vestidos", slug: "vestidos", img: "/cat-vestidos-real.jpeg" },
-    { nome: "Conjuntos", slug: "conjuntos", img: "/cat-conjuntos-real.png" },
-    { nome: "Macacão", slug: "macacao", img: "/cat-macacao-real.png" },
-    { nome: "Short", slug: "short", img: "/cat-short-real.png" },
+    { nome: "Conjuntos", slug: "conjuntos", img: "/cat-conjuntos-real.jpeg" },
+    { nome: "Macacão", slug: "macacao", img: "/cat-macacao-real.jpeg" },
+    { nome: "Short", slug: "short", img: "/cat-short-real.jpeg" },
     { nome: "Saia", slug: "saia", img: "/cat-saias-real.jpeg" },
   ];
 
