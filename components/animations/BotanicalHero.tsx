@@ -75,7 +75,7 @@ export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
             <ZayaWordmark width={280} height={92} />
           </span>
           <span className="hidden md:flex">
-            <ZayaWordmark width={300} height={100} className="w-[80vw] max-w-[400px] md:w-auto md:max-w-none" />
+            <ZayaWordmark width={300} height={100} />
           </span>
         </div>
         <p
