@@ -63,9 +63,16 @@ export default async function ProdutoPage({ params }: { params: Promise<{ slug: 
     .neq("id", product.id)
     .limit(4);
 
-  const realRelated = related ? related.filter(p => !p.id.startsWith('b1000000')) : [];
-  
-  const relacionados = realRelated.length > 0 ? realRelated : (related || []);
+  // Filtrar para mostrar apenas produtos reais (que têm imagem e não são placeholders do seed)
+  const relacionados = related 
+    ? related.filter(p => 
+        p.product_images && 
+        p.product_images.length > 0 && 
+        p.product_images[0].url && 
+        p.product_images[0].is_placeholder !== true &&
+        !p.id.startsWith('b1000000')
+      )
+    : [];
 
   const mappedProduct = {
     ...product,
@@ -82,24 +89,31 @@ export default async function ProdutoPage({ params }: { params: Promise<{ slug: 
 
       <div className="mt-32">
         <Divider className="mb-12" />
-        <h2 className="font-cormorant text-4xl text-carvao italic text-center mb-12">
+        <h2 className="font-bodoni text-4xl text-preto italic text-center mb-12">
           Você também pode gostar
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {relacionados.map((rel: any) => (
-            <ProductCard
-              key={rel.id}
-              id={rel.id}
-              slug={rel.slug}
-              nome={rel.nome}
-              categoria={rel.categories?.nome || "Produto"}
-              preco={rel.preco_base}
-              is_placeholder={!rel.product_images?.[0]?.url}
-              imageUrl={rel.product_images?.[0]?.url}
-              cores={[]}
-            />
-          ))}
-        </div>
+        
+        {relacionados.length > 0 ? (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {relacionados.map((rel: any) => (
+              <ProductCard
+                key={rel.id}
+                id={rel.id}
+                slug={rel.slug}
+                nome={rel.nome}
+                categoria={rel.categories?.nome || "Produto"}
+                preco={rel.preco_base}
+                is_placeholder={!rel.product_images?.[0]?.url}
+                imageUrl={rel.product_images?.[0]?.url}
+                cores={[]}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center text-preto/60 font-archivo py-16 bg-claro/10 rounded-sm">
+            <p>Ainda não temos outros produtos cadastrados nesta categoria.</p>
+          </div>
+        )}
       </div>
     </div>
   );
