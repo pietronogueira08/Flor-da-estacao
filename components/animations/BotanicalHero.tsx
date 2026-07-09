@@ -47,7 +47,7 @@ export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
 
   return (
     <div
-      className="w-full flex flex-col items-center justify-center min-h-[100svh] md:min-h-[85vh] relative"
+      className="w-full flex flex-col items-center justify-center min-h-[100dvh] md:min-h-[85vh] relative"
       style={hasImages ? {} : {
         background: "radial-gradient(ellipse at center, #E8E8E8 0%, #C0C0C0 40%, #A5A5A5 100%)",
       }}
@@ -75,7 +75,7 @@ export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
             <ZayaWordmark width={280} height={92} />
           </span>
           <span className="hidden md:flex">
-            <ZayaWordmark width={220} height={72} />
+            <ZayaWordmark width={300} height={100} className="w-[80vw] max-w-[400px] md:w-auto md:max-w-none" />
           </span>
         </div>
         <p

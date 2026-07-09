@@ -34,9 +34,9 @@ export function StoreFooter() {
           </div>
 
           {/* Loja */}
-          <div>
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h4 className="font-bodoni text-xl text-preto mb-4">Loja</h4>
-            <ul className="space-y-1">
+            <ul className="space-y-1 w-full">
               <li><Link href="/produtos" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Todos os produtos</Link></li>
               <li><Link href="/categoria/novidades" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Novidades</Link></li>
               <li><Link href="/categoria/vestidos" className="font-arquivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Vestidos</Link></li>
@@ -45,9 +45,9 @@ export function StoreFooter() {
           </div>
 
           {/* Ajuda */}
-          <div>
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h4 className="font-bodoni text-xl text-preto mb-4">Ajuda</h4>
-            <ul className="space-y-1">
+            <ul className="space-y-1 w-full">
               <li><Link href="/contato" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Contato</Link></li>
               <li><Link href="/trocas" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Trocas e Devoluções</Link></li>
               <li><Link href="/sobre" className="font-archivo text-sm text-zaya hover:text-dourado focus-visible:ring-2 focus-visible:ring-dourado rounded-sm block py-2">Nossa História</Link></li>
@@ -57,7 +57,7 @@ export function StoreFooter() {
           </div>
 
           {/* Contato */}
-          <div>
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h4 className="font-bodoni text-xl text-preto mb-4">Contato</h4>
             <address className="not-italic font-archivo text-sm text-zaya space-y-2">
               <p>São João da Barra, RJ</p>
@@ -66,9 +66,9 @@ export function StoreFooter() {
             </address>
 
             {/* Formas de pagamento */}
-            <div className="mt-6">
+            <div className="mt-6 flex flex-col items-center md:items-start">
               <p className="font-archivo text-xs text-zaya uppercase tracking-widest mb-3">Pagamento</p>
-              <div className="flex flex-wrap gap-2" aria-label="Formas de pagamento aceitas">
+              <div className="flex flex-wrap gap-2 justify-center md:justify-start" aria-label="Formas de pagamento aceitas">
                 {/* Pix */}
                 <span title="Pix" className="bg-branco border border-claro/30 rounded-sm px-2 py-1 font-archivo text-[10px] text-preto/70 font-medium">PIX</span>
                 {/* Visa */}
