@@ -204,7 +204,7 @@ export default function CustomizacaoClient({ settings }: { settings: any }) {
 
           <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
             {instagramImages.map((img, idx) => {
-              const src = typeof img === 'string' ? img : (img.src || img.url)
+              const src = typeof img === 'string' ? img : (img?.src || img?.url || '/about-us.png')
               return (
                 <div key={idx} className="relative aspect-square bg-claro/20 rounded-sm overflow-hidden group">
                   <Image src={src} alt={`Instagram ${idx + 1}`} fill className="object-cover" unoptimized />

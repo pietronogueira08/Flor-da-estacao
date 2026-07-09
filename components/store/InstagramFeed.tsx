@@ -16,7 +16,7 @@ export function InstagramFeed({ feedImages = [] }: { feedImages?: any[] }) {
         if (typeof img === 'string') {
           return { id: idx, src: img, alt: `Instagram Zaya ${idx + 1}`, link: "https://www.instagram.com/zaya_loja/" };
         }
-        return { id: idx, src: img.src || img.url, alt: `Instagram Zaya ${idx + 1}`, link: img.link || "https://www.instagram.com/zaya_loja/" };
+        return { id: idx, src: img?.src || img?.url || '/about-us.png', alt: `Instagram Zaya ${idx + 1}`, link: img?.link || "https://www.instagram.com/zaya_loja/" };
       })
     : defaultFeedImages.map(img => ({ ...img, link: "https://www.instagram.com/zaya_loja/" }));
 
