@@ -11,10 +11,30 @@ export default function CustomizacaoClient({ settings }: { settings: any }) {
   const supabase = createClient()
 
   const [heroImages, setHeroImages] = useState<string[]>(settings?.hero_images || [])
-  const [instagramImages, setInstagramImages] = useState<string[]>(settings?.instagram_images || [])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState(false)
+  const [instagramImages, setInstagramImages] = useState<any[]>(settings?.instagram_images || [])
+  const [instagramLinkInput, setInstagramLinkInput] = useState('')
+  const [loadingIgLink, setLoadingIgLink] = useState(false)
+
+  const handleAddInstagramLink = async () => {
+    if (!instagramLinkInput) return
+    setLoadingIgLink(true)
+    setError(null)
+    setSuccess(false)
+    try {
+      const res = await fetch(`https://api.microlink.io?url=${encodeURIComponent(instagramLinkInput)}`)
+      const data = await res.json()
+      if (data?.data?.image?.url) {
+        setInstagramImages([...instagramImages, { src: data.data.image.url, link: instagramLinkInput }])
+        setInstagramLinkInput('')
+      } else {
+        throw new Error("Não foi possível carregar o preview. Tente novamente ou use o upload manual.")
+      }
+    } catch (err: any) {
+      setError(err.message || 'Erro ao carregar preview do link.')
+    } finally {
+      setLoadingIgLink(false)
+    }
+  }
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'hero' | 'instagram') => {
     const file = e.target.files?.[0]
@@ -161,27 +181,47 @@ export default function CustomizacaoClient({ settings }: { settings: any }) {
           <div>
             <h2 className="font-bodoni text-2xl text-preto italic">Feed do Instagram</h2>
             <p className="font-archivo text-sm text-preto/60 mt-1">
-              Adicione fotos para aparecerem na seção do Instagram (ideal 6 fotos no formato quadrado).
+              Adicione links de posts do Instagram (ou faça upload manual) para exibi-los na página inicial.
             </p>
+          </div>
+          
+          <div className="flex gap-2 mb-4">
+            <input 
+              type="text" 
+              placeholder="Cole o link do post do Instagram aqui..." 
+              value={instagramLinkInput}
+              onChange={(e) => setInstagramLinkInput(e.target.value)}
+              className="flex-1 bg-branco border border-claro rounded-sm px-4 py-2 font-archivo text-sm text-preto focus:outline-none focus:border-dourado"
+            />
+            <button 
+              onClick={handleAddInstagramLink}
+              disabled={loadingIgLink || !instagramLinkInput}
+              className="bg-preto text-branco px-4 py-2 font-archivo text-sm rounded-sm hover:bg-dourado transition-colors disabled:opacity-50"
+            >
+              {loadingIgLink ? 'Carregando...' : 'Adicionar Preview'}
+            </button>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-            {instagramImages.map((url, idx) => (
-              <div key={idx} className="relative aspect-square bg-claro/20 rounded-sm overflow-hidden group">
-                <Image src={url} alt={`Instagram ${idx + 1}`} fill className="object-cover" unoptimized />
-                <button
-                  onClick={() => handleRemove(idx, 'instagram')}
-                  className="absolute top-2 right-2 p-1.5 bg-preto/50 text-branco rounded-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
-                  title="Remover foto"
-                >
-                  <Trash2 size={14} />
-                </button>
-              </div>
-            ))}
+            {instagramImages.map((img, idx) => {
+              const src = typeof img === 'string' ? img : (img.src || img.url)
+              return (
+                <div key={idx} className="relative aspect-square bg-claro/20 rounded-sm overflow-hidden group">
+                  <Image src={src} alt={`Instagram ${idx + 1}`} fill className="object-cover" unoptimized />
+                  <button
+                    onClick={() => handleRemove(idx, 'instagram')}
+                    className="absolute top-2 right-2 p-1.5 bg-preto/50 text-branco rounded-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
+                    title="Remover foto"
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </div>
+              )
+            })}
 
             <label className="relative aspect-square flex flex-col items-center justify-center border-2 border-dashed border-claro hover:border-dourado hover:bg-claro/5 transition-colors cursor-pointer rounded-sm group">
               <ImageIcon size={20} className="text-preto/30 group-hover:text-dourado mb-2" />
-              <span className="font-archivo text-xs text-preto/50 group-hover:text-dourado text-center px-2">Nova Foto</span>
+              <span className="font-archivo text-xs text-preto/50 group-hover:text-dourado text-center px-2">Upload Manual</span>
               <input
                 type="file"
                 accept="image/*"

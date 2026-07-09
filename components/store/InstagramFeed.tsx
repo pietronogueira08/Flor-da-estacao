@@ -10,10 +10,15 @@ const defaultFeedImages = [
   { id: 6, src: "/prod-camisa.png", alt: "Camisa Zaya" },
 ];
 
-export function InstagramFeed({ feedImages = [] }: { feedImages?: string[] }) {
+export function InstagramFeed({ feedImages = [] }: { feedImages?: any[] }) {
   const images = feedImages.length > 0 
-    ? feedImages.map((src, idx) => ({ id: idx, src, alt: `Instagram Zaya ${idx + 1}` }))
-    : defaultFeedImages;
+    ? feedImages.map((img, idx) => {
+        if (typeof img === 'string') {
+          return { id: idx, src: img, alt: `Instagram Zaya ${idx + 1}`, link: "https://www.instagram.com/zaya_loja/" };
+        }
+        return { id: idx, src: img.src || img.url, alt: `Instagram Zaya ${idx + 1}`, link: img.link || "https://www.instagram.com/zaya_loja/" };
+      })
+    : defaultFeedImages.map(img => ({ ...img, link: "https://www.instagram.com/zaya_loja/" }));
 
   return (
     <section className="py-16 px-4 md:px-8 bg-branco" aria-label="Feed do Instagram">
@@ -36,7 +41,7 @@ export function InstagramFeed({ feedImages = [] }: { feedImages?: string[] }) {
           {images.map((img) => (
             <a
               key={img.id}
-              href="https://www.instagram.com/zaya_loja/"
+              href={img.link}
               target="_blank"
               rel="noopener noreferrer"
               className="group relative aspect-square overflow-hidden block bg-claro/20 rounded-sm focus-visible:ring-2 focus-visible:ring-dourado"
