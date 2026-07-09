@@ -12,6 +12,9 @@ export default function CustomizacaoClient({ settings }: { settings: any }) {
 
   const [heroImages, setHeroImages] = useState<string[]>(settings?.hero_images || [])
   const [instagramImages, setInstagramImages] = useState<any[]>(settings?.instagram_images || [])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(false)
   const [instagramLinkInput, setInstagramLinkInput] = useState('')
   const [loadingIgLink, setLoadingIgLink] = useState(false)
 
