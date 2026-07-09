@@ -32,7 +32,7 @@ export default function TrocasPage() {
         <section>
           <h2 className="font-bodoni text-3xl text-preto mb-4">Como solicitar</h2>
           <p>
-            Entre em contato conosco através do WhatsApp (22) 99999-9999 ou e-mail contato@zaya.com.br informando o número do seu pedido e o motivo da troca/devolução.
+            Entre em contato conosco através do WhatsApp <a href="https://wa.me/5522999163206" target="_blank" rel="noopener noreferrer" className="font-medium hover:text-dourado transition-colors underline underline-offset-2 decoration-claro/50 hover:decoration-dourado">(22) 99916-3206</a> ou e-mail contato@zaya.com.br informando o número do seu pedido e o motivo da troca/devolução.
           </p>
           <p className="mt-4">
             Lembrando que a peça deve retornar nas mesmas condições em que foi entregue: com a etiqueta afixada, sem indícios de uso, lavagem ou odores.

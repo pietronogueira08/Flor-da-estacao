@@ -40,7 +40,7 @@ export default function ContatoPage() {
           <div className="space-y-6 font-archivo text-preto/80">
             <div>
               <p className="font-medium text-preto mb-1">WhatsApp</p>
-              <p>(22) 99999-9999</p>
+              <p><a href="https://wa.me/5522999163206" target="_blank" rel="noopener noreferrer" className="hover:text-dourado transition-colors">(22) 99916-3206</a></p>
             </div>
             <div>
               <p className="font-medium text-preto mb-1">E-mail</p>

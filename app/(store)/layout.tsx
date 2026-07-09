@@ -4,6 +4,7 @@ import { StoreHeader } from "@/components/store/StoreHeader";
 import { StoreFooter } from "@/components/store/StoreFooter";
 import { UtilityBar } from "@/components/store/UtilityBar";
 import { CartDrawer } from "@/components/store/CartDrawer";
+import { WhatsAppFloatingButton } from "@/components/store/WhatsAppFloatingButton";
 
 export default function StoreLayout({
   children,
@@ -23,6 +24,7 @@ export default function StoreLayout({
             <main className="flex-grow">{children}</main>
             <StoreFooter />
           </div>
+          <WhatsAppFloatingButton />
         </div>
       </CartProvider>
     </LenisProvider>

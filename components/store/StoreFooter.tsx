@@ -61,7 +61,7 @@ export function StoreFooter() {
             <h4 className="font-bodoni text-xl text-preto mb-4">Contato</h4>
             <address className="not-italic font-archivo text-sm text-zaya space-y-2">
               <p>São João da Barra, RJ</p>
-              <p>WhatsApp: (22) 99999-9999</p>
+              <p><a href="https://wa.me/5522999163206" target="_blank" rel="noopener noreferrer" className="hover:text-dourado transition-colors">WhatsApp: (22) 99916-3206</a></p>
               <p>contato@zaya.com.br</p>
             </address>
 
