@@ -38,27 +38,15 @@ export default async function HomePage() {
   const heroImages = settings?.hero_images || [];
   const instagramImages = settings?.instagram_images || [];
 
-  const allProducts = products || [];
-  const realProducts = allProducts.filter(p => !p.id.startsWith('b1000000'));
-  
-  let novidades = realProducts.length > 0 ? realProducts : allProducts;
-  
-  if (novidades.length === 0) {
-    novidades = [
-      { id: "1", slug: "vestido-floral-1", nome: "Vestido Midi Floral", preco_base: 289.90, categories: { nome: "Vestidos" }, product_images: [{ url: "/prod-vestido.png" }] },
-      { id: "2", slug: "blusa-linho-2", nome: "Blusa de Linho Romântica", preco_base: 159.90, categories: { nome: "Blusas" }, product_images: [{ url: "/prod-blusa.png" }] },
-      { id: "3", slug: "saia-midi-3", nome: "Saia Midi Plissada", preco_base: 199.90, categories: { nome: "Saias" }, product_images: [{ url: "/prod-saia.png" }] },
-      { id: "4", slug: "camisa-seda-4", nome: "Camisa de Seda Botânica", preco_base: 329.90, categories: { nome: "Camisas" }, product_images: [{ url: "/prod-camisa.png" }] },
-    ];
-  }
+  const novidades = products || [];
 
   const categorias = [
     { nome: "Calças", slug: "calcas", img: "/cat-calcas-real.jpeg" },
     { nome: "Blusas", slug: "blusas", img: "/cat-blusas-real.jpeg" },
     { nome: "Vestidos", slug: "vestidos", img: "/cat-vestidos-real.jpeg" },
-    { nome: "Conjuntos", slug: "conjuntos", img: "/prod-saia.png" },
-    { nome: "Macacão", slug: "macacao", img: "/prod-vestido.png" },
-    { nome: "Short", slug: "short", img: "/prod-blusa.png" },
+    { nome: "Conjuntos", slug: "conjuntos", img: "/cat-conjuntos-real.png" },
+    { nome: "Macacão", slug: "macacao", img: "/cat-macacao-real.png" },
+    { nome: "Short", slug: "short", img: "/cat-short-real.png" },
     { nome: "Saia", slug: "saia", img: "/cat-saias-real.jpeg" },
   ];
 

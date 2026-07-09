@@ -189,7 +189,7 @@ export default function ProdutoModal({
       }
 
       // Salvar variantes
-      const validVariants = variants.filter((v) => v.sku && v.tamanho)
+      const validVariants = variants.filter((v) => v.tamanho)
       for (const variant of validVariants) {
         if (variant.id) {
           await supabase
