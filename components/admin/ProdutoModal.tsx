@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { X, Plus, Trash2 } from 'lucide-react'
+import { X, Plus, Trash2, Upload } from 'lucide-react'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyRecord = Record<string, any>
@@ -115,7 +115,7 @@ export default function ProdutoModal({
   }
 
   const addImage = () => {
-    setImages([...images, { url: '', posicao: images.length, is_placeholder: true }])
+    setImages([...images, { url: '', posicao: images.length, is_placeholder: false }])
   }
 
   const removeImage = (idx: number) => {
@@ -124,6 +124,35 @@ export default function ProdutoModal({
 
   const updateImage = (idx: number, field: keyof ProductImage, value: string | number | boolean) => {
     setImages(images.map((img, i) => (i === idx ? { ...img, [field]: value } : img)))
+  }
+
+  const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setLoading(true)
+    setError(null)
+    try {
+      const fileExt = file.name.split('.').pop()
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
+      
+      const { error: uploadError } = await supabase.storage
+        .from('product-images')
+        .upload(fileName, file)
+
+      if (uploadError) throw uploadError
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('product-images')
+        .getPublicUrl(fileName)
+
+      setImages(prev => prev.map((img, i) => i === idx ? { ...img, url: publicUrl, is_placeholder: false } : img))
+    } catch (err: any) {
+      setError(err.message || 'Erro ao fazer upload da imagem.')
+    } finally {
+      setLoading(false)
+      e.target.value = ''
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -401,12 +430,24 @@ export default function ProdutoModal({
                   key={idx}
                   className="flex items-center gap-2 p-3 bg-branco border border-claro/20 rounded-sm"
                 >
-                  <input
-                    placeholder="URL da imagem"
-                    value={img.url}
-                    onChange={(e) => updateImage(idx, 'url', e.target.value)}
-                    className="flex-1 bg-branco border border-claro rounded-sm px-2 py-1.5 font-archivo text-xs text-preto focus:outline-none focus:border-dourado"
-                  />
+                  <div className="flex-1 flex gap-2">
+                    <input
+                      placeholder="URL da imagem ou faça upload"
+                      value={img.url}
+                      onChange={(e) => updateImage(idx, 'url', e.target.value)}
+                      className="flex-1 bg-branco border border-claro rounded-sm px-2 py-1.5 font-archivo text-xs text-preto focus:outline-none focus:border-dourado"
+                    />
+                    <label className="flex items-center justify-center px-3 py-1.5 bg-claro/20 border border-claro rounded-sm cursor-pointer hover:bg-claro/30 transition-colors" title="Fazer upload de imagem (até 50MB)">
+                      <Upload size={14} className="text-preto/60" />
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => handleUploadImage(e, idx)}
+                        disabled={loading}
+                      />
+                    </label>
+                  </div>
                   <label className="flex items-center gap-1 font-archivo text-xs text-preto/60">
                     <input
                       type="checkbox"
