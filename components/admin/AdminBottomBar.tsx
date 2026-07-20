@@ -7,6 +7,7 @@ import {
   ShoppingBag,
   Package,
   ClipboardList,
+  TrendingUp,
 } from 'lucide-react'
 
 const navItems = [
@@ -14,6 +15,7 @@ const navItems = [
   { href: '/admin/produtos',  icon: ShoppingBag,    label: 'Produtos'   },
   { href: '/admin/estoque',   icon: Package,        label: 'Estoque'    },
   { href: '/admin/pedidos',   icon: ClipboardList,  label: 'Pedidos'    },
+  { href: '/admin/vendas',    icon: TrendingUp,     label: 'Vendas'     },
 ]
 
 export default function AdminBottomBar() {

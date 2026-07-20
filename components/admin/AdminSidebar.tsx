@@ -12,14 +12,16 @@ import {
   ClipboardList,
   LogOut,
   Gem,
+  TrendingUp,
 } from 'lucide-react'
 
 const navItems = [
-  { href: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { href: '/admin/produtos',  icon: ShoppingBag,    label: 'Produtos'   },
-  { href: '/admin/estoque',   icon: Package,        label: 'Estoque'    },
-  { href: '/admin/pedidos',   icon: ClipboardList,  label: 'Pedidos'    },
-  { href: '/admin/customizacao', icon: Gem,         label: 'Customização'}
+  { href: '/admin/dashboard',   icon: LayoutDashboard, label: 'Dashboard'    },
+  { href: '/admin/produtos',    icon: ShoppingBag,     label: 'Produtos'     },
+  { href: '/admin/estoque',     icon: Package,         label: 'Estoque'      },
+  { href: '/admin/pedidos',     icon: ClipboardList,   label: 'Pedidos'      },
+  { href: '/admin/vendas',      icon: TrendingUp,      label: 'Vendas'       },
+  { href: '/admin/customizacao',icon: Gem,             label: 'Customização' },
 ]
 
 export default function AdminSidebar() {

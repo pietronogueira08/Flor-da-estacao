@@ -6,12 +6,10 @@ export async function middleware(request: NextRequest) {
     request,
   })
 
-  // Ignorar se Supabase não estiver configurado
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
   if (!supabaseUrl || !supabaseKey || supabaseUrl === 'your_supabase_project_url') {
-    // Em desenvolvimento sem Supabase configurado, permite acesso ao admin
     return supabaseResponse
   }
 
@@ -41,13 +39,14 @@ export async function middleware(request: NextRequest) {
   const isAdminRoute = request.nextUrl.pathname.startsWith('/admin')
   const isLoginPage = request.nextUrl.pathname === '/admin/login'
 
+  // Protect all admin routes — redirect to login if not authenticated
   if (isAdminRoute && !isLoginPage && !user) {
-    // LOGIN BYPASS: Comentado para permitir acesso direto sem login
-    // const url = request.nextUrl.clone()
-    // url.pathname = '/admin/login'
-    // return NextResponse.redirect(url)
+    const url = request.nextUrl.clone()
+    url.pathname = '/admin/login'
+    return NextResponse.redirect(url)
   }
 
+  // Redirect authenticated users away from login page
   if (isLoginPage && user) {
     const url = request.nextUrl.clone()
     url.pathname = '/admin/dashboard'
