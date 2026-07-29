@@ -1,116 +1,82 @@
-import { NextResponse } from 'next/server';
-import { createClient } from '../../../lib/supabase/server';
-import { Preference } from 'mercadopago';
-import { initMercadoPagoClient } from './mp-client'; // We'll create this or just inline MP setup
+import { NextResponse } from 'next/server'
+import { createClient } from '../../../lib/supabase/server'
 
+/**
+ * Checkout simplificado — apenas cria o pedido no banco.
+ * O pagamento agora é processado em /api/pagamento/cartao ou /api/pagamento/pix.
+ */
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { carrinho, endereco, frete } = body;
+    const body = await request.json()
+    const { carrinho, endereco, frete } = body
 
     if (!carrinho || carrinho.length === 0) {
-      return NextResponse.json({ error: 'Carrinho vazio' }, { status: 400 });
+      return NextResponse.json({ error: 'Carrinho vazio' }, { status: 400 })
     }
 
-    const supabase = await createClient();
+    const supabase = await createClient()
 
-    // 1. Valida estoque de cada variante
+    // 1. Valida estoque
     for (const item of carrinho) {
-      const { data: variant, error } = await supabase
+      const { data: variant } = await supabase
         .from('product_variants')
-        .select('estoque, products(name)')
+        .select('estoque, products(nome)')
         .eq('id', item.variantId)
-        .single();
-        
-      if (!variant) {
-        // Se estiver em modo mock/sem supabase configurado, pula
-        continue;
-      }
-      
-      if (variant.estoque !== null && variant.estoque < item.quantidade) {
+        .single()
+
+      if (variant && variant.estoque !== null && variant.estoque < item.quantidade) {
         return NextResponse.json(
           { error: `Estoque insuficiente para ${item.nome}` },
           { status: 400 }
-        );
+        )
       }
     }
 
-    const subtotal = carrinho.reduce((acc: number, item: any) => acc + (item.preco * item.quantidade), 0);
-    const total = subtotal + (frete?.preco || 0);
+    const subtotal = carrinho.reduce(
+      (acc: number, item: { preco: number; quantidade: number }) =>
+        acc + item.preco * item.quantidade,
+      0
+    )
+    const total = subtotal + (frete?.preco || 0)
 
-    // 2. Cria registro em orders
-    // Gerar um UUID se o Supabase não estiver configurado (fallback)
-    const mockOrderId = crypto.randomUUID();
-    
+    // 2. Cria pedido no Supabase
     const { data: orderData, error: orderError } = await supabase
       .from('orders')
       .insert({
-        id: process.env.NEXT_PUBLIC_SUPABASE_URL !== 'your_supabase_project_url' ? undefined : mockOrderId,
         cliente_nome: endereco.nome,
         cliente_email: endereco.email,
         cliente_telefone: endereco.telefone,
         endereco: endereco,
         frete: frete?.preco || 0,
-        subtotal: subtotal,
-        total: total,
-        status: 'pendente'
+        frete_service_id: frete?.service_id ?? null,
+        subtotal,
+        total,
+        status: 'pendente',
       })
       .select('id')
-      .single();
+      .single()
 
-    const orderId = orderData?.id || mockOrderId;
-
-    // 3. Cria registros em order_items
-    if (orderData?.id) {
-      const orderItems = carrinho.map((item: any) => ({
-        order_id: orderId,
-        variant_id: item.variantId,
-        quantidade: item.quantidade,
-        preco_unitario: item.preco
-      }));
-      
-      await supabase.from('order_items').insert(orderItems);
+    if (orderError || !orderData) {
+      console.error('Erro ao criar pedido:', orderError)
+      return NextResponse.json({ error: 'Erro ao criar pedido' }, { status: 500 })
     }
 
-    // 4. Cria preferência no Mercado Pago ou Mock
-    const accessToken = process.env.MP_ACCESS_TOKEN;
-    
-    if (!accessToken || accessToken.startsWith('TEST-') || accessToken === 'mock') {
-      return NextResponse.json({ orderId, mockPayment: true });
-    }
+    const orderId = orderData.id
 
-    // Integração MP Real
-    const mpClient = initMercadoPagoClient(accessToken);
-    const preference = new Preference(mpClient);
+    // 3. Cria itens do pedido
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const orderItems = carrinho.map((item: any) => ({
+      order_id: orderId,
+      variant_id: item.variantId,
+      quantidade: item.quantidade,
+      preco_unitario: item.preco,
+    }))
 
-    const preferenceData = await preference.create({
-      body: {
-        items: carrinho.map((item: any) => ({
-          id: item.variantId,
-          title: item.nome,
-          quantity: item.quantidade,
-          unit_price: item.preco,
-          currency_id: 'BRL'
-        })),
-        payer: {
-          name: endereco.nome,
-          email: endereco.email
-        },
-        back_urls: {
-          success: `${process.env.NEXT_PUBLIC_APP_URL}/pedido/${orderId}`,
-          failure: `${process.env.NEXT_PUBLIC_APP_URL}/checkout`,
-          pending: `${process.env.NEXT_PUBLIC_APP_URL}/pedido/${orderId}`
-        },
-        auto_return: 'approved',
-        external_reference: orderId,
-        notification_url: `${process.env.NEXT_PUBLIC_APP_URL}/api/webhook/mercadopago`
-      }
-    });
+    await supabase.from('order_items').insert(orderItems)
 
-    return NextResponse.json({ orderId, preferenceId: preferenceData.id });
-
+    return NextResponse.json({ orderId, total })
   } catch (error) {
-    console.error('Erro ao processar checkout:', error);
-    return NextResponse.json({ error: 'Erro interno ao processar pedido' }, { status: 500 });
+    console.error('Erro ao criar pedido:', error)
+    return NextResponse.json({ error: 'Erro interno ao criar pedido' }, { status: 500 })
   }
 }
