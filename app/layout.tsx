@@ -33,12 +33,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        {/* Instruir o browser a tratar o site como light mode — evita dark mode automático no mobile */}
+        <meta name="color-scheme" content="light" />
+      </head>
       <body
         className={`${bodoniModa.variable} ${archivo.variable} antialiased`}
+        style={{ background: "#FAFAFA", color: "#1A1A1A" }}
       >
         {children}
       </body>
     </html>
   );
 }
+

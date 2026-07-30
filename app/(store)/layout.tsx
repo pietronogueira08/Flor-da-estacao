@@ -15,7 +15,7 @@ export default function StoreLayout({
     <LenisProvider>
       <CartProvider>
         <CartDrawer />
-        <div className="flex flex-col min-h-screen bg-branco">
+        <div className="flex flex-col min-h-screen bg-branco" style={{ background: '#FAFAFA', color: '#1A1A1A' }}>
           <div className="fixed top-0 left-0 w-full z-[60]">
             <UtilityBar />
             <StoreHeader />

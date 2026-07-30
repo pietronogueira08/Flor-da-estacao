@@ -51,7 +51,7 @@ export default async function HomePage() {
   ];
 
   return (
-    <div className="w-full">
+    <div className="w-full" style={{ background: '#FAFAFA', color: '#1A1A1A' }}>
 
       {/* ━━━━━━━━━━━━━━━━━━━━ 1. HERO ━━━━━━━━━━━━━━━━━━━━ */}
       <section
@@ -59,7 +59,7 @@ export default async function HomePage() {
         aria-label="Seção principal da loja"
       >
         <BotanicalHero heroImages={heroImages} />
-        <div className="text-center pb-12 px-4 bg-branco w-full">
+        <div className="text-center pb-12 px-4 bg-branco w-full" style={{ background: '#FAFAFA', color: '#1A1A1A' }}>
           <h1 className="font-bodoni text-3xl md:text-5xl lg:text-6xl text-preto italic leading-tight mb-8">
             Silêncio que veste
           </h1>

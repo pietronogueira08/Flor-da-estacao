@@ -19,6 +19,7 @@ export interface ProductCardProps {
 }
 
 export function ProductCard({
+  id,
   slug,
   nome,
   categoria,
@@ -40,16 +41,19 @@ export function ProductCard({
     
     setIsAdding(true);
     
-    // Create a generic variantId for the quick-add
+    // Para o quick-add usamos um variantId temporário (productId + tamanho + cor).
+    // O servidor resolve o variant_id real em /api/checkout usando productId + tamanho.
     const defaultCor = cores && cores.length > 0 ? "Padrão" : "Única";
-    const variantId = `${id}-${tamSelecionado}-${defaultCor}`;
+    const variantId = `quickadd-${id}-${tamSelecionado}-${defaultCor}`;
     
     addItem({
       variantId,
+      productId: id,       // ID real do produto — usado pelo servidor para resolver a variante
       nome,
       preco,
       cor: defaultCor,
       tamanho: tamSelecionado,
+      quantidade: 1,
       imageUrl: imageUrl || "",
     });
 

@@ -48,7 +48,7 @@ export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
   return (
     <div
       className="w-full flex flex-col items-center justify-center min-h-[100dvh] md:min-h-[85vh] relative"
-      style={hasImages ? {} : {
+      style={hasImages ? { background: "#FAFAFA" } : {
         background: "radial-gradient(ellipse at center, #E8E8E8 0%, #C0C0C0 40%, #A5A5A5 100%)",
       }}
       aria-label="Hero Zaya"
@@ -59,12 +59,14 @@ export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
             src={heroImages[currentIndex]}
             alt="Zaya Hero Background"
             fill
-            className="object-cover object-center"
+            /* Mobile: object-top para manter o enquadramento correto em imagens portrait de moda
+               Desktop: object-center para centralizar normalmente */
+            className="object-cover object-top md:object-center"
             priority
             unoptimized
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-branco/10" />
+          <div className="absolute inset-0 bg-white/10" />
         </div>
       )}
 
@@ -89,3 +91,4 @@ export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
     </div>
   );
 }
+

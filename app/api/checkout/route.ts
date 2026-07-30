@@ -1,10 +1,16 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '../../../lib/supabase/server'
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 
 /**
  * Checkout simplificado — apenas cria o pedido no banco.
  * O pagamento agora é processado em /api/pagamento/cartao ou /api/pagamento/pix.
  */
+
+/** Detecta se uma string é um UUID real (formato xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx) */
+function isUUID(value: string): boolean {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value)
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json()
@@ -14,22 +20,74 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Carrinho vazio' }, { status: 400 })
     }
 
-    const supabase = await createClient()
+    const supabaseAdmin = createSupabaseClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    )
 
-    // 1. Valida estoque
+    // 1. Para cada item do carrinho, resolve o variant_id real no banco
+    //    - Se o variantId já for um UUID → usa diretamente (veio da página de produto)
+    //    - Se for um ID composto (quick-add) → busca pelo productId + tamanho no banco
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const carrinhoResolvido: any[] = []
+
     for (const item of carrinho) {
-      const { data: variant } = await supabase
-        .from('product_variants')
-        .select('estoque, products(nome)')
-        .eq('id', item.variantId)
-        .single()
+      let resolvedVariantId: string | null = null
 
-      if (variant && variant.estoque !== null && variant.estoque < item.quantidade) {
-        return NextResponse.json(
-          { error: `Estoque insuficiente para ${item.nome}` },
-          { status: 400 }
-        )
+      if (isUUID(item.variantId)) {
+        // Caminho feliz: variant_id real, apenas valida que existe
+        resolvedVariantId = item.variantId
+
+        const { data: variant } = await supabaseAdmin
+          .from('product_variants')
+          .select('id, estoque')
+          .eq('id', resolvedVariantId)
+          .single()
+
+        if (variant && variant.estoque !== null && variant.estoque < item.quantidade) {
+          return NextResponse.json(
+            { error: `Estoque insuficiente para ${item.nome}` },
+            { status: 400 }
+          )
+        }
+      } else if (item.productId) {
+        // Quick-add: busca variante pelo productId + tamanho (+ cor se disponível)
+        let query = supabaseAdmin
+          .from('product_variants')
+          .select('id, estoque, tamanho, cor')
+          .eq('product_id', item.productId)
+
+        if (item.tamanho) query = query.eq('tamanho', item.tamanho)
+
+        const { data: variants } = await query.limit(5)
+
+        if (variants && variants.length > 0) {
+          // Prefere a variante com cor exata; senão pega a primeira disponível
+          const match =
+            variants.find((v) => v.cor === item.cor) ??
+            variants.find((v) => (v.estoque ?? 999) > 0) ??
+            variants[0]
+
+          if (match.estoque !== null && match.estoque < item.quantidade) {
+            return NextResponse.json(
+              { error: `Estoque insuficiente para ${item.nome}` },
+              { status: 400 }
+            )
+          }
+
+          resolvedVariantId = match.id
+        } else {
+          // Produto existe mas sem variantes cadastradas — ainda assim registra o item
+          console.warn(`Nenhuma variante encontrada para productId=${item.productId}, tamanho=${item.tamanho}`)
+          resolvedVariantId = null
+        }
+      } else {
+        // Nem UUID nem productId — não há como resolver
+        console.warn(`Item sem variantId UUID nem productId: ${JSON.stringify(item)}`)
+        resolvedVariantId = null
       }
+
+      carrinhoResolvido.push({ ...item, resolvedVariantId })
     }
 
     const subtotal = carrinho.reduce(
@@ -40,7 +98,7 @@ export async function POST(request: Request) {
     const total = subtotal + (frete?.preco || 0)
 
     // 2. Cria pedido no Supabase
-    const { data: orderData, error: orderError } = await supabase
+    const { data: orderData, error: orderError } = await supabaseAdmin
       .from('orders')
       .insert({
         cliente_nome: endereco.nome,
@@ -63,16 +121,32 @@ export async function POST(request: Request) {
 
     const orderId = orderData.id
 
-    // 3. Cria itens do pedido
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const orderItems = carrinho.map((item: any) => ({
-      order_id: orderId,
-      variant_id: item.variantId,
-      quantidade: item.quantidade,
-      preco_unitario: item.preco,
-    }))
+    // 3. Cria itens do pedido — apenas itens com variant_id resolvido (NOT NULL constraint no banco)
+    const orderItems = carrinhoResolvido
+      .filter((item) => item.resolvedVariantId !== null)
+      .map((item) => ({
+        order_id: orderId,
+        variant_id: item.resolvedVariantId,
+        quantidade: item.quantidade ?? 1,
+        preco_unitario: item.preco,
+      }))
 
-    await supabase.from('order_items').insert(orderItems)
+    const skippedItems = carrinhoResolvido.filter((item) => item.resolvedVariantId === null)
+    if (skippedItems.length > 0) {
+      console.warn(
+        `⚠️ ${skippedItems.length} item(s) do pedido ${orderId} não puderam ser inseridos (variant_id não encontrado):`,
+        skippedItems.map((i) => `${i.nome} (productId=${i.productId}, tamanho=${i.tamanho})`)
+      )
+    }
+
+    if (orderItems.length > 0) {
+      const { error: itemsError } = await supabaseAdmin.from('order_items').insert(orderItems)
+      if (itemsError) {
+        console.error('Erro ao inserir itens do pedido:', itemsError)
+        // Itens não gravados — pedido continua para não travar o usuário,
+        // mas o admin verá 0 itens. Isso indica variantes fora de sincronia no banco.
+      }
+    }
 
     return NextResponse.json({ orderId, total })
   } catch (error) {

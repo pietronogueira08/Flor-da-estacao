@@ -4,7 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 export type CartItem = {
   variantId: string;
-  productId: string;
+  productId?: string;   // ID real do produto (opcional — resolução feita no servidor)
   nome: string;
   preco: number;
   tamanho: string;
