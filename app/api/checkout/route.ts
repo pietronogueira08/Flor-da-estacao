@@ -72,21 +72,21 @@ export async function POST(request: Request) {
         }
 
         if (extractedProductId) {
-          let query = supabaseAdmin
+          const { data: variants } = await supabaseAdmin
             .from('product_variants')
             .select('id, estoque, tamanho, cor')
             .eq('product_id', extractedProductId)
-
-          if (item.tamanho) query = query.eq('tamanho', item.tamanho)
-
-          const { data: variants } = await query.limit(5)
+            .limit(10)
 
           if (variants && variants.length > 0) {
-            // Prefere a variante com cor exata; senão pega a primeira disponível
-            const match =
-              variants.find((v) => v.cor === item.cor) ??
-              variants.find((v) => (v.estoque ?? 999) > 0) ??
-              variants[0]
+            // 1. Tenta match exato (tamanho e cor)
+            let match = variants.find((v) => v.tamanho === item.tamanho && v.cor === item.cor)
+            // 2. Tenta match apenas por tamanho
+            if (!match) match = variants.find((v) => v.tamanho === item.tamanho)
+            // 3. Tenta match apenas por cor
+            if (!match) match = variants.find((v) => v.cor === item.cor)
+            // 4. Fallback: pega o primeiro que tem estoque, ou simplesmente o primeiro
+            if (!match) match = variants.find((v) => (v.estoque ?? 999) > 0) ?? variants[0]
 
             if (match.estoque !== null && match.estoque < item.quantidade) {
               return NextResponse.json(
