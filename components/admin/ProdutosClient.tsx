@@ -54,6 +54,10 @@ export default function ProdutosClient({
     if (!confirm(`Tem certeza que deseja excluir "${nome}"? Esta ação não pode ser desfeita.`))
       return
       
+    // 1. Fetch images to delete from storage
+    const { data: images } = await supabase.from('product_images').select('url').eq('product_id', id)
+    
+    // 2. Delete product from DB
     const { error } = await supabase.from('products').delete().eq('id', id)
     
     if (error) {
@@ -63,6 +67,21 @@ export default function ProdutosClient({
         alert(`Erro ao tentar excluir o produto: ${error.message}`)
       }
       return
+    }
+    
+    // 3. If DB deletion was successful, delete files from storage
+    if (images && images.length > 0) {
+      const fileNames = images
+        .map(img => {
+           if (!img.url) return null;
+           const parts = img.url.split('/')
+           return parts[parts.length - 1]
+        })
+        .filter(Boolean) as string[]
+        
+      if (fileNames.length > 0) {
+         await supabase.storage.from('product-images').remove(fileNames)
+      }
     }
     
     router.refresh()

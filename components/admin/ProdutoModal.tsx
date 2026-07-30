@@ -188,8 +188,50 @@ export default function ProdutoModal({
         productId = data.id
       }
 
+      // Deletar variantes e imagens que foram removidas no painel (apenas na edição)
+      if (isEditing && productId) {
+        const submittedVariantIds = variants.map(v => v.id).filter(Boolean)
+        const { data: currentVariants } = await supabase.from('product_variants').select('id').eq('product_id', productId)
+        if (currentVariants) {
+          const idsToDelete = currentVariants.map(v => v.id).filter(id => !submittedVariantIds.includes(id))
+          if (idsToDelete.length > 0) {
+            await supabase.from('product_variants').delete().in('id', idsToDelete)
+          }
+        }
+
+        const submittedImageIds = images.map(img => img.id).filter(Boolean)
+        const { data: currentImages } = await supabase.from('product_images').select('id, url').eq('product_id', productId)
+        if (currentImages) {
+          const imagesToDelete = currentImages.filter(img => !submittedImageIds.includes(img.id))
+          if (imagesToDelete.length > 0) {
+            const fileNames = imagesToDelete.map(img => {
+              if (!img.url) return null
+              const parts = img.url.split('/')
+              return parts[parts.length - 1]
+            }).filter(Boolean) as string[]
+            
+            if (fileNames.length > 0) {
+              await supabase.storage.from('product-images').remove(fileNames)
+            }
+            await supabase.from('product_images').delete().in('id', imagesToDelete.map(i => i.id))
+          }
+        }
+      }
+
       // Salvar variantes
       const validVariants = variants.filter((v) => v.tamanho)
+      
+      // Se não houver nenhuma variante com tamanho, cria uma padrão
+      if (validVariants.length === 0) {
+        validVariants.push({
+          tamanho: 'Único',
+          cor: 'Padrão',
+          sku: '',
+          estoque: 0,
+          preco_override: null,
+        })
+      }
+
       for (const variant of validVariants) {
         if (variant.id) {
           await supabase
