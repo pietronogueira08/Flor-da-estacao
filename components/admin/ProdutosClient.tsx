@@ -53,7 +53,18 @@ export default function ProdutosClient({
   const handleDelete = async (id: string, nome: string) => {
     if (!confirm(`Tem certeza que deseja excluir "${nome}"? Esta ação não pode ser desfeita.`))
       return
-    await supabase.from('products').delete().eq('id', id)
+      
+    const { error } = await supabase.from('products').delete().eq('id', id)
+    
+    if (error) {
+      if (error.code === '23503') {
+        alert('Não é possível excluir este produto pois ele já está vinculado a pedidos existentes ou movimentações de estoque. Para manter o histórico correto da loja, por favor apenas DESATIVE o produto (clique no botão de Status).')
+      } else {
+        alert(`Erro ao tentar excluir o produto: ${error.message}`)
+      }
+      return
+    }
+    
     router.refresh()
   }
 
