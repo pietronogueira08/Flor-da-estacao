@@ -22,7 +22,8 @@ export default async function HomePage() {
       .select(`
         *,
         categories (nome),
-        product_images (url, is_placeholder)
+        product_images (url, is_placeholder),
+        product_variants (tamanho)
       `)
       .order("criado_em", { ascending: false })
       .limit(8),
@@ -117,20 +118,27 @@ export default async function HomePage() {
           <h2 className="font-bodoni text-4xl md:text-5xl text-preto italic">Novidades</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 gap-y-12">
-          {novidades.map((prod: any) => (
-            <ProductCard
-              key={prod.id}
-              id={prod.id}
-              slug={prod.slug}
-              nome={prod.nome}
-              categoria={prod.categories?.nome || "Produto"}
-              preco={prod.preco_base}
-              is_placeholder={!prod.product_images?.[0]?.url}
-              imageUrl={prod.product_images?.[0]?.url}
-              cores={[]}
-              badge="Novo"
-            />
-          ))}
+          {novidades.map((prod: any) => {
+            const tamanhosDisponiveis = prod.product_variants?.length 
+              ? Array.from(new Set(prod.product_variants.map((v: any) => v.tamanho).filter(Boolean)))
+              : ["P", "M", "G", "GG"];
+              
+            return (
+              <ProductCard
+                key={prod.id}
+                id={prod.id}
+                slug={prod.slug}
+                nome={prod.nome}
+                categoria={prod.categories?.nome || "Produto"}
+                preco={prod.preco_base}
+                is_placeholder={!prod.product_images?.[0]?.url}
+                imageUrl={prod.product_images?.[0]?.url}
+                cores={[]}
+                tamanhos={tamanhosDisponiveis as string[]}
+                badge="Novo"
+              />
+            );
+          })}
         </div>
         <div className="flex justify-center mt-12">
           <Link

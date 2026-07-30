@@ -15,6 +15,7 @@ export interface ProductCardProps {
   is_placeholder?: boolean;
   imageUrl?: string;
   cores?: string[];
+  tamanhos?: string[];
   badge?: "Novo" | "Mais Vendido";
 }
 
@@ -27,13 +28,15 @@ export function ProductCard({
   is_placeholder,
   imageUrl,
   cores = [],
+  tamanhos = [],
   badge,
 }: ProductCardProps) {
   const [favoritado, setFavoritado] = useState(false);
   const [tamSelecionado, setTamSelecionado] = useState<string | null>(null);
   const [isAdding, setIsAdding] = useState(false);
   const { addItem, openCart } = useCart();
-  const tamanhos = ["P", "M", "G"];
+  
+  const tamanhosExibicao = tamanhos && tamanhos.length > 0 ? tamanhos : ["P", "M", "G"];
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -117,23 +120,29 @@ export function ProductCard({
         {/* Quick-add / Seletor de tamanho — desktop: no hover | mobile: sempre visível */}
         <div className="absolute bottom-0 left-0 right-0 bg-branco/95 backdrop-blur-sm p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 md:translate-y-full md:group-hover:translate-y-0 flex flex-col gap-2">
           {/* Tamanhos */}
-          <div className="flex gap-1.5 justify-center">
-            {tamanhos.map((tam) => (
-              <button
-                key={tam}
-                onClick={(e) => { e.preventDefault(); setTamSelecionado(tam); }}
-                aria-label={`Tamanho ${tam}`}
-                aria-pressed={tamSelecionado === tam}
-                className={`w-8 h-8 text-xs font-archivo border rounded-sm transition-all duration-300 active:scale-75 focus-visible:ring-2 focus-visible:ring-dourado ${
-                  tamSelecionado === tam
-                    ? "bg-dourado text-branco border-dourado scale-110 shadow-md"
-                    : "border-preto/30 text-preto hover:border-dourado hover:text-dourado"
-                }`}
-              >
-                {tam}
-              </button>
-            ))}
-          </div>
+            <div className="flex justify-center gap-2 mb-4">
+              {tamanhosExibicao.slice(0, 3).map((tam) => (
+                <button
+                  key={tam}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setTamSelecionado(tam);
+                  }}
+                  className={`w-8 h-8 flex items-center justify-center font-archivo text-[10px] border transition-colors ${
+                    tamSelecionado === tam
+                      ? "border-dourado bg-dourado text-branco"
+                      : "border-claro text-preto/70 hover:border-preto hover:text-preto bg-branco"
+                  }`}
+                >
+                  {tam}
+                </button>
+              ))}
+              {tamanhosExibicao.length > 3 && (
+                <div className="w-8 h-8 flex items-center justify-center font-archivo text-[10px] border border-claro text-preto/50 bg-branco">
+                  +{tamanhosExibicao.length - 3}
+                </div>
+              )}
+            </div>
           {/* Botão Adicionar */}
           {tamSelecionado ? (
             <button

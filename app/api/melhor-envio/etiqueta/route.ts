@@ -138,15 +138,31 @@ export async function POST(request: NextRequest) {
       trackingCode,
       printUrl,
     })
-  } catch (err: unknown) {
-    const e = err as { message?: string; status?: number; details?: unknown }
-    console.error('Erro ao gerar etiqueta Melhor Envio:', e)
+  } catch (error: any) {
+    console.error('Erro ao gerar etiqueta:', error?.details || error)
+    
+    // Tenta extrair a mensagem amigável do detalhe do Melhor Envio
+    let msg = error.message || 'Erro ao gerar etiqueta'
+    if (error.details) {
+      if (typeof error.details === 'string') {
+        msg = `${msg}: ${error.details}`
+      } else if (error.details.message) {
+        msg = `${msg}: ${error.details.message}`
+      } else if (error.details.error) {
+        msg = `${msg}: ${error.details.error}`
+      }
+    }
+    
+    // Caso específico de 422
+    if (error.status === 422 && (msg.includes('balance') || msg.includes('saldo'))) {
+      msg = 'Erro: Saldo insuficiente na carteira do Melhor Envio para gerar a etiqueta.'
+    } else if (error.status === 422) {
+      msg = `Erro de validação (422): Verifique se os dados do cliente (CPF/Endereço) estão corretos. Detalhe: ${JSON.stringify(error.details)}`
+    }
+
     return NextResponse.json(
-      {
-        error: e.message ?? 'Erro interno ao gerar etiqueta',
-        details: e.details,
-      },
-      { status: e.status ?? 500 }
+      { error: msg, details: error.details },
+      { status: error.status || 500 }
     )
   }
 }
