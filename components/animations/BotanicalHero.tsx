@@ -59,8 +59,9 @@ export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
             src={heroImages[currentIndex]}
             alt="Zaya Hero Background"
             fill
-            /* Manter centralizado para não cortar logos grandes nas imagens */
-            className="object-cover object-center"
+            /* No mobile, usa object-contain para não cortar NADA da imagem.
+               No desktop, usa object-cover para preencher. */
+            className="object-contain md:object-cover object-center"
             priority
             unoptimized
             sizes="100vw"
