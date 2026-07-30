@@ -59,9 +59,8 @@ export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
             src={heroImages[currentIndex]}
             alt="Zaya Hero Background"
             fill
-            /* Mobile: object-top para manter o enquadramento correto em imagens portrait de moda
-               Desktop: object-center para centralizar normalmente */
-            className="object-cover object-top md:object-center"
+            /* Manter centralizado para não cortar logos grandes nas imagens */
+            className="object-cover object-center"
             priority
             unoptimized
             sizes="100vw"

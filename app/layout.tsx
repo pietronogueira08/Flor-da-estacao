@@ -36,7 +36,7 @@ export default function RootLayout({
     <html lang="pt-BR" suppressHydrationWarning>
       <head>
         {/* Instruir o browser a tratar o site como light mode — evita dark mode automático no mobile */}
-        <meta name="color-scheme" content="light" />
+        <meta name="color-scheme" content="light only" />
       </head>
       <body
         className={`${bodoniModa.variable} ${archivo.variable} antialiased`}
