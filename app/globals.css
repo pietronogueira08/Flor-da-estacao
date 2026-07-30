@@ -18,7 +18,7 @@
 
 :root {
   /* Forçar light mode — impede que o browser mobile aplique dark mode automático */
-  color-scheme: light;
+  color-scheme: light only;
   --background: #FAFAFA;
   --foreground: #1A1A1A;
 }
@@ -26,7 +26,7 @@
 /* Bloquear dark mode do sistema — manter identidade visual Zaya em qualquer dispositivo */
 @media (prefers-color-scheme: dark) {
   :root {
-    color-scheme: light;
+    color-scheme: light only;
     --background: #FAFAFA;
     --foreground: #1A1A1A;
   }
