@@ -12,7 +12,7 @@ export function ProductDetails({ product }: { product: any }) {
   const [selectedColor, setSelectedColor] = useState<string>(product.cores?.[0] || "");
   const [adding, setAdding] = useState(false);
 
-  const tamanhos = ["P", "M", "G", "GG"];
+  const tamanhos = product.tamanhos && product.tamanhos.length > 0 ? product.tamanhos : ["P", "M", "G", "GG"];
   const is_placeholder = product.is_placeholder || !product.imagem_url;
 
   const handleAdd = () => {

@@ -31,7 +31,8 @@ export default async function ProdutoPage({ params }: { params: Promise<{ slug: 
     .select(`
       *,
       categories (nome),
-      product_images (url, is_placeholder)
+      product_images (url, is_placeholder),
+      product_variants (id, tamanho, cor, estoque)
     `)
     .eq("slug", slug)
     .single();
@@ -47,6 +48,7 @@ export default async function ProdutoPage({ params }: { params: Promise<{ slug: 
       categories: { nome: "Coleção" },
       descricao: "Peça exclusiva da nossa coleção botânica. Tecido leve, caimento perfeito e acabamento impecável.",
       product_images: [],
+      product_variants: [],
       cores: ["#D2A9B1", "#FBF2F0"],
     };
   }
@@ -74,13 +76,23 @@ export default async function ProdutoPage({ params }: { params: Promise<{ slug: 
       )
     : [];
 
+  const tamanhosDisponiveis = product?.product_variants?.length 
+    ? Array.from(new Set(product.product_variants.map((v: any) => v.tamanho).filter(Boolean))) 
+    : ["P", "M", "G", "GG"];
+    
+  const coresDisponiveis = product?.product_variants?.length
+    ? Array.from(new Set(product.product_variants.map((v: any) => v.cor).filter(Boolean)))
+    : product?.cores || [];
+
   const mappedProduct = {
     ...product,
     preco: product.preco_base,
     categoria: product.categories?.nome || "Produto",
     imagem_url: product.product_images?.[0]?.url,
     is_placeholder: !product.product_images?.[0]?.url,
-    cores: product.cores || []
+    cores: coresDisponiveis,
+    tamanhos: tamanhosDisponiveis,
+    variantes: product?.product_variants || []
   };
 
   return (
