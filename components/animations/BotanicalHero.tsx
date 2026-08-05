@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ZayaWordmark } from "@/components/store/ZayaWordmark";
 import Image from "next/image";
 
-export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
+export function BotanicalHero({ heroImages = [], heroVideo }: { heroImages?: string[], heroVideo?: string | null }) {
   const wordmarkRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
@@ -28,7 +28,8 @@ export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
   }, []);
 
   useEffect(() => {
-    if (heroImages.length > 1) {
+    // Só faz animação de imagem se não houver vídeo
+    if (!heroVideo && heroImages.length > 1) {
       const interval = setInterval(() => {
         if (bgRef.current) {
           gsap.to(bgRef.current, { opacity: 0, duration: 1, onComplete: () => {
@@ -41,19 +42,31 @@ export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
       }, 10000);
       return () => clearInterval(interval);
     }
-  }, [heroImages]);
+  }, [heroImages, heroVideo]);
 
-  const hasImages = heroImages.length > 0;
+  const hasMedia = heroVideo || heroImages.length > 0;
 
   return (
     <div
       className="w-full flex flex-col items-center justify-center min-h-[100dvh] md:min-h-[85vh] relative"
-      style={hasImages ? { background: "#FAFAFA" } : {
+      style={hasMedia ? { background: "#FAFAFA" } : {
         background: "radial-gradient(ellipse at center, #E8E8E8 0%, #C0C0C0 40%, #A5A5A5 100%)",
       }}
       aria-label="Hero Zaya"
     >
-      {hasImages && (
+      {heroVideo ? (
+        <div ref={bgRef} className="absolute inset-0 z-0">
+          <video 
+            src={heroVideo} 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            className="w-full h-full object-cover object-center" 
+          />
+          <div className="absolute inset-0 bg-white/10" />
+        </div>
+      ) : heroImages.length > 0 ? (
         <div ref={bgRef} className="absolute inset-0 z-0">
           <Image
             src={heroImages[currentIndex]}
@@ -68,7 +81,7 @@ export function BotanicalHero({ heroImages = [] }: { heroImages?: string[] }) {
           />
           <div className="absolute inset-0 bg-white/10" />
         </div>
-      )}
+      ) : null}
 
       <div className="relative z-10 flex flex-col items-center gap-4 px-4 text-center">
         <div ref={wordmarkRef} style={{ opacity: 0 }} className="flex items-center justify-center drop-shadow-sm">

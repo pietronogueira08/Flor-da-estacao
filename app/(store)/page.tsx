@@ -37,6 +37,7 @@ export default async function HomePage() {
   const products = productsResponse.data;
   const settings = settingsResponse.data;
   const heroImages = settings?.hero_images || [];
+  const heroVideo = settings?.hero_video || null;
   const instagramImages = settings?.instagram_images || [];
 
   const novidades = products || [];
@@ -59,7 +60,7 @@ export default async function HomePage() {
         className="w-full flex flex-col items-center relative overflow-hidden"
         aria-label="Seção principal da loja"
       >
-        <BotanicalHero heroImages={heroImages} />
+        <BotanicalHero heroImages={heroImages} heroVideo={heroVideo} />
         <div className="text-center pb-12 px-4 bg-branco w-full" style={{ background: '#FAFAFA', color: '#1A1A1A' }}>
           <h1 className="font-bodoni text-3xl md:text-5xl lg:text-6xl text-preto italic leading-tight mb-8">
             Silêncio que veste
@@ -153,7 +154,10 @@ export default async function HomePage() {
       {/* Sem divisor aqui porque o Banner tem fundo imagem */}
       
       {/* ━━━━━━━━━━━━━━━━━━━━ 5. BANNER EDITORIAL ━━━━━━━━━━━━━━━━━━━━ */}
-      <EditorialBanner />
+      <EditorialBanner 
+        image={settings?.editorial_banner_image} 
+        text={settings?.editorial_banner_text} 
+      />
 
       {/* Sem divisor porque Feed tem fundo sólido */}
 

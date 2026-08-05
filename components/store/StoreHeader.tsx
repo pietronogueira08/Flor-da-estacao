@@ -6,6 +6,7 @@ import { useCart } from "@/lib/hooks/useCart";
 import { ZayaWordmark } from "@/components/store/ZayaWordmark";
 
 const categorias = [
+  { nome: "Todos os produtos", slug: "todos" },
   { nome: "Novidades", slug: "novidades" },
   { nome: "Calças", slug: "calcas" },
   { nome: "Blusas", slug: "blusas" },
@@ -95,7 +96,7 @@ export function StoreHeader() {
                 {categorias.map((cat) => (
                   <Link
                     key={cat.slug}
-                    href={`/categoria/${cat.slug}`}
+                    href={cat.slug === 'todos' ? '/produtos' : `/categoria/${cat.slug}`}
                     onClick={() => setColecaoOpen(false)}
                     className="block px-4 py-2.5 font-archivo text-sm text-preto hover:bg-claro/10 hover:text-dourado transition-colors focus-visible:ring-2 focus-visible:ring-dourado"
                   >
@@ -215,7 +216,7 @@ export function StoreHeader() {
                   {categorias.map((cat) => (
                     <Link
                       key={cat.slug}
-                      href={`/categoria/${cat.slug}`}
+                      href={cat.slug === 'todos' ? '/produtos' : `/categoria/${cat.slug}`}
                       onClick={() => { setMenuOpen(false); setColecaoOpen(false); }}
                       className="py-2 font-archivo text-sm text-zaya hover:text-dourado transition-colors focus-visible:ring-2 focus-visible:ring-dourado"
                     >

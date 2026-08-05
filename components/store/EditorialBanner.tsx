@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export function EditorialBanner() {
+export function EditorialBanner({ image, text }: { image?: string | null, text?: string }) {
   return (
     <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
       {/* Background image */}
       <Image
-        src="/about-us.png"
+        src={image || "/about-us.png"}
         alt="Editorial Zaya — silhueta feminina em cenário de estúdio"
         fill
         className="object-cover object-center"
@@ -18,14 +18,12 @@ export function EditorialBanner() {
 
       {/* Conteúdo */}
       <div className="relative z-10 text-center px-6 max-w-2xl mx-auto">
-
-        {/* [RASCUNHO — revisar antes de publicar] */}
-        <h2 className="font-bodoni text-5xl md:text-6xl text-branco italic leading-tight mb-6">
-          Para a mulher que não precisa de mais — só do melhor.
+        <h2 className="font-bodoni text-5xl md:text-6xl text-branco italic leading-tight mb-6 drop-shadow-md">
+          {text || "Para a mulher que não precisa de mais — só do melhor."}
         </h2>
         <Link
           href="/produtos"
-          className="inline-block border border-branco text-branco bg-transparent font-archivo text-sm uppercase tracking-widest px-8 py-3 hover:bg-branco hover:text-preto transition-colors duration-300 rounded-sm focus-visible:ring-2 focus-visible:ring-branco"
+          className="inline-block border border-branco text-branco bg-transparent font-archivo text-sm uppercase tracking-widest px-8 py-3 hover:bg-branco hover:text-preto transition-colors duration-300 rounded-sm focus-visible:ring-2 focus-visible:ring-branco shadow-sm"
         >
           Explorar coleção
         </Link>

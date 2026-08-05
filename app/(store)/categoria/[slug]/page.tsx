@@ -14,15 +14,23 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function CategoriaPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const supabase = await createClient();
-  const { data: products } = await supabase
+  let query = supabase
     .from("products")
     .select(`
       *,
       categories!inner (nome, slug),
-      product_images (url, is_placeholder)
+      product_images (url, is_placeholder),
+      product_variants (tamanho)
     `)
-    .eq('categories.slug', slug)
     .order("criado_em", { ascending: false });
+
+  if (slug === 'novidades') {
+    query = query.limit(10);
+  } else {
+    query = query.eq('categories.slug', slug);
+  }
+
+  const { data: products } = await query;
 
   const allProducts = products || [];
   const catalogo = allProducts.filter(p => !p.id.startsWith('b1000000'));
@@ -62,19 +70,26 @@ export default async function CategoriaPage({ params }: { params: Promise<{ slug
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6 gap-y-12">
-              {catalogo.map((prod: any) => (
-                <ProductCard
-                  key={prod.id}
-                  id={prod.id}
-                  slug={prod.slug}
-                  nome={prod.nome}
-                  categoria={prod.categories?.nome || slug}
-                  preco={prod.preco_base}
-                  is_placeholder={!prod.product_images?.[0]?.url}
-                  imageUrl={prod.product_images?.[0]?.url}
-                  cores={[]}
-                />
-              ))}
+              {catalogo.map((prod: any) => {
+                const tamanhosDisponiveis = prod.product_variants?.length 
+                  ? Array.from(new Set(prod.product_variants.map((v: any) => v.tamanho).filter(Boolean)))
+                  : ["P", "M", "G", "GG"];
+                
+                return (
+                  <ProductCard
+                    key={prod.id}
+                    id={prod.id}
+                    slug={prod.slug}
+                    nome={prod.nome}
+                    categoria={prod.categories?.nome || slug}
+                    preco={prod.preco_base}
+                    is_placeholder={!prod.product_images?.[0]?.url}
+                    imageUrl={prod.product_images?.[0]?.url}
+                    cores={[]}
+                    tamanhos={tamanhosDisponiveis as string[]}
+                  />
+                );
+              })}
             </div>
           )}
         </div>

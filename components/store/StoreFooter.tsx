@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ZayaWordmark } from "@/components/store/ZayaWordmark";
 
-export function StoreFooter() {
+export function StoreFooter({ contact }: { contact?: { whatsapp?: string, email?: string, address?: string } }) {
   return (
     <footer className="bg-branco pt-16 pb-8 border-t border-claro/20">
       <div className="container mx-auto px-4 lg:px-8">
@@ -64,11 +64,11 @@ export function StoreFooter() {
           {/* Contato */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h4 className="font-bodoni text-xl text-preto mb-4">Contato</h4>
-            <address className="not-italic font-archivo text-sm text-zaya space-y-2">
-              <p>São João da Barra, RJ</p>
-              <p><a href="https://wa.me/5522999163206" target="_blank" rel="noopener noreferrer" className="hover:text-dourado transition-colors">WhatsApp: (22) 99916-3206</a></p>
-              <p>contato@zaya.com.br</p>
-            </address>
+            <ul className="space-y-3">
+              <li className="font-archivo text-sm text-zaya">{contact?.address || "São João da Barra, RJ"}</li>
+              <li className="font-archivo text-sm text-zaya">WhatsApp: {contact?.whatsapp || "(22) 99916-3206"}</li>
+              <li className="font-archivo text-sm text-zaya">{contact?.email || "contato@zaya.com.br"}</li>
+            </ul>
 
             {/* Formas de pagamento */}
             <div className="mt-6 flex flex-col items-center md:items-start">
