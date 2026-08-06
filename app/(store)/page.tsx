@@ -75,6 +75,7 @@ export default async function HomePage() {
       </section>
 
       {/* ━━━━━━━━━━━━━━━━━━━━ 2. CATEGORIAS ━━━━━━━━━━━━━━━━━━━━ */}
+      <section className="py-16 px-4 md:px-8 container mx-auto" aria-label="Categorias">
         {/* Mobile: carrossel horizontal | Desktop: grid 6 colunas */}
         <div
           className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 md:grid md:grid-cols-3 lg:grid-cols-6 md:overflow-visible md:pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
