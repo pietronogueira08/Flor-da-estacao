@@ -8,12 +8,13 @@ export function BrandStorySection() {
         {/* Foto */}
         <div className="relative aspect-[4/5] w-full max-w-md mx-auto md:mx-0 rounded-sm overflow-hidden">
           <Image
-            src="/zaya-about-premium.png"
-            alt="Atelier Zaya — estética editorial e refinamento discreto"
+            src="/zaya-brand-story.jpeg"
+            alt="Look Zaya — blusa bordada com calça jeans, estilo editorial"
             fill
-            className="object-cover"
+            className="object-cover object-top"
             sizes="(max-width: 768px) 100vw, 50vw"
-            unoptimized
+            quality={100}
+            priority
           />
           {/* Borda decorativa deslocada */}
           <div className="absolute inset-0 border border-claro/40 m-4 pointer-events-none rounded-sm" />

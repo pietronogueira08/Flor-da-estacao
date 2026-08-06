@@ -48,8 +48,8 @@ export function BotanicalHero({ heroImages = [], heroVideo }: { heroImages?: str
 
   return (
     <div
-      className="w-full flex flex-col items-center justify-center min-h-[100dvh] md:min-h-[85vh] relative"
-      style={hasMedia ? { background: "#FAFAFA" } : {
+      className="w-full h-[100svh] md:min-h-[85vh] md:h-auto relative overflow-hidden flex items-center justify-center"
+      style={hasMedia ? { background: "#1A1A1A" } : {
         background: "radial-gradient(ellipse at center, #E8E8E8 0%, #C0C0C0 40%, #A5A5A5 100%)",
       }}
       aria-label="Hero Zaya"
@@ -72,14 +72,13 @@ export function BotanicalHero({ heroImages = [], heroVideo }: { heroImages?: str
             src={heroImages[currentIndex]}
             alt="Zaya Hero Background"
             fill
-            /* No mobile, usa object-contain para não cortar NADA da imagem.
-               No desktop, usa object-cover para preencher. */
-            className="object-contain md:object-cover object-center"
+            /* object-cover preenche sem deixar espaço vazio. object-center centraliza a imagem. */
+            className="object-cover object-center"
             priority
             unoptimized
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-white/10" />
+          <div className="absolute inset-0 bg-black/10" />
         </div>
       ) : null}
 

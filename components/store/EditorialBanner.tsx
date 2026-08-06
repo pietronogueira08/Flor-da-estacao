@@ -6,12 +6,13 @@ export function EditorialBanner({ image, text }: { image?: string | null, text?:
     <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
       {/* Background image */}
       <Image
-        src={image || "/about-us.png"}
-        alt="Editorial Zaya — silhueta feminina em cenário de estúdio"
+        src={image || "/editorial-banner.jpeg"}
+        alt="Look Zaya — blazer com calça pantalona"
         fill
-        className="object-cover object-center"
+        className="object-cover object-top"
         sizes="100vw"
-        unoptimized
+        quality={100}
+        priority
       />
       {/* Overlay */}
       <div className="absolute inset-0 bg-preto/40" />
