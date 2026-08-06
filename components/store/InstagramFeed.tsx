@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MagneticInstagram } from "@/components/animations/MagneticInstagram";
+import { InstagramEmbed } from "@/components/store/InstagramEmbed";
 
 const defaultFeedImages = [
   { id: 1, src: "/hero-bg.png", alt: "Editorial Zaya" },
@@ -12,7 +13,24 @@ const defaultFeedImages = [
 ];
 
 export function InstagramFeed({ feedImages = [] }: { feedImages?: any[] }) {
-  const images = feedImages.length > 0 
+  // Separar os que têm link (embed) dos que têm só imagem (upload)
+  const itemsWithLink = feedImages.filter(img => {
+    const link = typeof img === 'string' ? null : img?.link;
+    return link && link.includes('instagram.com');
+  });
+
+  const itemsWithImage = feedImages.filter(img => {
+    const src = typeof img === 'string' ? img : (img?.src || img?.url);
+    const link = typeof img === 'string' ? null : img?.link;
+    // Tem imagem e não é apenas um link puro do Instagram sem imagem
+    return src && src !== '/about-us.png';
+  });
+
+  // Se tem posts com link do Instagram, usa embed oficial
+  const useEmbeds = itemsWithLink.length > 0;
+
+  // Fallback: imagens de upload ou padrão
+  const images = feedImages.length > 0
     ? feedImages.map((img, idx) => {
         if (typeof img === 'string') {
           return { id: idx, src: img, alt: `Instagram Zaya ${idx + 1}`, link: "https://www.instagram.com/zaya_loja/" };
@@ -37,45 +55,54 @@ export function InstagramFeed({ feedImages = [] }: { feedImages?: any[] }) {
           </Link>
         </div>
 
-        {/* Grid de 6 fotos */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4">
-          {images.map((img) => (
-            <a
-              key={img.id}
-              href={img.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative aspect-square overflow-hidden block bg-claro/20 rounded-sm focus-visible:ring-2 focus-visible:ring-dourado"
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 16vw"
-                unoptimized
-              />
-              {/* Overlay hover */}
-              <div className="absolute inset-0 bg-preto/0 group-hover:bg-preto/20 transition-colors duration-500 flex items-center justify-center">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="white"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-75 group-hover:scale-100"
-                >
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                </svg>
-              </div>
-            </a>
-          ))}
-        </div>
+        {useEmbeds ? (
+          /* ── Embed oficial do Instagram (aparência nativa, como na screenshot) ── */
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {itemsWithLink.slice(0, 8).map((img, idx) => {
+              const link = typeof img === 'string' ? img : img?.link;
+              return (
+                <div key={idx} className="w-full">
+                  <InstagramEmbed url={link} />
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          /* ── Grid de imagens (upload manual) ── */
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4">
+            {images.map((img) => (
+              <a
+                key={img.id}
+                href={img.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative aspect-square overflow-hidden block bg-claro/20 rounded-sm focus-visible:ring-2 focus-visible:ring-dourado"
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 16vw"
+                  unoptimized
+                />
+                {/* Overlay hover */}
+                <div className="absolute inset-0 bg-preto/0 group-hover:bg-preto/20 transition-colors duration-500 flex items-center justify-center">
+                  <svg
+                    width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="white" strokeWidth="1.5"
+                    strokeLinecap="round" strokeLinejoin="round"
+                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-75 group-hover:scale-100"
+                  >
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                  </svg>
+                </div>
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -27,6 +27,7 @@ export default function CustomizacaoClient({ settings }: { settings: any }) {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const [newUtilityText, setNewUtilityText] = useState('')
+  const [instagramLinkInput, setInstagramLinkInput] = useState('')
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'hero_image' | 'hero_video' | 'editorial_image' | 'instagram') => {
     const file = e.target.files?.[0]
@@ -295,37 +296,72 @@ export default function CustomizacaoClient({ settings }: { settings: any }) {
           <div>
             <h2 className="font-bodoni text-2xl text-preto italic">Feed do Instagram</h2>
             <p className="font-archivo text-sm text-preto/60 mt-1">
-              Salve a foto do post que deseja exibir no site e faça o upload abaixo. As 6 fotos aparecem em destaque na página inicial.
+              Cole o link de cada post do Instagram. O site vai exibir o embed oficial
+              (aparência nativa, com foto, curtidas e tudo). Até 8 posts aparecem na página inicial.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+          {/* Adicionar link do post */}
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={instagramLinkInput}
+              onChange={(e) => setInstagramLinkInput(e.target.value)}
+              placeholder="https://www.instagram.com/p/XXXXXX/"
+              className="flex-1 bg-branco border border-claro rounded-sm px-4 py-2 font-archivo text-sm focus:outline-none focus:border-dourado"
+            />
+            <button
+              onClick={() => {
+                if (!instagramLinkInput.trim()) return
+                setInstagramImages([...instagramImages, { link: instagramLinkInput.trim(), src: '' }])
+                setInstagramLinkInput('')
+                setSuccess(false)
+              }}
+              disabled={!instagramLinkInput.trim()}
+              className="bg-preto text-branco px-4 py-2 font-archivo text-sm rounded-sm hover:bg-dourado transition-colors disabled:opacity-40 whitespace-nowrap"
+            >
+              Adicionar Post
+            </button>
+          </div>
+
+          {/* Lista dos posts adicionados */}
+          <div className="space-y-2">
             {instagramImages.map((img, idx) => {
-              const src = typeof img === 'string' ? img : (img?.src || img?.url || '/about-us.png')
+              const link = typeof img === 'string' ? img : img?.link
+              const src = typeof img === 'string' ? img : img?.src
+              const isEmbedLink = link && link.includes('instagram.com')
               return (
-                <div key={idx} className="relative aspect-square bg-claro/20 rounded-sm overflow-hidden group border border-claro">
-                  <Image src={src} alt={`Instagram ${idx + 1}`} fill className="object-cover" unoptimized />
+                <div key={idx} className="flex items-center gap-3 bg-branco border border-claro px-4 py-2.5 rounded-sm">
+                  {isEmbedLink ? (
+                    <svg viewBox="0 0 24 24" className="w-5 h-5 text-dourado flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5}>
+                      <rect x="2" y="2" width="20" height="20" rx="5"/>
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                    </svg>
+                  ) : (
+                    <ImageIcon size={18} className="text-zaya flex-shrink-0" />
+                  )}
+                  <span className="flex-1 font-archivo text-xs text-zaya truncate">
+                    {isEmbedLink ? link : 'Foto enviada por upload'}
+                  </span>
                   <button
                     onClick={() => handleRemove(idx, 'instagram')}
-                    className="absolute top-2 right-2 p-1.5 bg-preto/70 text-branco rounded-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
-                    title="Remover foto"
+                    className="text-red-400 hover:text-red-600 p-1 rounded-sm transition-colors"
                   >
-                    <Trash2 size={14} />
+                    <Trash2 size={15} />
                   </button>
                 </div>
               )
             })}
+          </div>
 
-            <label className="relative aspect-square flex flex-col items-center justify-center border-2 border-dashed border-claro hover:border-dourado hover:bg-claro/5 transition-colors cursor-pointer rounded-sm group">
-              <ImageIcon size={20} className="text-preto/30 group-hover:text-dourado mb-2" />
-              <span className="font-archivo text-xs text-preto/50 group-hover:text-dourado text-center px-2">Upload Manual da Foto</span>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => handleUpload(e, 'instagram')}
-                className="hidden"
-                disabled={loading}
-              />
+          {/* Upload manual como alternativa */}
+          <div className="pt-2">
+            <p className="font-archivo text-xs text-preto/50 mb-2">Ou adicione uma foto salva do seu celular:</p>
+            <label className="inline-flex items-center gap-2 border border-claro hover:border-dourado cursor-pointer px-4 py-2 rounded-sm font-archivo text-sm text-preto hover:text-dourado transition-colors group">
+              <ImageIcon size={16} className="group-hover:text-dourado" />
+              Upload de imagem
+              <input type="file" accept="image/*" onChange={(e) => handleUpload(e, 'instagram')} className="hidden" disabled={loading} />
             </label>
           </div>
         </section>
