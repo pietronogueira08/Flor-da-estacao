@@ -9,7 +9,7 @@ export function EditorialBanner({ image, text }: { image?: string | null, text?:
         src={image || "/editorial-banner.jpeg"}
         alt="Look Zaya — blazer com calça pantalona"
         fill
-        className="object-cover object-top"
+        className="object-cover object-[center_25%]"
         sizes="100vw"
         quality={100}
         priority
