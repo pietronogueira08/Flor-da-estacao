@@ -74,7 +74,35 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ━━━━━━━━━━━━━━━━━━━━ 2. CATEGORIAS ━━━━━━━━━━━━━━━━━━━━ */}
+      {/* ━━━━━━━━━━━━━━━━━━━━ 1.5 DUO EDITORIAL ━━━━━━━━━━━━━━━━━━━━ */}
+      <section className="w-full grid grid-cols-2" aria-label="Lookbook editorial">
+        {/* Foto 1 */}
+        <div className="relative aspect-[3/4] overflow-hidden group">
+          <Image
+            src="/editorial-foto1.jpeg"
+            alt="Zaya — Look editorial, blusa bordada com calça"
+            fill
+            className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+            sizes="50vw"
+            quality={100}
+            priority
+          />
+        </div>
+        {/* Foto 2 */}
+        <div className="relative aspect-[3/4] overflow-hidden group">
+          <Image
+            src="/editorial-foto2.jpeg"
+            alt="Zaya — Look editorial, blazer com calça pantalona"
+            fill
+            className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+            sizes="50vw"
+            quality={100}
+            priority
+          />
+        </div>
+      </section>
+
+
       <section className="py-16 px-4 md:px-8 container mx-auto" aria-label="Categorias">
         {/* Mobile: carrossel horizontal | Desktop: grid 6 colunas */}
         <div

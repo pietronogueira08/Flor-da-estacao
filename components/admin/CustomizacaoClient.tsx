@@ -26,30 +26,7 @@ export default function CustomizacaoClient({ settings }: { settings: any }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
-  const [instagramLinkInput, setInstagramLinkInput] = useState('')
-  const [loadingIgLink, setLoadingIgLink] = useState(false)
   const [newUtilityText, setNewUtilityText] = useState('')
-
-  const handleAddInstagramLink = async () => {
-    if (!instagramLinkInput) return
-    setLoadingIgLink(true)
-    setError(null)
-    setSuccess(false)
-    try {
-      const res = await fetch(`https://api.microlink.io?url=${encodeURIComponent(instagramLinkInput)}`)
-      const data = await res.json()
-      if (data?.data?.image?.url) {
-        setInstagramImages([...instagramImages, { src: data.data.image.url, link: instagramLinkInput }])
-        setInstagramLinkInput('')
-      } else {
-        throw new Error("Não foi possível carregar o preview. Tente novamente ou use o upload manual.")
-      }
-    } catch (err: any) {
-      setError(err.message || 'Erro ao carregar preview do link.')
-    } finally {
-      setLoadingIgLink(false)
-    }
-  }
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'hero_image' | 'hero_video' | 'editorial_image' | 'instagram') => {
     const file = e.target.files?.[0]
@@ -318,25 +295,8 @@ export default function CustomizacaoClient({ settings }: { settings: any }) {
           <div>
             <h2 className="font-bodoni text-2xl text-preto italic">Feed do Instagram</h2>
             <p className="font-archivo text-sm text-preto/60 mt-1">
-              Se as imagens via link (preview) estiverem quebrando ou em branco, use o botão de Upload Manual clicando no ícone +.
+              Salve a foto do post que deseja exibir no site e faça o upload abaixo. As 6 fotos aparecem em destaque na página inicial.
             </p>
-          </div>
-          
-          <div className="flex gap-2 mb-4">
-            <input 
-              type="text" 
-              placeholder="Cole o link do post do Instagram aqui..." 
-              value={instagramLinkInput}
-              onChange={(e) => setInstagramLinkInput(e.target.value)}
-              className="flex-1 bg-branco border border-claro rounded-sm px-4 py-2 font-archivo text-sm text-preto focus:outline-none focus:border-dourado"
-            />
-            <button 
-              onClick={handleAddInstagramLink}
-              disabled={loadingIgLink || !instagramLinkInput}
-              className="bg-preto text-branco px-4 py-2 font-archivo text-sm rounded-sm hover:bg-dourado transition-colors disabled:opacity-50 whitespace-nowrap"
-            >
-              {loadingIgLink ? 'Carregando...' : 'Puxar Link'}
-            </button>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
