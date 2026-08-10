@@ -45,11 +45,11 @@ export default async function HomePage() {
   const categorias = [
     { nome: "Calças", slug: "calcas", img: "/cat-calcas-real.jpeg" },
     { nome: "Blusas", slug: "blusas", img: "/cat-blusas-real.jpeg" },
-    { nome: "Vestidos", slug: "vestidos", img: "/cat-vestidos-real.jpeg" },
+    { nome: "Vestidos", slug: "vestidos", img: "/Vestidos.jpeg" },
     { nome: "Conjuntos", slug: "conjuntos", img: "/cat-conjuntos-real.jpeg" },
-    { nome: "Macacão", slug: "macacao", img: "/cat-macacao-real.jpeg" },
-    { nome: "Short", slug: "short", img: "/cat-short-real.jpeg" },
-    { nome: "Saia", slug: "saia", img: "/cat-saias-real.jpeg" },
+    { nome: "Macacão", slug: "macacao", img: "/Macacao.jpeg" },
+    { nome: "Short", slug: "short", img: "/Short.jpeg" },
+    { nome: "Saia", slug: "saia", img: "/Saias.jpeg" },
   ];
 
   return (
